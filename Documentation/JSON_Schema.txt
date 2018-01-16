@@ -1,0 +1,40 @@
+JSON-Schema Definition v0.1
+
+(Alle männlichen Bezeichner stehen stellvertretend für beide Geschlechter)
+
+Schema: MEETING
+
+{
+  "id":         "ObjectID"                    // id für den spezifischen Termin
+
+  "timeStart": "DateTime",                    // Startzeitpunkt des Termins
+  "timeEnd":   "DateTime",                    // Endzeitpunkt des Termins
+
+  "provider": "ObjectID"                      // Sprechstundengeber des Termins (=Dozent)
+  "consumer": "ObjectID"                      // Sprechstundennehmer des Termins (=Student)
+
+  "isConfirmedByProvider": "boolean",         // Flag, ob der Termin bereits vom Dozenten akzeptiert wurde
+  "isConfirmedByConsumer": "boolean",         // Flag, ob der Termin bereits vom Studenten akzeptiert wurde
+
+  "isPublic": "boolean",                      // Flag, ob der Termin anderen Personen zugänglich ist (in diesem Fall aber ohne )
+}
+
+Schema: STUDENT
+
+{
+  "id":       "ObjectID",                       //  Interner Identifier des Studenten
+  "name":     "String",                         //  Nachname des Studenten
+  "prename":  "String",                         //  Vorname des Studenten
+  "ndsCode":  "String",                         //  Zweiter  Identifier des Studenten (verborgen vor dem eigentlichen System)
+  "meetings": "Array[ObjectId]"                 //  Array mit allen Identifiern von für den Studenten relevanten Terminen (angemeldete, ausgemachte, beantragte)
+}
+
+Schema: DOZENT
+
+{
+  "id":       "ObjectID",                       //  Interner Identifier des Dozenten
+  "name":     "String",                         //  Nachname des Dozenten
+  "prename":  "String",                         //  Vorname des Dozenten
+  "ndsCode":  "String",                         //  Zweiter  Identifier des Dozenten (verborgen vor dem eigentlichen System)
+  "meetings": "Array[ObjectId]"                 //  Array mit allen Identifiern von für den Studenten relevanten Terminen (angemeldete, ausgemachte, beantragte)
+}
