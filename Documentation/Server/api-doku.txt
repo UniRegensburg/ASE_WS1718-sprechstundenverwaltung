@@ -1,0 +1,87 @@
+___________________________
+
+
+Route MEETINGS:
+
+
+GET meetings/
+Alle Termine zurückgeben KRITISCH!
+
+
+
+GET meetings/:id 
+
+Termin mit entspr ID zurückgeben
+
+
+
+POST  meetings
+
+Im Body kann ein Termin mitgegeben werden. Zur Zeit wird noch nix validiert, von daher obacht geben, was ihr postet ;-)
+
+
+
+
+DELETE meetings/:id 
+
+Löscht einen Termin mit entspr. ID'
+
+
+
+PATCH meetings/:id
+
+Überschreibe einen Termin mit entspr. ID
+
+
+___________________________
+
+
+Route PROFESSORS
+
+
+
+GET professors/
+
+Liste mit allen professors
+
+
+
+GET professors/:id
+
+Detaildaten eines Professors 
+
+
+
+GET professors/:id/meetings
+
+Alle Termine eines Professors zurückgeben
+
+
+
+PATCH 
+professors/me/officehors
+
+Eigene Sprechstundentermine überschreiben 
+
+___________________________
+
+
+
+Route USERS
+
+
+GET users/
+
+Liste mit allen Users
+
+
+
+GET users/me
+
+Detaildaten des eingeloggten Users
+
+
+
+GET users/me/meetings
+
+Eigene meetings des eingeloggten Users
