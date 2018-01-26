@@ -1,0 +1,49 @@
+﻿REST-API Dokumentation
+
+Der Express Server wird eine Restful-API zur Verfügung stellen, um mit der Datenbank für Agenten und Termine interagieren zu können.
+
+Routes:
+
+
+PROFESSOR
+------------------------------------------------------------------------------------------------
+Pfad
+GET	/professors
+
+Verfügbarkeit 
+- angemeldete Nutzer
+
+Beschreibung 
+- gibt Namen und ObjectIDs aller im System registrierten Professoren des Lehrstuhls zurück
+------------------------------------------------------------------------------------------------
+Pfad 
+GET	/professors/{professorId}/meetings
+
+Verfügbarkeit
+- angemeldete Nutzer
+
+Beschreibung
+Gibt alle öffentlichen und für mich sichtbaren Termine des Dozenten zurück. 
+
+
+
+MEETINGS
+------------------------------------------------------------------------------------------------
+Pfad 
+GET	/meetings
+
+Verfügbarkeit
+- stark beschränkt: nur Sekretariat
+
+Beschreibung 
+Gibt alle Termine zurück
+
+------------------------------------------------------------------------------------------------
+Pfad
+PUT	/meetings/
+
+Verfügbarkeit
+- angemeldete Nutzer
+
+Beschreibung
+Erzeugt einen 
