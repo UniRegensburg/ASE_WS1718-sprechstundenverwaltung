@@ -16,6 +16,12 @@ exports.getProfessorDetail = function(professorId) {
     return _.find(exports.professors, {id:professorId});
 }
 
+exports.updateOfficeHoursForProfessor = function(professorId, newOfficeHours){
+    // TODO: validate, if me is no prof!
+    (_.find(exports.professors, {id: professorId}))
+        .officeHours = newOfficeHours;
+}
+
 exports.meetings = [
     {
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
@@ -65,10 +71,7 @@ exports.professors = [
         email: "christoph.fuchs@uni-regensburg.de",
         officeHours: {
             weekday: "monday",
-            startTime: {
-                hours: "12",
-                minutes: "00"
-            },
+            startTime: "12:00",
             slots: [
                 {
                     startTime:  "12:00",

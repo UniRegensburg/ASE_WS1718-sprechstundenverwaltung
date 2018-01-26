@@ -41,7 +41,15 @@ router.get('/:id/meetings', function(req, res, next) {
     } else {
         return res.status(204).send('No meetings for this one.');
     }
-})
+});
+
+/**
+ * Update the office hours of a certain professor
+ */
+router.patch('/me/officehours', function(req, res, next){
+    DummyDataService.updateOfficeHoursForProfessor('abc12345', req.officeHours);
+    return res.status(200).send(DummyDataService.getProfessorDetail('abc12345').officeHours);
+});
 
 
 
