@@ -22,8 +22,31 @@ exports.updateOfficeHoursForProfessor = function(professorId, newOfficeHours){
         .officeHours = newOfficeHours;
 }
 
+exports.getMeetingById = function(meetingId){
+    return _.find(exports.meetings, {id: meetingId});
+}
+
+exports.addMeeting = function(data){
+    var newEntry = data;
+    newEntry.id = '' + Math.abs((Math.random() * (9999999999 - 0) )|0);
+    exports.meetings.push(newEntry);
+}
+
+exports.replaceMeetingWithId = function (meetingId, data){
+    const index = _.indexOf(exports.meetings, {id: meetingId});
+    //exports.meetings[index] = data;
+    exports.meetings.splice(index, 1);
+    let newItem = exports.meetings.push(data);
+    newItem.id = meetingId;
+}
+
+exports.removeMeetingWithId = function(meetingId){
+    exports.meetings.splice(_.indexOf(exports.meetings, {id: meetingId}), 1);
+}
+
 exports.meetings = [
     {
+        id: "123456754",
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
         end:    new Date(2018, 01, 03, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen 1",
@@ -31,6 +54,7 @@ exports.meetings = [
         student:   "jue123322",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }, {
+    id: "12312313123",
         start:  new Date(2018, 01, 03, 8, 35).toISOString(),
         end:    new Date(2018, 01, 03, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
@@ -38,6 +62,7 @@ exports.meetings = [
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     },    {
+    id: "323123123",
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
         end:    new Date(2018, 01, 03, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen",
@@ -45,6 +70,7 @@ exports.meetings = [
         student:   "jue123456",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }, {
+    id: "12313421",
         start:  new Date(2018, 01, 03, 8, 35).toISOString(),
         end:    new Date(2018, 01, 03, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
