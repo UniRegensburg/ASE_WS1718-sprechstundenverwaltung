@@ -1,11 +1,37 @@
 const _ = require('lodash');
 
 exports.getUserMeetings = function(userId)  {
-    return _.find(exports.meetings, {student:userId});
+    return _.filter(exports.meetings, {student:userId});
+}
+
+exports.getUserDetail = function(userid) {
+    return _.find(exports.users, {id: userId});
+}
+
+exports.getProfessorMeetings = function(professorId) {
+    return _.filter(exports.meetings, {professor:professorId});
+}
+
+exports.getProfessorDetail = function(professorId) {
+    return _.find(exports.professors, {id:professorId});
 }
 
 exports.meetings = [
     {
+        start:  new Date(2018, 01, 03, 8, 30).toISOString(),
+        end:    new Date(2018, 01, 03, 8, 35).toISOString(),
+        title:  "Bachelorarbeit besprechen 1",
+        professor: "abc12345",
+        student:   "jue123322",
+        description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
+    }, {
+        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
+        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
+        title:  "Bachelorarbeit besprechen",
+        professor: "abc12346",
+        student:   "def12345",
+        description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
+    },    {
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
         end:    new Date(2018, 01, 03, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen",
