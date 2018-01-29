@@ -47,6 +47,8 @@ exports.removeMeetingWithId = function(meetingId){
 exports.meetings = [
     {
         id: "123456754",
+        type: "office hour",
+        status: "closed",
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
         end:    new Date(2018, 01, 03, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen 1",
@@ -54,7 +56,9 @@ exports.meetings = [
         student:   "jue123322",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }, {
-    id: "12312313123",
+        id: "12312313123",
+        type: "office hour",
+        status: "closed",
         start:  new Date(2018, 01, 03, 8, 35).toISOString(),
         end:    new Date(2018, 01, 03, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
@@ -62,7 +66,8 @@ exports.meetings = [
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     },    {
-    id: "323123123",
+        id: "323123123",
+        type: "individual",
         start:  new Date(2018, 01, 03, 8, 30).toISOString(),
         end:    new Date(2018, 01, 03, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen",
@@ -70,7 +75,8 @@ exports.meetings = [
         student:   "jue123456",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }, {
-    id: "12313421",
+        id: "12313421",
+        type: "individual",
         start:  new Date(2018, 01, 03, 8, 35).toISOString(),
         end:    new Date(2018, 01, 03, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
