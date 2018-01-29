@@ -7,3 +7,17 @@
 .example-full-width {
   width: 100%;
 }
+#headerdiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 90vh;
+  text-align:left;
+  border-bottom: 1px solid #555;
+}
+#bodydiv {
+position: absolute;
+  top: 10vh;
+  left: 450px;
+}
