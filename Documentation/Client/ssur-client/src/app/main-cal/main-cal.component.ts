@@ -12,6 +12,8 @@ import { ProfessorService} from '../services/ProfessorService';
 export class MainCalComponent implements OnInit {
 
   profs;
+  schleifentester;
+  officeHour;
 
   calendarOptions = {
 
@@ -153,9 +155,21 @@ export class MainCalComponent implements OnInit {
   }
 
   getProfs(): void {
-    this.profs = this.professorService.getProfs();
-    console.log(this.profs);
-    console.log('inGetProfs');
+
+    this.professorService.getProfs().subscribe(profs => {this.profs = profs;
+        this.getDimensionsByFind ('abc12346'); } ,
+      err => alert(err),
+      () => console.log(this.profs));
+  }
+
+  getDimensionsByFind(id) {
+    for (let i = 0; i < this.profs.length; i++) {
+      this.schleifentester = (this.profs[i]);
+        if (this.schleifentester.id === id) {
+          this.officeHour = this.schleifentester.officeHours;
+          console.log(this.officeHour);
+        }
+    }
   }
 
  /* changeCalendarView(view) {
