@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as $ from 'jquery';
 import * as moment from 'moment';
+import { ProfessorService} from '../services/ProfessorService';
 
 @Component({
   selector: 'app-main-cal',
@@ -9,6 +10,8 @@ import * as moment from 'moment';
   styleUrls: ['./main-cal.component.css']
 })
 export class MainCalComponent implements OnInit {
+
+  profs;
 
   calendarOptions = {
 
@@ -91,9 +94,12 @@ export class MainCalComponent implements OnInit {
     ]
   };*/
 
-  constructor() { }
+  constructor(private professorService: ProfessorService) { }
 
   ngOnInit() {
+
+    this.getProfs();
+
     /*this.calendarOptions = {
 
       editable: false,
@@ -123,9 +129,8 @@ export class MainCalComponent implements OnInit {
             start: '2016-09-09T16:00:00'
           },
           {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-16T16:00:00'
+            title: 'Event',
+            start: '2018-01-31T11:00:00'
           },
           {
             title: 'Conference',
@@ -147,13 +152,18 @@ export class MainCalComponent implements OnInit {
         this.myCalendar.fullCalendar('renderEvents', newEvents, true);
   }
 
+  getProfs(): void {
+    this.profs = this.professorService.getProfs();
+    console.log(this.profs);
+    console.log('inGetProfs');
+  }
+
  /* changeCalendarView(view) {
     this.myCalendar.fullCalendar('changeView', view);
   }*/
 
-
- /* onCalendarInit(initialized: boolean); {
+  onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
-  }*/
+  }
 
 }
