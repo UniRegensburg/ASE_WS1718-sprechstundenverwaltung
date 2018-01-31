@@ -61,10 +61,12 @@ router.patch('/me/officehours', function(req, res, next){
     newOfficeHours.weekday = req.body.weekday;
     newOfficeHours.slots = [];
     newOfficeHours.startTime = req.body.startTime;
+    newOfficeHours.slotNumber = req.body.slotNumber;
+    newOfficeHours.slotLength = req.body.slotLength;
 
     // TODO: move this to helper class
     for (let i = 0 ; i < parseInt(req.body.slotNumber); i++) {
-        var newTime = moment(lastTime).add(5, 'minutes')._d;
+        var newTime = moment(lastTime).add(parseInt(req.body.slotLength), 'minutes')._d;
         currSlot = {
             startTime: {
                 hours: lastTime.getHours(),
@@ -88,6 +90,8 @@ router.patch('/:id/officehours', function(req, res, next){
     newOfficeHours.weekday = req.body.weekday;
     newOfficeHours.slots = [];
     newOfficeHours.startTime = req.body.startTime;
+    newOfficeHours.slotNumber = req.body.slotNumber;
+    newOfficeHours.slotLength = req.body.slotLength;
 
     // TODO: move this to helper class
     for (let i = 0 ; i < parseInt(req.body.slotNumber); i++) {
