@@ -90,17 +90,17 @@ exports.meetings = [
         id: "12312313123",
         type: "office hour",
         status: "closed",
-        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
+        start:  new Date(2018, 1, 5, 8, 35).toISOString(),
+        end:    new Date(2018, 1, 5, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
-        professor: "abc12346",
+        professor: "abc12345",
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     },    {
         id: "323123123",
         type: "individual",
-        start:  new Date(2018, 01, 03, 8, 30).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 35).toISOString(),
+        start:  new Date(2018, 01, 05, 8, 30).toISOString(),
+        end:    new Date(2018, 01, 05, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen",
         professor: "abc12345",
         student:   "jue123456",
@@ -108,10 +108,10 @@ exports.meetings = [
     }, {
         id: "12313421",
         type: "individual",
-        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
+        start:  new Date(2018, 02, 19, 8, 35).toISOString(),
+        end:    new Date(2018, 02, 19, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
-        professor: "abc12346",
+        professor: "abc12345",
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }
