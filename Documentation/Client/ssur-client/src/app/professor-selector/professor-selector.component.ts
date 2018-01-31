@@ -15,8 +15,8 @@ import {map} from 'rxjs/operators/map';
 
 export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
-  filteredProfs: Observable<any[]>;
-  profs;
+  filteredProfs; //: Observable<any[]>;
+  profs = [];
 
   constructor(private professorService: ProfessorService) {
     this.profCtrl = new FormControl();
@@ -28,9 +28,8 @@ export class ProfessorSelectorComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.professorService.getAllProfData();
     this.profs = this.professorService.getProfNames();
-    console.log(this.profs);
+    this.filteredProfs = this.profs;
   }
 
 
@@ -39,7 +38,6 @@ export class ProfessorSelectorComponent implements OnInit{
       prof.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
-  //todo: implement method that sends the current selected value to professorService (observable)
   sendSelectedProf(){
     this.professorService.setSelectedProf(this.profCtrl.value);
   }

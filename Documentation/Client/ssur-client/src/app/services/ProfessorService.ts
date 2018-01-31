@@ -14,20 +14,18 @@ export class ProfessorService {
   profIDs = [];
   profMails = [];
   profHours = [];
-  selectedProf = {id: '', prename: '', name: '', mail: ' ', officeHours: ' '};
+  selectedProf = {id: '',name: ''};
 
   getAllProfData() {
     return this.http
       .get(this.url)
       .map((res:Response) => res.json());
-
   }
 
   getProfNames(){
     this.getAllProfData().subscribe(data => this.profData = data );
     for (var i = 0; i<this.profData.length; i++){
-      this.profNames.push(this.profData[i].name+', '+this.profData[i].prename);
-      console.log(this.profNames);
+      this.profNames.push(this.profData[i].name);
     }
     return this.profNames;
   }
@@ -36,7 +34,6 @@ export class ProfessorService {
     this.getAllProfData().subscribe(data => this.profData = data);
     for(var i = 0; i<this.profData.length; i++){
       this.profIDs.push(this.profData[i].id);
-      console.log(this.profIDs);
     }
     return this.profIDs;
   }
@@ -45,7 +42,6 @@ export class ProfessorService {
     this.getAllProfData().subscribe(data => this.profData = data);
     for(var i = 0; i<this.profData.length; i++){
       this.profHours.push(this.profData[i].officeHours);
-      console.log(this.profHours);
     }
     return this.profHours;
   }
@@ -59,17 +55,23 @@ export class ProfessorService {
     return this.profMails;
   }
 
-  //todo: implement method: should return a prof-object with all data of the selected prof in the autocomplete field
-  setSelectedProf(fullname){
-    this.selectedProf.name = fullname; //todo:slice selected value'fullname' into prename and name again
+ /* simpleObservable = new Observable((observer) => {
+
+    // observable execution
+    observer.next("bla bla bla")
+    observer.complete()
+  })*/
+
+  setSelectedProf(name){
+    this.selectedProf.name = name; //todo:slice selected value'fullname' into prename and name again
     console.log(this.selectedProf.name);
-  //  this.selectedProf.prename = prename;
-   // this.selectedProf.mail = mail;
-   // this.selectedProf.officeHours = officeHours;
+    this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
+    console.log(this.selectedProf.id);
+
   }
 
   getSelectedProf(){
-    return this.selectedProf;
+    return this.selectedProf.id;
   }
 
 }

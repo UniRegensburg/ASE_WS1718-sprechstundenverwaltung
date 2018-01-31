@@ -2,7 +2,7 @@
   <mat-form-field class="example-full-width">
     <input (click)="this.professorService.getProfNames()" matInput placeholder="Dozent auswählen..." aria-label="Prof" [matAutocomplete]="auto" [formControl]="profCtrl">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected) = "sendSelectedProf()" >
-      <mat-option *ngFor="let prof of filteredProfs | async" [value]="prof">
+      <mat-option *ngFor="let prof of filteredProfs" [value]="prof">
         <span>{{ prof }}</span>
       </mat-option>
     </mat-autocomplete>
