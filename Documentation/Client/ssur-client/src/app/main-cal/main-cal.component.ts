@@ -29,6 +29,7 @@ export class MainCalComponent implements OnInit {
     timeFormat: 'HH:mm',
     displayEventTime: true,
     allDayText: 'Ganztägig',
+    slotLabelFormat: 'HH:mm',
 
     events: []};
 
@@ -49,7 +50,8 @@ export class MainCalComponent implements OnInit {
   myOfficeHour = {
     title: 'title',
     start: 'start',
-    end: 'end'
+    end: 'end',
+    color: 'color'
   };
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
@@ -92,7 +94,7 @@ export class MainCalComponent implements OnInit {
             end: '2018-01-30T09:30:00'
           },
         {
-          title: 'PASSTNICHT',
+          title: 'Noch so ein Event',
           start: '2018-01-30T14:00:00',
           end: '2018-01-30T16:30:00'
         }
@@ -113,8 +115,10 @@ export class MainCalComponent implements OnInit {
   getSelectedProf(id) {
     for (let i = 0; i < this.profs.length; i++) {
       this.selectedProf = (this.profs[i]);
+      console.log(this.selectedProf);
         if (this.selectedProf.id === id) {
           this.officeHour = this.selectedProf.officeHours;
+          console.log(this.selectedProf);
           console.log(this.officeHour);
           this.buildOfficeHour(this.officeHour);
         }
@@ -129,9 +133,12 @@ export class MainCalComponent implements OnInit {
     this.myOfficeHour = {
       title: 'Offene Sprechstunde',
       start: '2018-01-30T12:00:00',
-      end: '2018-01-30T12:30:00'
+      end: '2018-01-30T13:30:00',
+      color: 'green'
     };
     this.newEvents.push(this.myOfficeHour);
+    this.calendarOptions.events = this.newEvents;
+    this.myCalendar.fullCalendar('updateEvents', this.newEvents);
     console.log(this.newEvents);
   }
 
