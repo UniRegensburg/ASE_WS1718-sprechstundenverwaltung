@@ -34,17 +34,10 @@ export class MainCalComponent implements OnInit {
     events: []};
 
   myEvent = {
-    title: 'Pauls Event',
+    title: 'ASE Zwischenpräsentation',
     allDay: false,
-    start: '2018-01-31T16:00:00',
-    end: '2018-01-31T17:30:00'
-  };
-
-  dummyEvent = {
-    title: 'Lalas Event',
-    allDay: false,
-    start: '2018-02-01T16:00:00',
-    end: '2018-02-01T17:30:00'
+    start: '2018-02-02T12:15:00',
+    end: '2018-02-02T15:45:00'
   };
 
   myOfficeHour = {
@@ -57,11 +50,11 @@ export class MainCalComponent implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   // @ViewChild('myCalendar', {read: ElementRef}) myCalendar: ElementRef;
 
-  changeCalendarView(view) {
+  /*changeCalendarView(view) {
 
     this.myCalendar.fullCalendar('changeView', view);
 
-  }
+  }*/
 
   constructor(private professorService: ProfessorService) { }
 
@@ -72,17 +65,8 @@ export class MainCalComponent implements OnInit {
       this.newEvents = [
           {
             title: 'All Day Event',
-            start: '2016-09-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2016-09-07',
-            end: '2016-09-10'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-09T16:00:00'
+            start: '2018-02-01',
+            color: 'orange'
           },
           {
             title: 'Event',
@@ -107,7 +91,8 @@ export class MainCalComponent implements OnInit {
 
   getProfs() {
     this.professorService.getProfs().subscribe(profs => {this.profs = profs;
-        this.getSelectedProf ('abc12346'); } ,
+        this.getSelectedProf ('abc12346');
+        console.log('Professor has changed'); } ,
       err => alert(err),
       () => console.log(this.profs));
   }
