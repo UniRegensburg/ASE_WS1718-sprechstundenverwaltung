@@ -1,8 +1,22 @@
 const _ = require('lodash');
-const moment = require('moment');
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(Moment);
 
 var express = require('express');
 var router = express.Router();
+
+const WEEKDAYS = {
+    "monday": 1,
+    "tuesday": 2,
+    "wednesday": 3,
+    "thursday": 4,
+    "friday": 5
+};
+
+
+const WEEKS_LOOKAHEAD_OFFICE_HOURS = 4;
+
 
 // TODO: replace dummy data with real mongoose connection
 var DummyDataService = require('../demo_data/demoDataService.js');
@@ -12,7 +26,6 @@ router.get('/', function(req, res, next) {
     // TODO get professorData
     res.send(DummyDataService.professors);
 });
-
 
 /**
  * Get detail data for the professor.
