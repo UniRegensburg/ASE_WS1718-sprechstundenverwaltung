@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ProfessorSelectorComponent} from "./professor-selector/professor-selector.component";
+import './rxjs-operators';
 
 @Component({
   selector: 'app-root',
