@@ -3,6 +3,7 @@ import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as $ from 'jquery';
 import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
+import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
 
 @Component({
   selector: 'app-main-cal',
@@ -12,8 +13,9 @@ import { ProfessorService} from '../services/ProfessorService';
 export class MainCalComponent implements OnInit {
 
   profs;
-  schleifentester;
+  selectedProf;
   officeHour;
+  newEvents;
 
   calendarOptions = {
 
@@ -34,7 +36,20 @@ export class MainCalComponent implements OnInit {
     title: 'Pauls Event',
     allDay: false,
     start: '2018-01-31T16:00:00',
-    end: '2018-01-31T76:00:00'
+    end: '2018-01-31T17:30:00'
+  };
+
+  dummyEvent = {
+    title: 'Lalas Event',
+    allDay: false,
+    start: '2018-02-01T16:00:00',
+    end: '2018-02-01T17:30:00'
+  };
+
+  myOfficeHour = {
+    title: 'title',
+    start: 'start',
+    end: 'end'
   };
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
@@ -46,76 +61,13 @@ export class MainCalComponent implements OnInit {
 
   }
 
-   /* calendarOptions: Object = {
-
-    editable: false,
-    handleWindowResize: true,
-    weekends: false,
-    defaultView: 'agendaWeek',
-    minTime: '08:00:00',
-    maxTime: '20:00:00',
-    columnFormat: 'ddd D/M',
-    timeFormat: 'HH:mm',
-    displayEventTime: true,
-    allDayText: 'Ganztägig',
-
-    events: [
-      {
-        title: 'All Day Event',
-        start: '2016-09-01'
-      },
-      {
-        title: 'Long Event',
-        start: '2016-09-07',
-        end: '2016-09-10'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2016-09-09T16:00:00'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2016-09-16T16:00:00'
-      },
-      {
-        title: 'Conference',
-        start: '2016-09-11',
-        end: '2016-09-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2016-09-12T10:30:00',
-        end: '2016-09-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2016-09-12T12:00:00'
-      }
-    ]
-  };*/
-
   constructor(private professorService: ProfessorService) { }
 
   ngOnInit() {
 
     this.getProfs();
 
-    /*this.calendarOptions = {
-
-      editable: false,
-      handleWindowResize: true,
-      weekends: false,
-      defaultView: 'agendaWeek',
-      minTime: '08:00:00',
-      maxTime: '20:00:00',
-      columnFormat: 'ddd D/M',
-      timeFormat: 'HH:mm',
-      displayEventTime: true,
-      allDayText: 'Ganztägig',*/
-
-      const newEvents = [
+      this.newEvents = [
           {
             title: 'All Day Event',
             start: '2016-09-01'
@@ -139,38 +91,50 @@ export class MainCalComponent implements OnInit {
             start: '2018-01-30T08:00:00',
             end: '2018-01-30T09:30:00'
           },
-          {
-            title: 'Meeting',
-            start: '2016-09-12T10:30:00',
-            end: '2016-09-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2016-09-12T12:00:00'
-          },
+        {
+          title: 'PASSTNICHT',
+          start: '2018-01-30T14:00:00',
+          end: '2018-01-30T16:30:00'
+        }
         ];
-      newEvents.push(this.myEvent);
-        this.calendarOptions.events = newEvents;
-        this.myCalendar.fullCalendar('renderEvents', newEvents, true);
+      this.newEvents.push(this.myEvent);
+        this.calendarOptions.events = this.newEvents;
+        this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
+
   }
 
-  getProfs(): void {
-
+  getProfs() {
     this.professorService.getProfs().subscribe(profs => {this.profs = profs;
-        this.getDimensionsByFind ('abc12346'); } ,
+        this.getSelectedProf ('abc12346'); } ,
       err => alert(err),
       () => console.log(this.profs));
   }
 
-  getDimensionsByFind(id) {
+  getSelectedProf(id) {
     for (let i = 0; i < this.profs.length; i++) {
-      this.schleifentester = (this.profs[i]);
-        if (this.schleifentester.id === id) {
-          this.officeHour = this.schleifentester.officeHours;
+      this.selectedProf = (this.profs[i]);
+        if (this.selectedProf.id === id) {
+          this.officeHour = this.selectedProf.officeHours;
           console.log(this.officeHour);
+          this.buildOfficeHour(this.officeHour);
         }
     }
   }
+
+  buildOfficeHour(officeHour) {
+    // const weekday = this.officeHour.weekday;
+    const startTime = this.officeHour.startTime;
+    const dummyDay = '2018-02-01T';
+    const dummyEndTime = '14:00:00';
+    this.myOfficeHour = {
+      title: 'Offene Sprechstunde',
+      start: '2018-01-30T12:00:00',
+      end: '2018-01-30T12:30:00'
+    };
+    this.newEvents.push(this.myOfficeHour);
+    console.log(this.newEvents);
+  }
+
 
  /* changeCalendarView(view) {
     this.myCalendar.fullCalendar('changeView', view);
