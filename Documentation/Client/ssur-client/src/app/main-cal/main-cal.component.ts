@@ -3,7 +3,9 @@ import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as $ from 'jquery';
 import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
+import { ScheduleService} from '../services/ScheduleService';
 import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
+import { Options} from 'fullcalendar';
 
 @Component({
   selector: 'app-main-cal',
@@ -16,22 +18,9 @@ export class MainCalComponent implements OnInit {
   selectedProf;
   officeHour;
   newEvents;
+  fetchedOfficeHours;
 
-  calendarOptions = {
-
-    editable: false,
-    handleWindowResize: true,
-    weekends: false,
-    defaultView: 'agendaWeek',
-    minTime: '08:00:00',
-    maxTime: '20:00:00',
-    columnFormat: 'ddd D/M',
-    timeFormat: 'HH:mm',
-    displayEventTime: true,
-    allDayText: 'Ganztägig',
-    slotLabelFormat: 'HH:mm',
-
-    events: []};
+  calendarOptions: Options;
 
   myEvent = {
     title: 'ASE Zwischenpräsentation',
@@ -47,6 +36,7 @@ export class MainCalComponent implements OnInit {
     color: 'color'
   };
 
+
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   // @ViewChild('myCalendar', {read: ElementRef}) myCalendar: ElementRef;
 
@@ -56,11 +46,27 @@ export class MainCalComponent implements OnInit {
 
   }*/
 
-  constructor(private professorService: ProfessorService) { }
+  constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) { }
 
   ngOnInit() {
 
-    this.getProfs();
+    this.calendarOptions = {
+
+      editable: false,
+      handleWindowResize: true,
+      weekends: false,
+      defaultView: 'agendaWeek',
+      /*minTime: '08:00:00',
+      maxTime: '20:00:00',*/
+      columnFormat: 'ddd D/M',
+      timeFormat: 'HH:mm',
+      displayEventTime: true,
+      allDayText: 'Ganztägig',
+      slotLabelFormat: 'HH:mm',
+
+      events: []};
+
+    // this.getProfs();
 
       this.newEvents = [
           {
@@ -83,11 +89,59 @@ export class MainCalComponent implements OnInit {
           end: '2018-01-30T16:30:00'
         }
         ];
-      this.newEvents.push(this.myEvent);
-        this.calendarOptions.events = this.newEvents;
-        this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
+
+      // this.newEvents.push(this.myEvent);
+      // this.calendarOptions.events = this.newEvents;
+      // this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
+
+      this.getOfficeHoursFromService();
+
+      // this.newEvents.push(this.myEvent);
+    // this.calendarOptions.events.push(this.myEvent);
+    // this.calendarOptions.events.push(this.myOfficeHour);
+    // this.myCalendar.fullCalendar('updateEvents');
 
   }
+
+  getOfficeHoursFromService(): void {
+    console.log('ingetOfficeHoursFromService');
+    this.scheduleService.getOfficeHours().
+    subscribe(fetchedOfficeHours => {this.
+        fetchedOfficeHours = fetchedOfficeHours;
+    console.log(this.fetchedOfficeHours);
+    this.enterOfficeHours(); } ,
+    err => alert(err),
+      () => console.log(this.fetchedOfficeHours), );
+  }
+
+  enterOfficeHours() {
+    console.log(this.fetchedOfficeHours);
+    for (let u = 0; u < this.fetchedOfficeHours.length; u++) {
+      const currentOfficeHour = this.fetchedOfficeHours[u];
+      console.log(currentOfficeHour);
+      this.enterSingleOfficeHour(currentOfficeHour);
+    }
+  }
+
+  enterSingleOfficeHour(currentOfficeHour) {
+    const type = currentOfficeHour.type;
+    const start = currentOfficeHour.start;
+    const end = currentOfficeHour.end;
+    console.log(start);
+    this.myOfficeHour = {
+      title: type,
+      start: '2018-01-30T12:00:00',
+      end: '2018-01-30T13:30:00',
+      color: 'green'
+    };
+    console.log(this.myOfficeHour);
+    this.calendarOptions.events.push(this.myOfficeHour);
+    this.newEvents.push(this.myOfficeHour);
+    console.log(this.newEvents);
+    this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
+    this.myCalendar.fullCalendar('rerenderEvents');
+  }
+  // ________________________________Codereste_unwichtig___________________________________
 
   getProfs() {
     /*this.professorService.getProfs().subscribe(profs => {this.profs = profs;
