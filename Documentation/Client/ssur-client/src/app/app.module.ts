@@ -9,6 +9,7 @@ import { MatInputModule} from '@angular/material';
 import { MatSlideToggleModule} from '@angular/material';
 import { HttpClientModule} from '@angular/common/http';
 import { ProfessorService} from './services/ProfessorService';
+import { ScheduleService} from './services/ScheduleService';
 import {HttpModule} from '@angular/http';
 import { CalendarModule} from 'ap-angular2-fullcalendar';
 
@@ -37,7 +38,7 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     HttpModule,
     CalendarModule
   ],
-  providers: [ProfessorService],
+  providers: [ProfessorService, ScheduleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

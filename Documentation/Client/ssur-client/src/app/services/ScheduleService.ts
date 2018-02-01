@@ -1,5 +1,10 @@
 import {Injectable} from '@angular/core';
 
-@Injectable
+@Injectable()
 export class ScheduleService {
+  constructor() { }
+
+  getOfficeHours() {
+
+  }
 }

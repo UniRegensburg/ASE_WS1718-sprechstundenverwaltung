@@ -69,7 +69,8 @@ export class ProfessorService {
 
   }
 
-  getSelectedProf(){
+  getSelectedProf() {
+    console.log(this.selectedProf.id);
     return this.selectedProf.id;
   }
 }
