@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ProfessorSelectorComponent} from './professor-selector/professor-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'sprechstunde.ur.de';
 }

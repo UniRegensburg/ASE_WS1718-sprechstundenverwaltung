@@ -90,11 +90,13 @@ export class MainCalComponent implements OnInit {
   }
 
   getProfs() {
-    this.professorService.getProfs().subscribe(profs => {this.profs = profs;
+    /*this.professorService.getProfs().subscribe(profs => {this.profs = profs;
         this.getSelectedProf ('abc12346');
         console.log('Professor has changed'); } ,
       err => alert(err),
-      () => console.log(this.profs));
+      () => console.log(this.profs));*/
+    this.profs = this.professorService.getSelectedProf();
+    console.log(this.profs);
   }
 
   getSelectedProf(id) {
