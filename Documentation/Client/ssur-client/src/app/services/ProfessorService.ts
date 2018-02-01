@@ -16,6 +16,7 @@ export class ProfessorService {
   profHours = [];
   selectedProf = {id: '',name: ''};
 
+
   getAllProfData() {
     return this.http
       .get(this.url)
@@ -55,18 +56,10 @@ export class ProfessorService {
     return this.profMails;
   }
 
- /* simpleObservable = new Observable((observer) => {
-
-    // observable execution
-    observer.next("bla bla bla")
-    observer.complete()
-  })*/
 
   setSelectedProf(name){
     this.selectedProf.name = name; //todo:slice selected value'fullname' into prename and name again
-    console.log(this.selectedProf.name);
     this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
-    console.log(this.selectedProf.id);
 
   }
 
