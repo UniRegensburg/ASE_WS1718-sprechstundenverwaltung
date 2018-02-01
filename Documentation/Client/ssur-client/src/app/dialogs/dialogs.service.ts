@@ -9,14 +9,17 @@ export class DialogsService {
 
   constructor(private dialog: MatDialog) { }
 
-  public  openDialog():  Observable<boolean> {
+  public  openDialog(title: string):  Observable<boolean> {
 
     let dialogRef: MatDialogRef<OfficehoursDialogComponent>;
 
     dialogRef = this.dialog.open(OfficehoursDialogComponent);
 
+    dialogRef.componentInstance.title = title;
+
     return dialogRef.afterClosed();
   }
+
 
   /* adjust for officehours editing
   public edit(title: string, message: string): Observable<boolean> {

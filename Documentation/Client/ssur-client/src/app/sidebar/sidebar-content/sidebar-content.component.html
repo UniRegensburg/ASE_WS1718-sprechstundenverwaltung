@@ -2,7 +2,13 @@
   <div>
     {{result}}
   </div>
-
-  <button style="float:right" (click)="_openDialogBox()">+</button>
-
+  <div id="officeHourDiv">
+    <p><span>{{officeHour?.weekday}}</span> <span>{{officeHour?.startTime}}</span><span><button id="editButton" (click)="_editOfficeHour()">edit</button> </span></p>
+  </div>
+  <div id="addButton">
+    <button (click)="_openDialogBox()">+</button>
+  </div>
+  <div>
+    {{slotsNumber}}
+  </div>
 </div>

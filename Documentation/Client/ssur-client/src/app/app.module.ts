@@ -13,7 +13,7 @@ import { MatSlideToggleModule} from '@angular/material';
 import { HttpClientModule} from '@angular/common/http';
 import { ProfessorService} from './services/ProfessorService';
 import {HttpModule} from '@angular/http';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 
 import { AppComponent } from './app.component';
@@ -22,6 +22,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-content.component';
 import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officehours-dialog.component';
 import {DialogsService} from './dialogs/dialogs.service';
+import {OfficehoursService} from './services/officehours.service';
 
 
 
@@ -56,7 +57,10 @@ import {DialogsService} from './dialogs/dialogs.service';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [ProfessorService, DialogsService],
+  providers: [ProfessorService,
+    DialogsService,
+    OfficehoursService,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
   entryComponents: [OfficehoursDialogComponent]
 })

@@ -1,3 +1,37 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <!--
+  <p>Datum wählen:</p>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker style="position: center"></mat-datepicker>
+  </mat-form-field>
+  -->
+  <p>Datum & Startzeit wählen:</p>
+  <mat-form-field>
+    <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedDateTime">
+    <owl-date-time #dt></owl-date-time>
+  </mat-form-field>
+  <p>Slotgröße wählen (in Min):</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="slotSize">
+  </mat-form-field>
+  <p>Slotanzahl wählen:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="slotAmount">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <!--
+  <button mat-button (click)="dialogRef.close(true)">Anlegen</button>
+  -->
+  <button mat-button style="float: right" (click)="closeDialogBox()">Anlegen</button>
+  <button mat-button style="float: left" (click)="dialogRef.close()">Schließen</button>
+</div>
+
+<!--
 <div>
   <mat-form-field>
     <div>
@@ -16,7 +50,7 @@
 
       <br>
 
-      <div><span style="text-align: left">Startdatum wählen:</span>
+      <div><span style="text-align: left">Enddatum wählen:</span>
         <span style="float: right"><input [matDatepicker]="picker2" (dateInput)="_dateChanged('end', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker></span>
@@ -60,5 +94,5 @@
   </mat-dialog-actions>
 
 </div>
-
+-->
 

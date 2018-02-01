@@ -15,6 +15,7 @@
   bottom: 90vh;
   text-align:left;
   border-bottom: 1px solid #555;
+  font-family: Roboto, Arial, sans-serif;
 }
 #bodydiv {
 position: absolute;
