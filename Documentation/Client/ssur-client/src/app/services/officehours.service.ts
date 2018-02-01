@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {post} from 'selenium-webdriver/http';
+import * as moment from 'moment';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class OfficehoursService {
 
-  constructor(private http: Http) { }
+  response: any;
+  professorInfo = [];
+  profInfo: BehaviorSubject<any> = new BehaviorSubject<any>(this.professorInfo);
 
-  getProfessors() {
-    return this.http.get(`https://ase1718data.herokuapp.com/professors/abc12345`) // needs to be adjusted to get all profs later
-      .map(res => res.json());
+  constructor(private http: Http) {
+    this.getProfessorInfo();
   }
 
-  // Wenn Antwort vom server nach dem schicken ok. variablen direkt übernehmen-> observables
+  // TODO: adjust to get all profs later
+  getProfessorInfo() {
+    this.http.get(`https://ase1718data.herokuapp.com/professors/abc12345`)
+      .subscribe(data => {
+        this.profInfo.next(data.json().officeHours);
+        //console.log(JSON.parse(data['_body']).officeHours);
+      });
+  }
 
   public setOfficeHour(datetime: any, slotSize: number, slotAmount: number) {
+
     const body = {
-      weekday: 'wednesday',
+      weekday: moment(datetime).format('dddd'),
       slotNumber: slotAmount,
       slotLength: slotSize,
       startTime: datetime
@@ -25,7 +37,9 @@ export class OfficehoursService {
 
     this.http
       .patch('https://ase1718data.herokuapp.com/professors/me/officehours', body)
-      .subscribe();
-  }
+      .subscribe(res => this.response = res.status);
+    //console.log(this.response);
 
+    this.profInfo.next(body); // TODO: Validate server response first. Bug: Opens diaolg again
+  }
 }

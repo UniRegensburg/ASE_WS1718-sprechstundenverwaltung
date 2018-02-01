@@ -16,6 +16,7 @@ import {HttpModule} from '@angular/http';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 
+
 import { AppComponent } from './app.component';
 import { ProfessorSelectorComponent } from './professor-selector/professor-selector.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -23,6 +24,7 @@ import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-conte
 import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officehours-dialog.component';
 import {DialogsService} from './dialogs/dialogs.service';
 import {OfficehoursService} from './services/officehours.service';
+
 
 
 

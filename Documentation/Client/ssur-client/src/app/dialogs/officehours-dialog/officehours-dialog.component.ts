@@ -5,7 +5,6 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {OwlDateTime} from 'ng-pick-datetime/date-time/date-time.class';
 import { OfficehoursService } from '../../services/officehours.service';
 
-
 @Component({
   selector: 'app-officehours-dialog',
   templateUrl: './officehours-dialog.component.html',
@@ -14,14 +13,13 @@ import { OfficehoursService } from '../../services/officehours.service';
 export class OfficehoursDialogComponent implements OnInit {
 
   public title: string;
-  //selectedDate: any;
   selectedDateTime: any;
   slotSize: number;
   slotAmount: number;
 
   closeDialogBox() {
     this.officehourService.setOfficeHour(this.selectedDateTime, this.slotSize, this.slotAmount);
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
   /* needed later to select start- and enddate + repetitions

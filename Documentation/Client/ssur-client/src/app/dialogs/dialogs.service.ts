@@ -21,18 +21,19 @@ export class DialogsService {
   }
 
 
-  /* adjust for officehours editing
-  public edit(title: string, message: string): Observable<boolean> {
 
-    let dialogRef: MatDialogRef<ConfirmDialogComponent>;
+  public editDialog(title: string, dateTime: any, slotSize: number, slotAmount: number): Observable<boolean> {
 
-    dialogRef = this.dialog.open(ConfirmDialogComponent);
+    let dialogRef: MatDialogRef<OfficehoursDialogComponent>;
+
+    dialogRef = this.dialog.open(OfficehoursDialogComponent);
 
     dialogRef.componentInstance.title = title;
-    dialogRef.componentInstance.message = message;
+    dialogRef.componentInstance.selectedDateTime = dateTime;
+    dialogRef.componentInstance.slotSize = slotSize;
+    dialogRef.componentInstance.slotAmount = slotAmount;
 
     return dialogRef.afterClosed();
   }
-   */
 
 }

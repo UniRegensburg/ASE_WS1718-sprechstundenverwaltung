@@ -9,8 +9,11 @@
 #editButton {
   position: relative;
   float: right;
+  right: 5px;
 }
 #addButton {
   position: relative;
   float: right;
+  top: 5px;
+  right: 5px;
 }
