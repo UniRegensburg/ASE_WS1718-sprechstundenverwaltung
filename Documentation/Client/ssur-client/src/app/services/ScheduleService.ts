@@ -35,9 +35,7 @@ export class ScheduleService {
 
     this.http.get(this.finalUrl).subscribe(officeData => {
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
-      console.log(this.selectedOfficeHours.value);
       this.selectedOfficeHours = this.selectedOfficeHours.value;
-      console.log(this.selectedOfficeHours);
     });
   }
 

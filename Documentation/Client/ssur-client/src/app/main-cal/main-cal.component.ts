@@ -22,6 +22,7 @@ export class MainCalComponent implements OnInit {
   newEvents;
   officeHoursProf;
   fetchedOfficeHours;
+  finalEvents = [];
 
   calendarOptions: Options;
 
@@ -51,11 +52,13 @@ export class MainCalComponent implements OnInit {
 
   constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) {
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
-      console.log(data);
       // this.enterOfficeHours(data);
       this.officeHoursProf = data;
-      console.log(this.officeHoursProf);
-      this.enterOfficeHours();
+      console.log(data);
+      if (data.length > 0) {
+        console.log('in der SChleife ggggggggggggggggggggggggggg');
+        this.enterOfficeHours();
+      }
     });
   }
 
@@ -118,24 +121,29 @@ export class MainCalComponent implements OnInit {
       const currentOfficeHour = this.officeHoursProf[u];
       this.enterSingleOfficeHour(currentOfficeHour);
     }
+    console.log('=========All Elements rendered====================');
+    console.log(this.finalEvents);
+    this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
+    console.log('ultimateRendered');
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
-    const type = currentOfficeHour.type;
-    const end = currentOfficeHour.end;
-      // moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm');
-    const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm');
-    this.myOfficeHour = {
-      title: type,
-      start: start,
-      end: end,
-      color: 'green'
-    };
-    console.log(this.myOfficeHour);
-    /*this.calendarOptions.events.push(this.myOfficeHour);
-    this.newEvents.push(this.myOfficeHour);*/
-    this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
-    // this.myCalendar.fullCalendar('rerenderEvents');
+      const type = currentOfficeHour.type;
+      const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
+      const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      this.myOfficeHour = {
+        title: type,
+        start: start,
+        end: endOF,
+        color: 'green'
+      };
+      console.log('ooooooooooooooooo Am Rendern ooooooooooooo');
+      console.log(this.myOfficeHour);
+      /*this.calendarOptions.events.push(this.myOfficeHour);
+      this.newEvents.push(this.myOfficeHour);*/
+      this.finalEvents.push(this.myOfficeHour);
+      // this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
+      // this.myCalendar.fullCalendar('rerenderEvents');
   }
 
   // ________________________________Codereste_unwichtig___________________________________
