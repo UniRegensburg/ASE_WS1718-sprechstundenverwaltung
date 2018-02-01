@@ -9,7 +9,7 @@ exports.getUserDetail = function(userid) {
 }
 
 exports.getProfessorMeetings = function(professorId) {
-    return _.filter(exports.meetings, {professor:professorId});
+    return [].concat(_.filter(exports.meetings, {professor:professorId})).concat(exports.officeHourDummies);;
 }
 
 exports.getProfessorDetail = function(professorId) {
@@ -44,37 +44,74 @@ exports.removeMeetingWithId = function(meetingId){
     exports.meetings.splice(_.indexOf(exports.meetings, {id: meetingId}), 1);
 }
 
+exports.officeHourDummies = [
+    // These are empty office hour objects.
+    // TODO: replace with functioning algorithm
+
+    {
+        id: "123456755",
+        type: "office hour",
+        status: "open",
+        start:  new Date(2018, 01, 02, 8, 35).toISOString(),
+        end:    new Date(2018, 01, 02, 8, 40).toISOString(),
+        professor: "abc12345"
+    },       {
+        id: "123456756",
+        type: "office hour",
+        status: "open",
+        start:  new Date(2018, 01, 02, 8, 40).toISOString(),
+        end:    new Date(2018, 01, 02, 8, 45).toISOString(),
+        professor: "abc12345"
+    },    {
+        id: "123456757",
+        type: "office hour",
+        status: "open",
+        start:  new Date(2018, 01, 02, 8, 50).toISOString(),
+        end:    new Date(2018, 01, 02, 8, 55).toISOString(),
+        professor: "abc12345"
+    },
+];
+
+
 exports.meetings = [
     {
         id: "123456754",
-        start:  new Date(2018, 01, 03, 8, 30).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 35).toISOString(),
+        type: "office hour",
+        status: "closed",
+        start:  new Date(2018, 01, 02, 8, 30).toISOString(),
+        end:    new Date(2018, 01, 02, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen 1",
         professor: "abc12345",
         student:   "jue123322",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
-    }, {
-    id: "12312313123",
-        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
+    },
+
+    {
+        id: "12312313123",
+        type: "office hour",
+        status: "closed",
+        start:  new Date(2018, 1, 5, 8, 35).toISOString(),
+        end:    new Date(2018, 1, 5, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
-        professor: "abc12346",
+        professor: "abc12345",
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     },    {
-    id: "323123123",
-        start:  new Date(2018, 01, 03, 8, 30).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 35).toISOString(),
+        id: "323123123",
+        type: "individual",
+        start:  new Date(2018, 01, 05, 8, 30).toISOString(),
+        end:    new Date(2018, 01, 05, 8, 35).toISOString(),
         title:  "Bachelorarbeit besprechen",
         professor: "abc12345",
         student:   "jue123456",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }, {
-    id: "12313421",
-        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
+        id: "12313421",
+        type: "individual",
+        start:  new Date(2018, 02, 19, 8, 35).toISOString(),
+        end:    new Date(2018, 02, 19, 8, 40).toISOString(),
         title:  "Bachelorarbeit besprechen",
-        professor: "abc12346",
+        professor: "abc12345",
         student:   "def12345",
         description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
     }
