@@ -16,12 +16,8 @@ export class ProfessorService {
   profIDs = [];
   profMails = [];
   profHours = [];
-<<<<<<< HEAD
   selectedProf = {id: '',name: ''};
 
-=======
-  selectedProf = {id: '', name: ''};
->>>>>>> calendarBranch
 
 
   _professors = [];
@@ -41,16 +37,10 @@ export class ProfessorService {
   }
 
 
-
-
-
   getAllProfData() {
     return this.http
       .get(this.url)
-<<<<<<< HEAD
       .map((res:Response) => res.json());
-=======
-      .map((res: Response) => res.json());
   }
 
   getProfNames() {
@@ -105,53 +95,6 @@ export class ProfessorService {
 
   getSelectedProf() {
     console.log(this.selectedProf.id);
-    return this.selectedProf.id;
->>>>>>> calendarBranch
-  }
-
-  getProfNames(){
-    this.getAllProfData().subscribe(data => this.profData = data );
-    for (var i = 0; i<this.profData.length; i++){
-      this.profNames.push(this.profData[i].name);
-    }
-    return this.profNames;
-  }
-
-  getProfIDs(){
-    this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i<this.profData.length; i++){
-      this.profIDs.push(this.profData[i].id);
-    }
-    return this.profIDs;
-  }
-
-  getProfHours(){
-    this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i<this.profData.length; i++){
-      this.profHours.push(this.profData[i].officeHours);
-    }
-    return this.profHours;
-  }
-
-  getProfMails(){
-    this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i<this.profData.length; i++){
-      this.profMails.push(this.profData[i].email);
-      console.log(this.profMails);
-    }
-    return this.profMails;
-  }
-
-
-  setSelectedProf(name){
-    this.selectedProf.name = name; //todo:slice selected value'fullname' into prename and name again
-    this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
-
-    // ================================================
-    this.selectedProfessor.next(this.selectedProf.id);
-  }
-
-  getSelectedProf(){
     return this.selectedProf.id;
   }
 
