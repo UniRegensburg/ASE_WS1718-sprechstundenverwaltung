@@ -13,7 +13,15 @@ export class ScheduleService {
   profID;
   profsOfficeHours;
 
-  constructor(private professorService: ProfessorService, private http: Http) { }
+  private professorListener;
+
+  constructor(private professorService: ProfessorService, private http: Http) {
+    // ================================================
+    this.professorListener = professorService.selectedProfessor.subscribe(data => {
+      // TODO Sprechstundentermine für Prof abrufen
+      console.log(data);
+    });
+  }
 
   getProfessors(): any {
     // this.professorService.getSelectedProf().subscribe(profs => {this.profID = profs; } );

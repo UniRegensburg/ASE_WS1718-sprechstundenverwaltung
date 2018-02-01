@@ -2,18 +2,42 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ProfessorService {
 
   private url = 'https://ase1718data.herokuapp.com/professors';
-  constructor (private http: Http) {}
+  constructor (private http: Http) {
+    this.fetchAllProfData();
+  }
   profData = [];
   profNames = [];
   profIDs = [];
   profMails = [];
   profHours = [];
   selectedProf = {id: '', name: ''};
+
+
+  _professors = [];
+  professors: BehaviorSubject<any> = new BehaviorSubject<any>(this._professors);
+  // ================================================
+  _selectedProfessor = {};
+  selectedProfessor: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedProfessor);
+
+
+  // nur zur Verdeutlichung, könnte genutzt werden, um profklasse zu optimieren
+  fetchAllProfData() {
+    this.http.get(this.url).subscribe(data => {
+      console.log("\n\n\n\n====================\nget all prof data");
+      //console.log(JSON.parse(data._body));
+      this.professors.next(JSON.parse(data["_body"]));
+    });
+  }
+
+
+
+
 
   getAllProfData() {
     return this.http
@@ -67,6 +91,8 @@ export class ProfessorService {
     this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
     console.log(this.selectedProf.id);
 
+    // ================================================
+    this.selectedProfessor.next(this.selectedProf.id);
   }
 
   getSelectedProf() {
