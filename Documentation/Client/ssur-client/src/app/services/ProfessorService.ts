@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-<<<<<<< HEAD
-import { Observable } from 'rxjs/Observable';
-
-=======
 import { Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
->>>>>>> 48d1c4c... Implement BehaviorSubject/Observables in Application Services
 
 @Injectable()
 export class ProfessorService {
