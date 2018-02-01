@@ -32,7 +32,6 @@ export class ProfessorSelectorComponent implements OnInit{
     this.filteredProfs = this.profs;
   }
 
-
  filterProfs(name: string) {
     return this.profs.filter(prof =>
       prof.toLowerCase().indexOf(name.toLowerCase()) === 0);
