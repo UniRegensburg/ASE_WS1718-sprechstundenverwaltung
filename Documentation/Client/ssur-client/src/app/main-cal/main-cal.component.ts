@@ -14,10 +14,13 @@ import { Options} from 'fullcalendar';
 })
 export class MainCalComponent implements OnInit {
 
+  private professorHoursListener;
+
   profs;
   selectedProf;
   officeHour;
   newEvents;
+  officeHoursProf;
   fetchedOfficeHours;
 
   calendarOptions: Options;
@@ -46,7 +49,15 @@ export class MainCalComponent implements OnInit {
 
   }*/
 
-  constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) { }
+  constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) {
+    this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
+      console.log(data);
+      // this.enterOfficeHours(data);
+      this.officeHoursProf = data;
+      console.log(this.officeHoursProf);
+      this.enterOfficeHours();
+    });
+  }
 
   ngOnInit() {
 
@@ -66,7 +77,6 @@ export class MainCalComponent implements OnInit {
 
       events: []};
 
-    // this.getProfs();
 
       this.newEvents = [
           {
@@ -94,7 +104,7 @@ export class MainCalComponent implements OnInit {
       // this.calendarOptions.events = this.newEvents;
       // this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
 
-      this.getOfficeHoursFromService();
+      // this.getOfficeHoursFromService();   ***neu
 
       // this.newEvents.push(this.myEvent);
     // this.calendarOptions.events.push(this.myEvent);
@@ -103,85 +113,32 @@ export class MainCalComponent implements OnInit {
 
   }
 
-  getOfficeHoursFromService(): void {
-    console.log('ingetOfficeHoursFromService');
-    this.scheduleService.getOfficeHours().
-    subscribe(fetchedOfficeHours => {this.
-        fetchedOfficeHours = fetchedOfficeHours;
-    console.log(this.fetchedOfficeHours);
-    this.enterOfficeHours(); } ,
-    err => alert(err),
-      () => console.log(this.fetchedOfficeHours), );
-  }
-
   enterOfficeHours() {
-    console.log(this.fetchedOfficeHours);
-    for (let u = 0; u < this.fetchedOfficeHours.length; u++) {
-      const currentOfficeHour = this.fetchedOfficeHours[u];
-      console.log(currentOfficeHour);
+    for (let u = 0; u < this.officeHoursProf.length; u++) {
+      const currentOfficeHour = this.officeHoursProf[u];
       this.enterSingleOfficeHour(currentOfficeHour);
     }
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
     const type = currentOfficeHour.type;
-    const start = currentOfficeHour.start;
     const end = currentOfficeHour.end;
-    console.log(start);
+      // moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm');
+    const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm');
     this.myOfficeHour = {
       title: type,
-      start: '2018-01-30T12:00:00',
-      end: '2018-01-30T13:30:00',
+      start: start,
+      end: end,
       color: 'green'
     };
     console.log(this.myOfficeHour);
-    this.calendarOptions.events.push(this.myOfficeHour);
-    this.newEvents.push(this.myOfficeHour);
-    console.log(this.newEvents);
+    /*this.calendarOptions.events.push(this.myOfficeHour);
+    this.newEvents.push(this.myOfficeHour);*/
     this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
-    this.myCalendar.fullCalendar('rerenderEvents');
+    // this.myCalendar.fullCalendar('rerenderEvents');
   }
+
   // ________________________________Codereste_unwichtig___________________________________
-
-  getProfs() {
-    /*this.professorService.getProfs().subscribe(profs => {this.profs = profs;
-        this.getSelectedProf ('abc12346');
-        console.log('Professor has changed'); } ,
-      err => alert(err),
-      () => console.log(this.profs));*/
-    this.profs = this.professorService.getSelectedProf();
-    console.log(this.profs);
-  }
-
-  getSelectedProf(id) {
-    for (let i = 0; i < this.profs.length; i++) {
-      this.selectedProf = (this.profs[i]);
-      console.log(this.selectedProf);
-        if (this.selectedProf.id === id) {
-          this.officeHour = this.selectedProf.officeHours;
-          console.log(this.selectedProf);
-          console.log(this.officeHour);
-          this.buildOfficeHour(this.officeHour);
-        }
-    }
-  }
-
-  buildOfficeHour(officeHour) {
-    // const weekday = this.officeHour.weekday;
-    const startTime = this.officeHour.startTime;
-    const dummyDay = '2018-02-01T';
-    const dummyEndTime = '14:00:00';
-    this.myOfficeHour = {
-      title: 'Offene Sprechstunde',
-      start: '2018-01-30T12:00:00',
-      end: '2018-01-30T13:30:00',
-      color: 'green'
-    };
-    this.newEvents.push(this.myOfficeHour);
-    this.calendarOptions.events = this.newEvents;
-    this.myCalendar.fullCalendar('updateEvents', this.newEvents);
-    console.log(this.newEvents);
-  }
 
 
  /* changeCalendarView(view) {
