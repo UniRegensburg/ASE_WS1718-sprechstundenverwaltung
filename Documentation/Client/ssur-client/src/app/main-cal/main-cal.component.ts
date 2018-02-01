@@ -64,7 +64,7 @@ export class MainCalComponent implements OnInit {
 
       this.newEvents = [
           {
-            title: 'All Day Event',
+            title: 'Ganztägiges Event',
             start: '2018-02-01',
             color: 'orange'
           },
