@@ -28,7 +28,7 @@ export class ProfessorSelectorComponent {
   profs = [];
 
   filterProfs(name: string) {
-    return this.profs.filter(prof =>
+    return this.profs.filter(prof =>+
       prof.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
