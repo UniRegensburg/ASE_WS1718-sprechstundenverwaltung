@@ -40,6 +40,6 @@ export class OfficehoursService {
       .subscribe(res => this.response = res.status);
     //console.log(this.response);
 
-    this.profInfo.next(body); // TODO: Validate server response first. Bug: Opens diaolg again
+    //this.profInfo.next(body); // TODO: Validate server response first. Bug: Opens diaolg again
   }
 }
