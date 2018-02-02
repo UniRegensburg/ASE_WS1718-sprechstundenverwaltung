@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators/map';
   selector: 'app-professor-selector',
   templateUrl: './professor-selector.component.html',
   styleUrls: ['./professor-selector.component.css'],
-  providers: [ProfessorService]
+  providers: []
 })
 
 export class ProfessorSelectorComponent implements OnInit{
