@@ -15,22 +15,10 @@ export class MainCalComponent implements OnInit {
 
   private professorHoursListener;
 
-  profs;
-  selectedProf;
-  officeHour;
-  newEvents;
   officeHoursProf;
-  fetchedOfficeHours;
   finalEvents = [];
 
   calendarOptions;
-
-  myEvent = {
-    title: 'ASE Zwischenpräsentation',
-    allDay: false,
-    start: '2018-02-02T12:15:00',
-    end: '2018-02-02T15:45:00'
-  };
 
   myOfficeHour = {
     title: 'title',
@@ -41,21 +29,20 @@ export class MainCalComponent implements OnInit {
 
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
-  // @ViewChild('myCalendar', {read: ElementRef}) myCalendar: ElementRef;
 
-  /*changeCalendarView(view) {
+  changeCalendarView(view) {
 
     this.myCalendar.fullCalendar('changeView', view);
 
-  }*/
+  }
 
   constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) {
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
-      // this.enterOfficeHours(data);
       this.officeHoursProf = data;
       console.log(data);
       if (data.length > 0) {
-        console.log('in der SChleife ggggggggggggggggggggggggggg');
+        this.finalEvents = [];
+        console.log(this.finalEvents);
         this.enterOfficeHours();
       }
     });
@@ -78,41 +65,6 @@ export class MainCalComponent implements OnInit {
       slotLabelFormat: 'HH:mm',
 
       events: []};
-
-
-      this.newEvents = [
-          {
-            title: 'Ganztägiges Event',
-            start: '2018-02-01',
-            color: 'orange'
-          },
-          {
-            title: 'Event',
-            start: '2018-01-31T11:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2018-01-30T08:00:00',
-            end: '2018-01-30T09:30:00'
-          },
-        {
-          title: 'Noch so ein Event',
-          start: '2018-01-30T14:00:00',
-          end: '2018-01-30T16:30:00'
-        }
-        ];
-
-      // this.newEvents.push(this.myEvent);
-      // this.calendarOptions.events = this.newEvents;
-      // this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
-
-      // this.getOfficeHoursFromService();   ***neu
-
-      // this.newEvents.push(this.myEvent);
-    // this.calendarOptions.events.push(this.myEvent);
-    // this.calendarOptions.events.push(this.myOfficeHour);
-    // this.myCalendar.fullCalendar('updateEvents');
-
   }
 
   enterOfficeHours() {
@@ -120,40 +72,24 @@ export class MainCalComponent implements OnInit {
       const currentOfficeHour = this.officeHoursProf[u];
       this.enterSingleOfficeHour(currentOfficeHour);
     }
-    console.log('=========All Elements rendered====================');
     console.log(this.finalEvents);
-    this.finalEvents.push(this.myEvent);
+    this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
-    console.log('ultimateRendered');
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
       const type = currentOfficeHour.type;
-      const endOF = currentOfficeHour.end;
-        // moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
-      const start = currentOfficeHour.start;
-        // moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
+      const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
       this.myOfficeHour = {
         title: type,
         start: start,
         end: endOF,
         color: 'green'
       };
-      console.log('ooooooooooooooooo Am Rendern ooooooooooooo');
       console.log(this.myOfficeHour);
-      /*this.calendarOptions.events.push(this.myOfficeHour);
-      this.newEvents.push(this.myOfficeHour);*/
       this.finalEvents.push(this.myOfficeHour);
-      // this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
-      // this.myCalendar.fullCalendar('rerenderEvents');
   }
-
-  // ________________________________Codereste_unwichtig___________________________________
-
-
- /* changeCalendarView(view) {
-    this.myCalendar.fullCalendar('changeView', view);
-  }*/
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
