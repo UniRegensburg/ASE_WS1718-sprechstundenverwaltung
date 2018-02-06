@@ -24,7 +24,8 @@ export class MainCalComponent implements OnInit {
   fetchedOfficeHours;
   finalEvents = [];
 
-  calendarOptions: Options;
+  // calendarOptions: Options;
+  calendarOptions;
 
   myEvent = {
     title: 'ASE Zwischenpräsentation',
@@ -70,8 +71,8 @@ export class MainCalComponent implements OnInit {
       handleWindowResize: true,
       weekends: false,
       defaultView: 'agendaWeek',
-      /*minTime: '08:00:00',
-      maxTime: '20:00:00',*/
+      minTime: '08:00:00',
+      maxTime: '20:00:00',
       columnFormat: 'ddd D/M',
       timeFormat: 'HH:mm',
       displayEventTime: true,
@@ -130,8 +131,10 @@ export class MainCalComponent implements OnInit {
 
   enterSingleOfficeHour(currentOfficeHour) {
       const type = currentOfficeHour.type;
-      const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
-      const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      const endOF = currentOfficeHour.end;
+        // moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
+      const start = currentOfficeHour.start;
+        // moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
       this.myOfficeHour = {
         title: type,
         start: start,
