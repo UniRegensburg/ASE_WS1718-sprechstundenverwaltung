@@ -31,12 +31,19 @@ export class ScheduleService {
   getCurrentOfficeHours(data) {
     console.log(data);
     this.finalUrl = this.shortUrl + data + '/meetings';
-    console.log(this.finalUrl);
     console.log(this.selectedOfficeHours);
 
     this.http.get(this.finalUrl).subscribe(officeData => {
+
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
-      this.selectedOfficeHours = this.selectedOfficeHours.value;
+      console.log('das geht noch');
+      const blub = this.selectedOfficeHours;
+      const bla = this.selectedOfficeHours.value;
+      console.log(blub);
+      console.log(bla);
+
+      // this.selectedOfficeHours = this.selectedOfficeHours.value;
+      console.log('Ende von CurrentOfficeHours111111111111111111111111111');
     });
   }
 }

@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
 import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
-import { Options} from 'fullcalendar';
 
 @Component({
   selector: 'app-main-cal',
@@ -24,7 +23,6 @@ export class MainCalComponent implements OnInit {
   fetchedOfficeHours;
   finalEvents = [];
 
-  // calendarOptions: Options;
   calendarOptions;
 
   myEvent = {
