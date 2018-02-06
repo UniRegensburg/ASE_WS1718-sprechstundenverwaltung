@@ -5,6 +5,7 @@ import { Http, Response} from '@angular/http';
 import { ProfessorService} from './ProfessorService';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+
 @Injectable()
 export class ScheduleService {
 
@@ -38,17 +39,4 @@ export class ScheduleService {
       this.selectedOfficeHours = this.selectedOfficeHours.value;
     });
   }
-
-  /*getProfessors(): any {
-    // this.professorService.getSelectedProf().subscribe(profs => {this.profID = profs; } );
-    const profForNow = this.professorService.getSelectedProf();
-    console.log(profForNow);
-  }
-
-  getOfficeHours() {
-    console.log('InSchedServiceGetOfficeHours');
-    this.finalUrl = this.shortUrl + this.professorService + '/meetings';
-    return this.http.get(this.url).map((res: Response) => res.json());
-  }*/
-
 }

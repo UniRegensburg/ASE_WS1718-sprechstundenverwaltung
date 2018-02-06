@@ -17,8 +17,6 @@ export class ProfessorService {
   profMails = [];
   profHours = [];
   selectedProf = {id: '', name: ''};
-
-
   _professors = [];
   professors: BehaviorSubject<any> = new BehaviorSubject<any>(this._professors);
   // ================================================
@@ -29,15 +27,11 @@ export class ProfessorService {
   // nur zur Verdeutlichung, könnte genutzt werden, um profklasse zu optimieren
   fetchAllProfData() {
     this.http.get(this.url).subscribe(data => {
-      console.log("\n\n\n\n====================\nget all prof data");
-      //console.log(JSON.parse(data._body));
-      this.professors.next(JSON.parse(data["_body"]));
+      console.log('\n\n\n\n====================\nget all prof data');
+      // console.log(JSON.parse(data._body));
+      this.professors.next(JSON.parse(data['_body']));
     });
   }
-
-
-
-
 
   getAllProfData() {
     return this.http
@@ -47,31 +41,31 @@ export class ProfessorService {
 
   getProfNames() {
     this.getAllProfData().subscribe(data => this.profData = data );
-    for (var i = 0; i<this.profData.length; i++){
+    for (let i = 0; i < this.profData.length; i++) {
       this.profNames.push(this.profData[i].name);
     }
     return this.profNames;
   }
 
-  getProfIDs(){
+  getProfIDs() {
     this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i < this.profData.length; i++) {
+    for (let i = 0; i < this.profData.length; i++) {
       this.profIDs.push(this.profData[i].id);
     }
     return this.profIDs;
   }
 
-  getProfHours(){
+  getProfHours() {
     this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i < this.profData.length; i++) {
+    for (let i = 0; i < this.profData.length; i++) {
       this.profHours.push(this.profData[i].officeHours);
     }
     return this.profHours;
   }
 
-  getProfMails(){
+  getProfMails() {
     this.getAllProfData().subscribe(data => this.profData = data);
-    for(var i = 0; i < this.profData.length; i++) {
+    for (let i = 0; i < this.profData.length; i++) {
       this.profMails.push(this.profData[i].email);
       console.log(this.profMails);
     }
@@ -86,7 +80,7 @@ export class ProfessorService {
   })*/
 
   setSelectedProf(name) {
-    this.selectedProf.name = name; //todo:slice selected value'fullname' into prename and name again
+    this.selectedProf.name = name; // todo:slice selected value'fullname' into prename and name again
     console.log(this.selectedProf.name);
     this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
     console.log(this.selectedProf.id);
@@ -99,4 +93,5 @@ export class ProfessorService {
     console.log(this.selectedProf.id);
     return this.selectedProf.id;
   }
+
 }

@@ -1,9 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div id="headerdiv">
   <h1>
-    Welcome to {{ title }}!
+    {{ title }}!
   </h1>
 </div>
-<app-professor-selector></app-professor-selector>
-<app-main-cal></app-main-cal>
+<app-sidebar></app-sidebar>
+<div id="selectordiv">
+  <app-professor-selector></app-professor-selector>
+</div>
+<div id="bodydiv">
+  <app-main-cal></app-main-cal>
+</div>
 

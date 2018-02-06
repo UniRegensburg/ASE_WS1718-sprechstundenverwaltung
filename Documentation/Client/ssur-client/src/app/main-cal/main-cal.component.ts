@@ -123,6 +123,7 @@ export class MainCalComponent implements OnInit {
     }
     console.log('=========All Elements rendered====================');
     console.log(this.finalEvents);
+    this.finalEvents.push(this.myEvent);
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
     console.log('ultimateRendered');
   }

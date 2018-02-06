@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { ProfessorService} from "../services/ProfessorService";
+import {ProfessorService} from "../services/ProfessorService";
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 
+
 @Component({
   selector: 'app-professor-selector',
   templateUrl: './professor-selector.component.html',
-  styleUrls: ['./professor-selector.component.css']
+  styleUrls: ['./professor-selector.component.css'],
+  providers: []
 })
-
 
 export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
@@ -31,12 +32,12 @@ export class ProfessorSelectorComponent implements OnInit{
     this.filteredProfs = this.profs;
   }
 
-  filterProfs(name: string) {
+ filterProfs(name: string) {
     return this.profs.filter(prof =>
       prof.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
-  sendSelectedProf() {
+  sendSelectedProf(){
     this.professorService.setSelectedProf(this.profCtrl.value);
   }
 }

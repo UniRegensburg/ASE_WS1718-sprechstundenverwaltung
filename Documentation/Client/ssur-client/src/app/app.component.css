@@ -7,3 +7,28 @@
 .example-full-width {
   width: 100%;
 }
+#headerdiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 90vh;
+  text-align:left;
+  border-bottom: 1px solid #555;
+  font-family: Roboto, Arial, sans-serif;
+}
+#selectordiv {
+position: absolute;
+  height: 5vh;
+  widht: 75vw;
+  top: 10vh;
+  bottom: 80vh;
+  left: 450px;
+}
+#bodydiv {
+  position: absolute;
+  top: 25vh;
+  left: 450px;
+  height: 80vh;
+  width:75vw;
+}
