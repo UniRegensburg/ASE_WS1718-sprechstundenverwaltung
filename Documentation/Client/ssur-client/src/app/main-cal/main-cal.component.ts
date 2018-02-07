@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
 import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
+import {cursorTo} from 'readline';
 
 @Component({
   selector: 'app-main-cal',
@@ -21,6 +22,7 @@ export class MainCalComponent implements OnInit {
   calendarOptions;
 
   myOfficeHour = {
+    id: 'id',
     title: 'title',
     start: 'start',
     end: 'end',
@@ -56,6 +58,12 @@ export class MainCalComponent implements OnInit {
         this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
       },
 
+      eventClick: (event) => {
+        console.log('auf ein Event geklickt');
+        console.log(event.id);
+        return false;
+      },
+
       header: {
         center: 'agendaWeek,basicDay'
       },
@@ -88,6 +96,7 @@ export class MainCalComponent implements OnInit {
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
+      const  id = currentOfficeHour.id;
       const type = currentOfficeHour.type;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
@@ -100,12 +109,13 @@ export class MainCalComponent implements OnInit {
         typeColor = 'grey';
       }
       this.myOfficeHour = {
+        id: id,
         title: type,
         start: start,
         end: endOF,
         color: typeColor
       };
-      // console.log(this.myOfficeHour);
+      console.log(this.myOfficeHour);
       this.finalEvents.push(this.myOfficeHour);
   }
 
