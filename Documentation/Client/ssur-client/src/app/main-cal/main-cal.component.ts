@@ -17,7 +17,6 @@ export class MainCalComponent implements OnInit {
 
   officeHoursProf;
   finalEvents = [];
-  newWeekEvents = [];
 
   calendarOptions;
 
@@ -54,8 +53,6 @@ export class MainCalComponent implements OnInit {
     this.calendarOptions = {
 
       viewRender: (view, element) => {
-        alert('View Changed!');
-        console.log(this.finalEvents);
         this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
       },
 
@@ -89,11 +86,19 @@ export class MainCalComponent implements OnInit {
       const type = currentOfficeHour.type;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      let typeColor;
+      if (currentOfficeHour.type === 'office hour') {
+        typeColor = 'green';
+      } else if (currentOfficeHour.type === 'individual') {
+        typeColor = 'red';
+      } else {
+        typeColor = 'grey';
+      }
       this.myOfficeHour = {
         title: type,
         start: start,
         end: endOF,
-        color: 'green'
+        color: typeColor
       };
       console.log(this.myOfficeHour);
       this.finalEvents.push(this.myOfficeHour);
