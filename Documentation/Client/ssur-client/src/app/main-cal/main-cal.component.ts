@@ -17,6 +17,7 @@ export class MainCalComponent implements OnInit {
 
   officeHoursProf;
   finalEvents = [];
+  newWeekEvents = [];
 
   calendarOptions;
 
@@ -52,6 +53,12 @@ export class MainCalComponent implements OnInit {
 
     this.calendarOptions = {
 
+      viewRender: (view, element) => {
+        alert('View Changed!');
+        console.log(this.finalEvents);
+        this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
+      },
+
       editable: false,
       handleWindowResize: true,
       weekends: false,
@@ -64,7 +71,8 @@ export class MainCalComponent implements OnInit {
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
 
-      events: []};
+      // events: []
+    };
   }
 
   enterOfficeHours() {
@@ -90,6 +98,7 @@ export class MainCalComponent implements OnInit {
       console.log(this.myOfficeHour);
       this.finalEvents.push(this.myOfficeHour);
   }
+
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
