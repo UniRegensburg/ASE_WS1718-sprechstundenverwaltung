@@ -56,12 +56,17 @@ export class MainCalComponent implements OnInit {
         this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
       },
 
+      header: {
+        center: 'agendaWeek,basicDay'
+      },
       editable: false,
       handleWindowResize: true,
       weekends: false,
       defaultView: 'agendaWeek',
+      navLinks: true,
       minTime: '08:00:00',
-      maxTime: '20:00:00',
+      maxTime: '18:00:00',
+      slotDuration: '00:15:00',
       columnFormat: 'ddd D/M',
       timeFormat: 'HH:mm',
       displayEventTime: true,
@@ -100,7 +105,7 @@ export class MainCalComponent implements OnInit {
         end: endOF,
         color: typeColor
       };
-      console.log(this.myOfficeHour);
+      // console.log(this.myOfficeHour);
       this.finalEvents.push(this.myOfficeHour);
   }
 
