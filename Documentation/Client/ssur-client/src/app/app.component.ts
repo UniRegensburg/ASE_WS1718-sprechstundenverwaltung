@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import {ProfessorSelectorComponent} from './professor-selector/professor-selector.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

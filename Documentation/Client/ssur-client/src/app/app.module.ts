@@ -14,7 +14,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { ProfessorService} from './services/ProfessorService';
 import {HttpModule} from '@angular/http';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
-
+import { ScheduleService} from './services/ScheduleService';
+import { CalendarModule} from 'ap-angular2-fullcalendar';
 
 
 import { AppComponent } from './app.component';
@@ -24,9 +25,7 @@ import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-conte
 import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officehours-dialog.component';
 import {DialogsService} from './dialogs/dialogs.service';
 import {OfficehoursService} from './services/officehours.service';
-
-
-
+import { MainCalComponent } from './main-cal/main-cal.component';
 
 
 @NgModule({
@@ -35,7 +34,8 @@ import {OfficehoursService} from './services/officehours.service';
     ProfessorSelectorComponent,
     SidebarComponent,
     SidebarContentComponent,
-    OfficehoursDialogComponent
+    OfficehoursDialogComponent,
+    MainCalComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +57,10 @@ import {OfficehoursService} from './services/officehours.service';
     MatInputModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CalendarModule
   ],
-  providers: [ProfessorService,
+  providers: [ProfessorService, ScheduleService,
     DialogsService,
     OfficehoursService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
