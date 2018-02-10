@@ -3,11 +3,18 @@ var router = express.Router();
 
 // TODO: replace dummy data with real mongoose connection
 var DummyDataService = require('../demo_data/demoDataService.js');
+var mongoDb = require('../middleware/mongodb');
 
 /* GET all meetings. TODO: risky operation, restrict access to certain user groups*/
 router.get('/', function(req, res, next) {
     // TODO: implement
     res.send(DummyDataService.meetings);
+});
+
+router.get('/testdb',
+    mongoDb.testDatabase,
+    function(req, res, next){
+    res.status(200).send(res.data);
 });
 
 router.get('/:id', function(req, res, next) {
