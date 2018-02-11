@@ -116,12 +116,55 @@ router.patch('/:id/officehours', function(req, res, next){
     return res.status(200).send(DummyDataService.getProfessorDetail(req.params.id));
 });
 
+router.patch('/:id/officehours',
+    addOfficeHours,
+    function(req, res, next){
+        res.status(200).send("Successfully updated office hour data");
+});
+
+router.post('/:id/officehours',
+    addOfficeHours,
+    mongoDb.postOfficeHour,
+    function(req, res, next){
+        res.status(200).send("Successfully updated office hour data");
+});
+
+
+
 
 /*
 ===========================================
 ===== MIDDLEWARE FUNCTIONS
 ===========================================
 */
+
+function addOfficeHours(req, res, next){
+    var newOfficeHours = {};
+    var lastTime = new Date(req.body.startTime);
+    newOfficeHours.weekday = req.body.weekday;
+    newOfficeHours.slots = [];
+    newOfficeHours.startTime = req.body.startTime;
+    newOfficeHours.slotNumber = req.body.slotNumber;
+    newOfficeHours.slotLength = req.body.slotLength;
+
+    for (var i = 0 ; i < parseInt(req.body.slotNumber); i++) {
+        var newTime = moment(lastTime).add(req.body.slotLength, 'minutes')._d;
+        currSlot = {
+            startTime: {
+                hours: lastTime.getHours(),
+                minutes: lastTime.getMinutes()
+            },
+            endTime: {
+                hours: newTime.getHours(),
+                minutes: newTime.getMinutes()
+            }
+        };
+        newOfficeHours.slots.push(currSlot);
+        lastTime = newTime;
+    }
+    req.officeHours = newOfficeHours;
+    next();
+}
 
 function addProfessorDetail(req, res, next){
     console.log("add prof detail");

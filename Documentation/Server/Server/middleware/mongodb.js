@@ -2,6 +2,7 @@
 const URI = require('../config/security').uriMongo;
 var User = require('../models/models').User;
 var  Meeting = require('../models/models').Meeting;
+var  OfficeHour = require('../models/models').OfficeHour;
 
 const mongoose = require('mongoose', function(err){
     console.log(err);
@@ -76,6 +77,23 @@ module.exports = {
                 console.log(result);
                 res.result = result;
                 next();
+        });
+    },
+
+    postOfficeHour: function(req, res, next){
+        User.findOne({$and: [{"_id":req.params.id}, {"role":"professor"}]}, function(err, professor){
+            if(err) throw err;
+            if(professor) {
+                console.log(req.officeHours);
+                professor.officehours.push(req.officeHours);
+
+                professor.save(function(err, result){
+                    if(err) throw err;
+                    console.log(result);
+                    next();
+                });
+            }
+
         })
     }
 }
