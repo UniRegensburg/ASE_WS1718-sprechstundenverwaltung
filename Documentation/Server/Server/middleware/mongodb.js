@@ -65,5 +65,17 @@ module.exports = {
             if(err) throw err;
             next();
         })
+    },
+
+    replaceMeeting: function(req, res, next){
+        Meeting.update(
+            {"_id":req.params.id},
+            {$set: req.body},
+            function(err, result){
+                if(err) throw err;
+                console.log(result);
+                res.result = result;
+                next();
+        })
     }
 }
