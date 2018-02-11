@@ -58,33 +58,26 @@ router.get('/:id/meetings',
 /**
  * Update the office hours of a certain professor
  */
-router.patch('/me/officehours', function(req, res, next){
-    var newOfficeHours = {};
-    var lastTime = new Date(req.body.startTime);
-    newOfficeHours.weekday = req.body.weekday;
-    newOfficeHours.slots = [];
-    newOfficeHours.startTime = req.body.startTime;
-    newOfficeHours.slotNumber = req.body.slotNumber;
-    newOfficeHours.slotLength = req.body.slotLength;
+router.patch('/me/officehours/:officeHourId', function(req, res, next){
+        // TODO: replace with real user management
+        req.params.professorId =  "abc12345";
+        next();
+    },
+    addOfficeHours,
+    mongoDb.updateOfficeHour,
+    function(req, res, next){
 
-    // TODO: move this to helper class
-    for (let i = 0 ; i < parseInt(req.body.slotNumber); i++) {
-        var newTime = moment(lastTime).add(parseInt(req.body.slotLength), 'minutes')._d;
-        currSlot = {
-            startTime: {
-                hours: lastTime.getHours(),
-                minutes: lastTime.getMinutes()
-            },
-            endTime: {
-                hours: newTime.getHours(),
-                minutes: newTime.getMinutes()
-            }
-        };
-        newOfficeHours.slots.push(currSlot);
-        lastTime = newTime;
-    }
-    DummyDataService.updateOfficeHoursForProfessor('abc12345', newOfficeHours);
-    return res.status(200).send(DummyDataService.getProfessorDetail('abc12345'));
+});
+
+router.post('/me/officehours/', function(req, res, next){
+        // TODO: replace with real user management
+        req.params.professorId =  "abc12345";
+        next();
+    },
+    addOfficeHours,
+    mongoDb.postOfficeHour,
+    function(req, res, next){
+
 });
 
 router.patch('/:id/officehours',
