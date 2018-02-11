@@ -60,6 +60,5 @@ var Meeting=  mongoose.model("Meeting", MeetingSchema);
 
 module.exports = {
     User: User,
-    Professor: Professor,
     Meeting: Meeting
 }
