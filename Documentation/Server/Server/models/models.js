@@ -11,10 +11,28 @@ var TimeSlotSchema = new Schema({
 var TimeSlot =  mongoose.model("TimeSlot", TimeSlotSchema);
 
 var OfficeHourSchema = new Schema({
-    startDate: Date,
-    endDate: Date,
-    weekday: String,
-    slots:[TimeSlotSchema]
+    startTime: {
+        type: Date,
+        required: true
+    },
+    endTime: {
+        type: Date,
+        required: false
+    },
+    slotLength: {
+        type: Number,
+        required: true
+    },
+    slotNumber: {
+        type:Number,
+        required: true
+    },
+    weekday: {
+        type: String,
+        required: true
+    },
+    //slots:[TimeSlotSchema]
+    slots:Object
 });
 var OfficeHour =  mongoose.model("OfficeHour", OfficeHourSchema);
 
@@ -78,5 +96,6 @@ var Meeting=  mongoose.model("Meeting", MeetingSchema);
 
 module.exports = {
     User: User,
-    Meeting: Meeting
+    Meeting: Meeting,
+    OfficeHour: OfficeHour
 }
