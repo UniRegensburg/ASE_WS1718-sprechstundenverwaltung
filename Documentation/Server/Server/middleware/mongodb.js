@@ -40,5 +40,14 @@ module.exports = {
                 res.result = result;
                 next();
         });
+    },
+
+    getMeetingById: function(req, res, next){
+        Meeting.find({"_id":req.params.id}, function(err, result){
+            if(err) throw err;
+            console.log(result);
+            res.result = result;
+            next();
+        })
     }
 }
