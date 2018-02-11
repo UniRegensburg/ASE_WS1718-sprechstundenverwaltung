@@ -24,18 +24,6 @@ exports.addMeeting = function(data){
     exports.meetings.push(newEntry);
 }
 
-exports.replaceMeetingWithId = function (meetingId, data){
-    const index = _.indexOf(exports.meetings, {id: meetingId});
-    //exports.meetings[index] = data;
-    exports.meetings.splice(index, 1);
-    let newItem = exports.meetings.push(data);
-    newItem.id = meetingId;
-}
-
-exports.removeMeetingWithId = function(meetingId){
-    exports.meetings.splice(_.indexOf(exports.meetings, {id: meetingId}), 1);
-}
-
 exports.officeHourDummies = [
     // These are empty office hour objects.
     // TODO: replace with functioning algorithm

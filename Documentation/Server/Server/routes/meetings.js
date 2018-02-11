@@ -36,12 +36,10 @@ router.delete('/:id',
     res.status(202).send('Meeting deleted successfully');
 });
 
-router.patch('/:id', function(req, res, next){
-    if(DummyDataService.getMeetingById(req.params.id) === undefined) res.status(404).send('Meeting not found');
-    else {
-        DummyDataService.replaceMeetingWithId(req.params.id, req.body);
-        res.status(200).send(req.body);
-    }
+router.patch('/:id',
+    mongoDb.replaceMeeting,
+    function(req, res, next){
+        res.status(200).send(res.result);
 });
 
 module.exports = router;
