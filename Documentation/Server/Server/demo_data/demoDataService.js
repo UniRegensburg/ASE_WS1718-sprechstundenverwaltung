@@ -1,9 +1,5 @@
 const _ = require('lodash');
 
-exports.getUserMeetings = function(userId)  {
-    return _.filter(exports.meetings, {student:userId});
-}
-
 exports.getUserDetail = function(userid) {
     return _.find(exports.users, {id: userId});
 }
@@ -20,10 +16,6 @@ exports.updateOfficeHoursForProfessor = function(professorId, newOfficeHours){
     // TODO: validate, if me is no prof!
     (_.find(exports.professors, {id: professorId}))
         .officeHours = newOfficeHours;
-}
-
-exports.getMeetingById = function(meetingId){
-    return _.find(exports.meetings, {id: meetingId});
 }
 
 exports.addMeeting = function(data){

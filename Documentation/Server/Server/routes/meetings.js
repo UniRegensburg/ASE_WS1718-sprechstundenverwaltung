@@ -17,10 +17,11 @@ router.get('/testdb',
     res.status(200).send(res.data);
 });
 
-router.get('/:id', function(req, res, next) {
-    const result = DummyDataService.getMeetingById(req.params.id);
-    if(result === undefined) res.status(404).send('No meeting with this id found');
-    else res.status(200).send(result);
+router.get('/:id',
+    mongoDb.getMeetingById,
+    function(req, res, next) {
+    if(res.result === undefined) res.status(404).send('No meeting with this id found');
+    else res.status(200).send(res.result);
 });
 
 router.post('/', function(req, res, next) {
