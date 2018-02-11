@@ -20,6 +20,29 @@ module.exports = {
                 db.close();
                 next();
             })
+        });*/
+
+        console.log("FIND FIND FIND");
+
+        /*Professor.find({}, function(err) {
+            if(err) throw err;
+            console.log(result);
+        });*/
+
+
+
+        var newProf = new User({
+            username:"abc12345",
+            prename:"Christopher ",
+            name:"Fuchs",
+            role:"professor",
+            email:"chrisopher.fuchs@fakeur.de",
+            rank:"Professor"
+        });
+
+        newProf.save(function (err, fluffy) {
+            if (err) return console.error(err);
+            next();
         });
     },
 
