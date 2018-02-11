@@ -32,7 +32,14 @@ module.exports = {
                 console.log(result.toArray());
             });
         })
+    },
+
+    getMeetingsForUser: function(req, res, next){
+            Meeting.find({$or:[{"student":req.params.id},{"professor":req.params.id}]}, function(err, result){
+                if(err) throw err;
+                console.log(result);
+                res.result = result;
+                next();
+        });
     }
-
-
 }
