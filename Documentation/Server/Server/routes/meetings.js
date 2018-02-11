@@ -24,9 +24,9 @@ router.get('/:id',
     else res.status(200).send(res.result);
 });
 
-router.post('/', function(req, res, next) {
-    // TODO: validate
-    DummyDataService.addMeeting(req.body);
+router.post('/',
+    mongoDb.postMeeting,
+    function(req, res, next) {
     res.status(201).send(req.body);
 });
 

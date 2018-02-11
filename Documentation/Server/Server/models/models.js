@@ -42,13 +42,31 @@ var User =  mongoose.model("User", UserSchema);
 
 var MeetingSchema = new Schema({
    //_id: ObjectId,
-   type: String,
+   type: {
+       type: String,
+       required: true
+   },
    status: String,
-   start: Date,
-   end: Date,
-   title: String,
-   professor: String,
-   student: String,
+   start: {
+       type: Date,
+       required: true
+   },
+   end: {
+       type: Date,
+       required: true
+   },
+   title: {
+       type: String,
+       required: true
+   },
+   professor: {
+       type: String,
+       required: true
+   },
+   student:{
+       type: String,
+       required: true
+   },
    description: String
 });
 var Meeting=  mongoose.model("Meeting", MeetingSchema);
