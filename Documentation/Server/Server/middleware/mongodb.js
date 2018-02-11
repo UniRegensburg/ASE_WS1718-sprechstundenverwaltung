@@ -49,5 +49,14 @@ module.exports = {
             res.result = result;
             next();
         })
+    },
+
+    postMeeting: function(req, res, next){
+        var newMeeting = new Meeting(req.body);
+        newMeeting.save(function (err, meeting) {
+            if (err) return console.error(err);
+            console.log(meeting);
+            next();
+        });
     }
 }
