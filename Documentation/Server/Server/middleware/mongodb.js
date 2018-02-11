@@ -95,5 +95,22 @@ module.exports = {
             }
 
         })
+    },
+
+    updateOfficeHour: function(req, res, next){
+        console.log(req.officeHours);
+        User.update({'officehours._id': req.params.officeHourId},
+            {$set: {
+                "officehours.$.weekday": req.officeHours.weekday,
+                    "officehours.$.slots": req.officeHours.slots,
+                    "officehours.$.startTime": req.officeHours.startTime,
+                    "officehours.$.slotNumber": req.officeHours.slotNumber,
+                    "officehours.$.slotLength": req.officeHours.slotLength
+                }},
+            function(err, result){
+                if(err) throw err;
+                console.log(result);
+                next();
+        })
     }
 }
