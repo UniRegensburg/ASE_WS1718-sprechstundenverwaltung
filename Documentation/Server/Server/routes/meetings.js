@@ -30,12 +30,10 @@ router.post('/',
     res.status(201).send(req.body);
 });
 
-router.delete('/:id', function(req, res, next){
-    if(DummyDataService.getMeetingById(req.params.id) === undefined ) res.status(404).send('Meeting was not found');
-    else{
-        DummyDataService.removeMeetingWithId(req.params.id);
-        res.status(202).send('Meeting deleted successfully');
-    }
+router.delete('/:id',
+    mongoDb.removeMeeting,
+    function(req, res, next){
+    res.status(202).send('Meeting deleted successfully');
 });
 
 router.patch('/:id', function(req, res, next){

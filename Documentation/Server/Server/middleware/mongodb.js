@@ -58,5 +58,12 @@ module.exports = {
             console.log(meeting);
             next();
         });
+    },
+
+    removeMeeting: function(req, res, next){
+        Meeting.remove({"_id":req.params.id}, function(err){
+            if(err) throw err;
+            next();
+        })
     }
 }
