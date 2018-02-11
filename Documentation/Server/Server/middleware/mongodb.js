@@ -25,13 +25,12 @@ module.exports = {
     },
 
     getProfessors: function(req, res, next){
-        MongoClient.connect(URI, function(err, db){
+        User.find({"role":"professor"}, function(err, result){
             if(err) throw err;
-            var dbo = db.db("ASE1718");
-            dbo.users.find({"role":"professor"}, function(err, result){
-                console.log(result.toArray());
-            });
-        })
+            console.log(result);
+            res.result = result;
+            next();
+        });
     },
 
     getMeetingsForUser: function(req, res, next){
