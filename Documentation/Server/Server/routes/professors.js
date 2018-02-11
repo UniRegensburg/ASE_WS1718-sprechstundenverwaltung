@@ -6,6 +6,8 @@ const moment = MomentRange.extendMoment(Moment);
 var express = require('express');
 var router = express.Router();
 
+var mongoDb = require("../middleware/mongodb");
+
 const WEEKDAYS = {
     "monday": 1,
     "tuesday": 2,
@@ -22,9 +24,10 @@ const WEEKS_LOOKAHEAD_OFFICE_HOURS = 4;
 var DummyDataService = require('../demo_data/demoDataService.js');
 
 /* GET professors listing. TODO restrict access, risky route */
-router.get('/', function(req, res, next) {
-    // TODO get professorData
-    res.send(DummyDataService.professors);
+router.get('/',
+    mongoDb.getProfessors,
+    function(req, res, next) {
+    res.send(res.result);
 });
 
 /**
