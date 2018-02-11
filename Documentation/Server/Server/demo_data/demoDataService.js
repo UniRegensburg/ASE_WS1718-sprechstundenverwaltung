@@ -18,12 +18,6 @@ exports.updateOfficeHoursForProfessor = function(professorId, newOfficeHours){
         .officeHours = newOfficeHours;
 }
 
-exports.addMeeting = function(data){
-    var newEntry = data;
-    newEntry.id = '' + Math.abs((Math.random() * (9999999999 - 0) )|0);
-    exports.meetings.push(newEntry);
-}
-
 exports.officeHourDummies = [
     // These are empty office hour objects.
     // TODO: replace with functioning algorithm
