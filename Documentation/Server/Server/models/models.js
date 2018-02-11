@@ -28,17 +28,12 @@ var configUserSchema = {
     prename: String,
     role: String,
     email: String,
+    // optional, professor online attributes
+    rank:String,
     officehours: [OfficeHourSchema]
 };
 var UserSchema = new Schema(configUserSchema);
 var User =  mongoose.model("User", UserSchema);
-
-// Professor Schema extends inherited attributes by own attributes
-var ProfessorSchema = new Schema(configUserSchema);
-ProfessorSchema.add({rank:String});
-ProfessorSchema.add({officehours:Object})
-var Professor = mongoose.model("Professor", ProfessorSchema);
-
 
 
 // ============================
@@ -57,6 +52,11 @@ var MeetingSchema = new Schema({
    description: String
 });
 var Meeting=  mongoose.model("Meeting", MeetingSchema);
+
+// ============================
+// Exports
+// ============================
+
 
 module.exports = {
     User: User,
