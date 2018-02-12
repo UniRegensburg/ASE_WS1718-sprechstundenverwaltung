@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OfficehoursDialogComponent } from './officehours-dialog/officehours-dialog.component';
+import { OfficehoursDialogComponent } from './officehours-prof-dialog/officehours-prof-dialog.component';
 import { DialogsService } from './dialogs.service';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
 

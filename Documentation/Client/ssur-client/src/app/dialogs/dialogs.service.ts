@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { OfficehoursDialogComponent } from './officehours-dialog/officehours-dialog.component';
+import { OfficehoursProfDialogComponent } from './officehours-prof-dialog/officehours-prof-dialog.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Injectable()
@@ -9,11 +9,11 @@ export class DialogsService {
 
   constructor(private dialog: MatDialog) { }
 
-  public  openDialog(title: string):  Observable<boolean> {
+  public  createOfficeHourDialog(title: string):  Observable<boolean> {
 
-    let dialogRef: MatDialogRef<OfficehoursDialogComponent>;
+    let dialogRef: MatDialogRef<OfficehoursProfDialogComponent>;
 
-    dialogRef = this.dialog.open(OfficehoursDialogComponent);
+    dialogRef = this.dialog.open(OfficehoursProfDialogComponent);
 
     dialogRef.componentInstance.title = title;
 
@@ -22,11 +22,11 @@ export class DialogsService {
 
 
 
-  public editDialog(title: string, dateTime: any, slotSize: number, slotAmount: number): Observable<boolean> {
+  public editOfficeHourDialog(title: string, dateTime: any, slotSize: number, slotAmount: number): Observable<boolean> {
 
-    let dialogRef: MatDialogRef<OfficehoursDialogComponent>;
+    let dialogRef: MatDialogRef<OfficehoursProfDialogComponent>;
 
-    dialogRef = this.dialog.open(OfficehoursDialogComponent);
+    dialogRef = this.dialog.open(OfficehoursProfDialogComponent);
 
     dialogRef.componentInstance.title = title;
     dialogRef.componentInstance.selectedDateTime = dateTime;

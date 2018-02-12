@@ -37,8 +37,10 @@ export class OfficehoursService {
 
     this.http
       .patch('https://ase1718data.herokuapp.com/professors/me/officehours', body)
-      .subscribe(res => this.response = res.status);
-    //console.log(this.response);
+      .subscribe(res => {
+        //console.log(res);
+        //console.log(res.status);
+      });
 
     //this.profInfo.next(body); // TODO: Validate server response first. Bug: Opens diaolg again
   }
