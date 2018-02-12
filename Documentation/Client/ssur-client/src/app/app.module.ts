@@ -26,6 +26,8 @@ import { OfficehoursProfDialogComponent } from './dialogs/officehours-prof-dialo
 import {DialogsService} from './dialogs/dialogs.service';
 import {OfficehoursService} from './services/Officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
+import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
+import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     SidebarComponent,
     SidebarContentProfComponent,
     OfficehoursProfDialogComponent,
-    MainCalComponent
+    MainCalComponent,
+    OfficehoursStudentDialogComponent,
+    SidebarContentStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +69,6 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     OfficehoursService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
-  entryComponents: [OfficehoursProfDialogComponent]
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent]
 })
 export class AppModule { }

@@ -1,8 +1,11 @@
 <div>
+  <h3 style="text-align: center">{{title_sidebar}}</h3>
+</div>
+<div>
   <div id="officeHourDiv">
     <p><span>{{day}}, {{startDate}}</span><br>
       <span>{{startingTime}} - {{endingTime}}</span>
-      <span><button id="editButton" (click)="_editOfficeHour()">edit</button> </span></p>
+      <span><button id="editButton" (click)="_editOfficeHour(true)">edit</button> </span></p>
   </div>
   <div id="addButton">
     <button (click)="_createOfficeHour()">+</button>
