@@ -39,7 +39,7 @@ export class OfficehoursProfDialogComponent implements OnInit {
 
  }
 */
-  constructor(public dialogRef: MatDialogRef<OfficehoursDialogComponent>, private officehourService: OfficehoursService) { }
+  constructor(public dialogRef: MatDialogRef<OfficehoursProfDialogComponent>, private officehourService: OfficehoursService) { }
 
   ngOnInit() {
   }
