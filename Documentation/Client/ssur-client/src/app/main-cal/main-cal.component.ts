@@ -68,6 +68,13 @@ export class MainCalComponent implements OnInit {
       header: {
         center: 'agendaWeek,basicDay'
       },
+      buttonText: {
+        today:    'Heute',
+        month:    'Monat',
+        week:     'Woche',
+        day:      'Tag',
+        list:     'Liste'
+      },
       locale: 'de',
       editable: false,
       handleWindowResize: true,
@@ -78,7 +85,7 @@ export class MainCalComponent implements OnInit {
       maxTime: '18:00:00',
       slotDuration: '00:15:00',
       columnFormat: 'ddd D/M',
-      timeFormat: 'HH:mm',
+      nowIndicator: true,
       displayEventTime: true,
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
