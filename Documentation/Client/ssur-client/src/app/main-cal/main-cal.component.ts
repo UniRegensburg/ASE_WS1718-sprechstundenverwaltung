@@ -68,6 +68,7 @@ export class MainCalComponent implements OnInit {
       header: {
         center: 'agendaWeek,basicDay'
       },
+      locale: 'de',
       editable: false,
       handleWindowResize: true,
       weekends: false,
