@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
 import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
-import {cursorTo} from 'readline';
+// import {cursorTo} from 'readline';
 
 @Component({
   selector: 'app-main-cal',
@@ -61,6 +61,7 @@ export class MainCalComponent implements OnInit {
       eventClick: (event) => {
         console.log('auf ein Event geklickt');
         console.log(event.id);
+        this.scheduleService.onEventClicked(event.id);
         return false;
       },
 
@@ -100,6 +101,7 @@ export class MainCalComponent implements OnInit {
       const type = currentOfficeHour.type;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      console.log(id);
       let typeColor;
       if (currentOfficeHour.type === 'office hour') {
         typeColor = 'green';
