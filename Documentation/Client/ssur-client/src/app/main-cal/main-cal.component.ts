@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
 import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
-import { Options} from 'fullcalendar';
+// import {cursorTo} from 'readline';
 
 @Component({
   selector: 'app-main-cal',
@@ -16,24 +16,13 @@ export class MainCalComponent implements OnInit {
 
   private professorHoursListener;
 
-  profs;
-  selectedProf;
-  officeHour;
-  newEvents;
   officeHoursProf;
-  fetchedOfficeHours;
   finalEvents = [];
 
-  calendarOptions: Options;
-
-  myEvent = {
-    title: 'ASE Zwischenpräsentation',
-    allDay: false,
-    start: '2018-02-02T12:15:00',
-    end: '2018-02-02T15:45:00'
-  };
+  calendarOptions;
 
   myOfficeHour = {
+    id: 'id',
     title: 'title',
     start: 'start',
     end: 'end',
@@ -42,21 +31,20 @@ export class MainCalComponent implements OnInit {
 
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
-  // @ViewChild('myCalendar', {read: ElementRef}) myCalendar: ElementRef;
 
-  /*changeCalendarView(view) {
+  changeCalendarView(view) {
 
     this.myCalendar.fullCalendar('changeView', view);
 
-  }*/
+  }
 
   constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) {
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
-      // this.enterOfficeHours(data);
       this.officeHoursProf = data;
       console.log(data);
       if (data.length > 0) {
-        console.log('in der SChleife ggggggggggggggggggggggggggg');
+        this.finalEvents = [];
+        console.log(this.finalEvents);
         this.enterOfficeHours();
       }
     });
@@ -66,54 +54,44 @@ export class MainCalComponent implements OnInit {
 
     this.calendarOptions = {
 
+      viewRender: (view, element) => {
+        this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
+      },
+
+      eventClick: (event) => {
+        console.log('auf ein Event geklickt');
+        console.log(event.id);
+        this.scheduleService.onEventClicked(event.id);
+        return false;
+      },
+
+      header: {
+        center: 'agendaWeek,basicDay'
+      },
+      buttonText: {
+        today:    'Heute',
+        month:    'Monat',
+        week:     'Woche',
+        day:      'Tag',
+        list:     'Liste'
+      },
+      locale: 'de',
       editable: false,
       handleWindowResize: true,
       weekends: false,
       defaultView: 'agendaWeek',
-      /*minTime: '08:00:00',
-      maxTime: '20:00:00',*/
+      navLinks: true,
+      minTime: '08:00:00',
+      maxTime: '18:00:00',
+      slotDuration: '00:15:00',
       columnFormat: 'ddd D/M',
-      timeFormat: 'HH:mm',
+      nowIndicator: true,
       displayEventTime: true,
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
 
-      events: []};
-
-
-      this.newEvents = [
-          {
-            title: 'Ganztägiges Event',
-            start: '2018-02-01',
-            color: 'orange'
-          },
-          {
-            title: 'Event',
-            start: '2018-01-31T11:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2018-01-30T08:00:00',
-            end: '2018-01-30T09:30:00'
-          },
-        {
-          title: 'Noch so ein Event',
-          start: '2018-01-30T14:00:00',
-          end: '2018-01-30T16:30:00'
-        }
-        ];
-
-      // this.newEvents.push(this.myEvent);
-      // this.calendarOptions.events = this.newEvents;
-      // this.myCalendar.fullCalendar('renderEvents', this.newEvents, true);
-
-      // this.getOfficeHoursFromService();   ***neu
-
-      // this.newEvents.push(this.myEvent);
-    // this.calendarOptions.events.push(this.myEvent);
-    // this.calendarOptions.events.push(this.myOfficeHour);
-    // this.myCalendar.fullCalendar('updateEvents');
-
+      // events: []
+    };
   }
 
   enterOfficeHours() {
@@ -121,38 +99,36 @@ export class MainCalComponent implements OnInit {
       const currentOfficeHour = this.officeHoursProf[u];
       this.enterSingleOfficeHour(currentOfficeHour);
     }
-    console.log('=========All Elements rendered====================');
     console.log(this.finalEvents);
-    this.finalEvents.push(this.myEvent);
+    this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
-    console.log('ultimateRendered');
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
+      const  id = currentOfficeHour.id;
       const type = currentOfficeHour.type;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
+      console.log(id);
+      let typeColor;
+      if (currentOfficeHour.type === 'office hour') {
+        typeColor = 'green';
+      } else if (currentOfficeHour.type === 'individual') {
+        typeColor = 'red';
+      } else {
+        typeColor = 'grey';
+      }
       this.myOfficeHour = {
+        id: id,
         title: type,
         start: start,
         end: endOF,
-        color: 'green'
+        color: typeColor
       };
-      console.log('ooooooooooooooooo Am Rendern ooooooooooooo');
       console.log(this.myOfficeHour);
-      /*this.calendarOptions.events.push(this.myOfficeHour);
-      this.newEvents.push(this.myOfficeHour);*/
       this.finalEvents.push(this.myOfficeHour);
-      // this.myCalendar.fullCalendar('renderEvent', this.myOfficeHour);
-      // this.myCalendar.fullCalendar('rerenderEvents');
   }
 
-  // ________________________________Codereste_unwichtig___________________________________
-
-
- /* changeCalendarView(view) {
-    this.myCalendar.fullCalendar('changeView', view);
-  }*/
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
