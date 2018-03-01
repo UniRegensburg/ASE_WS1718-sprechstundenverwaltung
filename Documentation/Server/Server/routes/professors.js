@@ -6,6 +6,8 @@ const moment = MomentRange.extendMoment(Moment);
 var express = require('express');
 var router = express.Router();
 
+var mongoDb = require("../middleware/mongodb");
+
 const WEEKDAYS = {
     "monday": 1,
     "tuesday": 2,
@@ -22,9 +24,10 @@ const WEEKS_LOOKAHEAD_OFFICE_HOURS = 4;
 var DummyDataService = require('../demo_data/demoDataService.js');
 
 /* GET professors listing. TODO restrict access, risky route */
-router.get('/', function(req, res, next) {
-    // TODO get professorData
-    res.send(DummyDataService.professors);
+router.get('/',
+    mongoDb.getProfessors,
+    function(req, res, next) {
+    res.send(res.result);
 });
 
 /**
@@ -55,63 +58,50 @@ router.get('/:id/meetings',
 /**
  * Update the office hours of a certain professor
  */
-router.patch('/me/officehours', function(req, res, next){
-    var newOfficeHours = {};
-    var lastTime = new Date(req.body.startTime);
-    newOfficeHours.weekday = req.body.weekday;
-    newOfficeHours.slots = [];
-    newOfficeHours.startTime = req.body.startTime;
-    newOfficeHours.slotNumber = req.body.slotNumber;
-    newOfficeHours.slotLength = req.body.slotLength;
+router.patch('/me/officehours/:officeHourId', function(req, res, next){
+        // TODO: replace with real user management
+        req.params.professorId =  "abc12345";
+        next();
+    },
+    addOfficeHours,
+    mongoDb.updateOfficeHour,
+    function(req, res, next){
 
-    // TODO: move this to helper class
-    for (let i = 0 ; i < parseInt(req.body.slotNumber); i++) {
-        var newTime = moment(lastTime).add(parseInt(req.body.slotLength), 'minutes')._d;
-        currSlot = {
-            startTime: {
-                hours: lastTime.getHours(),
-                minutes: lastTime.getMinutes()
-            },
-            endTime: {
-                hours: newTime.getHours(),
-                minutes: newTime.getMinutes()
-            }
-        };
-        newOfficeHours.slots.push(currSlot);
-        lastTime = newTime;
-    }
-    DummyDataService.updateOfficeHoursForProfessor('abc12345', newOfficeHours);
-    return res.status(200).send(DummyDataService.getProfessorDetail('abc12345'));
 });
 
-router.patch('/:id/officehours', function(req, res, next){
-    var newOfficeHours = {};
-    var lastTime = new Date(req.body.startTime);
-    newOfficeHours.weekday = req.body.weekday;
-    newOfficeHours.slots = [];
-    newOfficeHours.startTime = req.body.startTime;
-    newOfficeHours.slotNumber = req.body.slotNumber;
-    newOfficeHours.slotLength = req.body.slotLength;
+router.post('/me/officehours/', function(req, res, next){
+        // TODO: replace with real user management
+        req.params.professorId =  "abc12345";
+        next();
+    },
+    addOfficeHours,
+    mongoDb.postOfficeHour,
+    function(req, res, next){
 
-    // TODO: move this to helper class
-    for (let i = 0 ; i < parseInt(req.body.slotNumber); i++) {
-        var newTime = moment(lastTime).add(5, 'minutes')._d;
-        currSlot = {
-            startTime: {
-                hours: lastTime.getHours(),
-                minutes: lastTime.getMinutes()
-            },
-            endTime: {
-                hours: newTime.getHours(),
-                minutes: newTime.getMinutes()
-            }
-        };
-        newOfficeHours.slots.push(currSlot);
-        lastTime = newTime;
-    }
-    DummyDataService.updateOfficeHoursForProfessor(req.params.id, newOfficeHours);
+});
+
+router.patch('/:id/officehours',
+    addOfficeHours,
+    mongoDb.updateOfficeHour,
+    function(req, res, next){
     return res.status(200).send(DummyDataService.getProfessorDetail(req.params.id));
 });
+
+router.patch('/:professorId/officehours/:officeHourId',
+    addOfficeHours,
+    mongoDb.updateOfficeHour,
+    function(req, res, next){
+        res.status(200).send("Successfully updated office hour data");
+});
+
+router.post('/:id/officehours',
+    addOfficeHours,
+    mongoDb.postOfficeHour,
+    function(req, res, next){
+        res.status(200).send("Successfully updated office hour data");
+});
+
+
 
 
 /*
@@ -119,6 +109,34 @@ router.patch('/:id/officehours', function(req, res, next){
 ===== MIDDLEWARE FUNCTIONS
 ===========================================
 */
+
+function addOfficeHours(req, res, next){
+    var newOfficeHours = {};
+    var lastTime = new Date(req.body.startTime);
+    newOfficeHours.weekday = req.body.weekday;
+    newOfficeHours.slots = [];
+    newOfficeHours.startTime = req.body.startTime;
+    newOfficeHours.slotNumber = req.body.slotNumber;
+    newOfficeHours.slotLength = req.body.slotLength;
+
+    for (var i = 0 ; i < parseInt(req.body.slotNumber); i++) {
+        var newTime = moment(lastTime).add(req.body.slotLength, 'minutes')._d;
+        currSlot = {
+            startTime: {
+                hours: lastTime.getHours(),
+                minutes: lastTime.getMinutes()
+            },
+            endTime: {
+                hours: newTime.getHours(),
+                minutes: newTime.getMinutes()
+            }
+        };
+        newOfficeHours.slots.push(currSlot);
+        lastTime = newTime;
+    }
+    req.officeHours = newOfficeHours;
+    next();
+}
 
 function addProfessorDetail(req, res, next){
     console.log("add prof detail");
