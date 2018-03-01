@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule, MatButtonModule
 } from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule} from '@angular/material';
@@ -24,6 +24,8 @@ import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officeh
 import {DialogsService} from './dialogs/dialogs.service';
 import {OfficehoursService} from './services/officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
+import { NotesComponent } from './notes/notes.component';
+import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     SidebarComponent,
     SidebarContentComponent,
     OfficehoursDialogComponent,
-    MainCalComponent
+    MainCalComponent,
+    NotesComponent,
+    NotesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,7 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSelectModule,
+    MatButtonModule,
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -60,6 +65,6 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     OfficehoursService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
-  entryComponents: [OfficehoursDialogComponent]
+  entryComponents: [OfficehoursDialogComponent, NotesDialogComponent]
 })
 export class AppModule { }

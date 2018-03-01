@@ -16,7 +16,7 @@ import {map} from 'rxjs/operators/map';
 export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
   filteredProfs;
-  profs = [];
+  profs = this.professorService.getProfNames();
 
   constructor(private professorService: ProfessorService) {
     this.profCtrl = new FormControl();
@@ -28,10 +28,7 @@ export class ProfessorSelectorComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.profs = this.professorService.getProfNames();
-    console.log('Inhalt von profs in init:'+this.profs);
     this.filteredProfs = this.profs;
-    console.log('Inhalt von filteredprofs:'+this.filteredProfs);
   }
 
  filterProfs(name: string) {
