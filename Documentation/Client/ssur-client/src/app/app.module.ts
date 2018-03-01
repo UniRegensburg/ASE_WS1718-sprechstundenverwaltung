@@ -19,11 +19,13 @@ import { CalendarModule} from 'ap-angular2-fullcalendar';
 import { AppComponent } from './app.component';
 import { ProfessorSelectorComponent } from './professor-selector/professor-selector.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-content.component';
-import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officehours-dialog.component';
+import { SidebarContentProfComponent } from './sidebar/sidebar-content-prof/sidebar-content-prof.component';
+import { OfficehoursProfDialogComponent } from './dialogs/officehours-prof-dialog/officehours-prof-dialog.component';
 import {DialogsService} from './dialogs/dialogs.service';
-import {OfficehoursService} from './services/officehours.service';
+import {OfficehoursService} from './services/Officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
+import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
+import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
 
 
 @NgModule({
@@ -31,9 +33,11 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     AppComponent,
     ProfessorSelectorComponent,
     SidebarComponent,
-    SidebarContentComponent,
-    OfficehoursDialogComponent,
-    MainCalComponent
+    SidebarContentProfComponent,
+    OfficehoursProfDialogComponent,
+    MainCalComponent,
+    OfficehoursStudentDialogComponent,
+    SidebarContentStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,6 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     OfficehoursService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
-  entryComponents: [OfficehoursDialogComponent]
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent]
 })
 export class AppModule { }

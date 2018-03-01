@@ -9,25 +9,26 @@
     <mat-datepicker #picker style="position: center"></mat-datepicker>
   </mat-form-field>
   -->
-  <p>Datum & Startzeit wählen:</p>
   <mat-form-field>
-    <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedDateTime">
+    <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedDateTime" placeholder="Datum & Startzeit wählen">
     <owl-date-time #dt></owl-date-time>
   </mat-form-field>
-  <p>Slotgröße wählen (in Min):</p>
+  <br>
+  <br>
   <mat-form-field>
-    <input matInput [(ngModel)]="slotSize">
+    <input matInput [(ngModel)]="slotSize" placeholder="Slotgröße wählen (in Min)">
   </mat-form-field>
-  <p>Slotanzahl wählen:</p>
+  <br>
+  <br>
   <mat-form-field>
-    <input matInput [(ngModel)]="slotAmount">
+    <input matInput [(ngModel)]="slotAmount" placeholder="Slotanzahl wählen">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <!--
   <button mat-button (click)="dialogRef.close(true)">Anlegen</button>
   -->
-  <button mat-button style="float: right" (click)="closeDialogBox()">Anlegen</button>
+  <button mat-button style="float: right" (click)="createOfficeHour()">{{confirmButton}}</button>
   <button mat-button style="float: left" (click)="dialogRef.close()">Schließen</button>
 </div>
 
