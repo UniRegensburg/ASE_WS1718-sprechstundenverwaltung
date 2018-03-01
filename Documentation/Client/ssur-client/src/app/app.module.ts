@@ -16,8 +16,6 @@ import {HttpModule} from '@angular/http';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import { ScheduleService} from './services/ScheduleService';
 import { CalendarModule} from 'ap-angular2-fullcalendar';
-
-
 import { AppComponent } from './app.component';
 import { ProfessorSelectorComponent } from './professor-selector/professor-selector.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -49,13 +47,10 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     HttpClientModule,
     HttpModule,
     MatDialogModule,
-    MatNativeDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSelectModule,
     MatDividerModule,
-    MatInputModule,
-    ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CalendarModule

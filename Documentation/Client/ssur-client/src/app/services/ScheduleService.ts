@@ -12,31 +12,32 @@ export class ScheduleService {
   private url = 'https://ase1718data.herokuapp.com/professors/abc12345/meetings';
   private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
   private finalUrl;
-  profID;
-  profsOfficeHours;
 
   private professorListener;
 
   constructor(private professorService: ProfessorService, private http: Http) {
     this.professorListener = professorService.selectedProfessor.subscribe(data => {
-      // TODO Sprechstundentermine für Prof abrufen
       this.getCurrentOfficeHours(data);
-      console.log(data);
     });
   }
 
   _selectedOfficeHours = {};
   selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedOfficeHours);
 
+  _idOfClickedEvent = {};
+  idOfClickedEvent: BehaviorSubject<any> = new BehaviorSubject<any>(this._idOfClickedEvent);
+
   getCurrentOfficeHours(data) {
-    console.log(data);
     this.finalUrl = this.shortUrl + data + '/meetings';
-    console.log(this.finalUrl);
-    console.log(this.selectedOfficeHours);
 
     this.http.get(this.finalUrl).subscribe(officeData => {
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
-      this.selectedOfficeHours = this.selectedOfficeHours.value;
     });
   }
+
+  onEventClicked(data) {
+    this.idOfClickedEvent = data;
+    console.log(this.idOfClickedEvent);
+  }
+
 }

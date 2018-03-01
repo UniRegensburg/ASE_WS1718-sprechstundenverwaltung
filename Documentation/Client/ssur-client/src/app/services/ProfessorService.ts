@@ -18,8 +18,6 @@ export class ProfessorService {
   profHours = [];
   selectedProf = {id: '', name: ''};
 
-
-
   _professors = [];
   professors: BehaviorSubject<any> = new BehaviorSubject<any>(this._professors);
   _selectedProfessor = {};
@@ -30,7 +28,9 @@ export class ProfessorService {
   fetchAllProfData() {
     this.http.get(this.url).subscribe(data => {
       this.professors.next(JSON.parse(data['_body']));
-      console.log(this.professors.next);
+      console.log('\n\n\n\n====================\nget all prof data');
+      // console.log(JSON.parse(data._body));
+      this.professors.next(JSON.parse(data['_body']));
     });
   }
 
@@ -48,15 +48,15 @@ export class ProfessorService {
     return this.profNames;
   }
 
-  getProfIDs(){
+  getProfIDs() {
     this.getAllProfData().subscribe(data => this.profData = data);
-    for(let i = 0; i < this.profData.length; i++) {
+    for (let i = 0; i < this.profData.length; i++) {
       this.profIDs.push(this.profData[i].id);
     }
     return this.profIDs;
   }
 
-  getProfHours(){
+  getProfHours() {
     this.getAllProfData().subscribe(data => this.profData = data);
     for (let i = 0; i < this.profData.length; i++) {
       this.profHours.push(this.profData[i].officeHours);
@@ -64,7 +64,7 @@ export class ProfessorService {
     return this.profHours;
   }
 
-  getProfMails(){
+  getProfMails() {
     this.getAllProfData().subscribe(data => this.profData = data);
     for (let i = 0; i < this.profData.length; i++) {
       this.profMails.push(this.profData[i].email);
@@ -74,7 +74,8 @@ export class ProfessorService {
 
 
   setSelectedProf(name) {
-    this.selectedProf.name = name;
+    this.selectedProf.name = name; // todo:slice selected value'fullname' into prename and name again
+    console.log(this.selectedProf.name);
     this.selectedProf.id = this.getProfIDs()[this.getProfNames().indexOf(name)];
     this.selectedProfessor.next(this.selectedProf.id);
   }
