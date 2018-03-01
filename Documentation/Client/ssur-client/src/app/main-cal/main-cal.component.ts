@@ -54,10 +54,6 @@ export class MainCalComponent implements OnInit {
 
     this.calendarOptions = {
 
-      viewRender: (view, element) => {
-        this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
-      },
-
       eventClick: (event) => {
         console.log('auf ein Event geklickt');
         console.log(event.id);
@@ -95,6 +91,9 @@ export class MainCalComponent implements OnInit {
     };
   }
 
+
+  // renders all events when ready;
+  // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
     for (let u = 0; u < this.officeHoursProf.length; u++) {
       const currentOfficeHour = this.officeHoursProf[u];
@@ -102,7 +101,7 @@ export class MainCalComponent implements OnInit {
     }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
-    this.myCalendar.fullCalendar('renderEvents', this.finalEvents);
+    this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
   enterSingleOfficeHour(currentOfficeHour) {
