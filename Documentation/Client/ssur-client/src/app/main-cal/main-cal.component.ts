@@ -76,6 +76,7 @@ export class MainCalComponent implements OnInit {
         list:     'Liste'
       },
       locale: 'de',
+      timeFormat: 'HH:mm',
       editable: false,
       handleWindowResize: true,
       weekends: false,
