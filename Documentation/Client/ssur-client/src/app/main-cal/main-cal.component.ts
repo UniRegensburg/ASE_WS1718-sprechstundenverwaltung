@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CalendarComponent} from 'ap-angular2-fullcalendar';
-import * as $ from 'jquery';
 import * as moment from 'moment';
 import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
-import {buildAnimationAst} from '@angular/animations/browser/src/dsl/animation_ast_builder';
-// import {cursorTo} from 'readline';
 
 @Component({
   selector: 'app-main-cal',
@@ -68,8 +65,7 @@ export class MainCalComponent implements OnInit {
         today:    'Heute',
         month:    'Monat',
         week:     'Woche',
-        day:      'Tag',
-        list:     'Liste'
+        day:      'Tag'
       },
       locale: 'de',
       timeFormat: 'HH:mm',
@@ -86,8 +82,6 @@ export class MainCalComponent implements OnInit {
       displayEventTime: true,
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
-
-      // events: []
     };
   }
 
@@ -106,29 +100,34 @@ export class MainCalComponent implements OnInit {
 
   enterSingleOfficeHour(currentOfficeHour) {
       const  id = currentOfficeHour.id;
-      const type = currentOfficeHour.type;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
-      console.log(id);
+      let officeHourTitle;
       let typeColor;
       if (currentOfficeHour.type === 'office hour') {
         typeColor = 'green';
+        officeHourTitle = 'Offene Sprechstunde';
       } else if (currentOfficeHour.type === 'individual') {
-        typeColor = 'red';
+        typeColor = 'blue';
+        officeHourTitle = 'Individualtermin';
       } else {
         typeColor = 'grey';
+        officeHourTitle = 'I*Forgott*My*Name';
+      }
+      let statusText = '   Frei';
+      if (currentOfficeHour.status === 'closed') {
+        typeColor = 'red';
+        statusText = '   Belegt';
       }
       this.myOfficeHour = {
         id: id,
-        title: type,
+        title: officeHourTitle + statusText,
         start: start,
         end: endOF,
         color: typeColor
       };
-      console.log(this.myOfficeHour);
       this.finalEvents.push(this.myOfficeHour);
   }
-
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
