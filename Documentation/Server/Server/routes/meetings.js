@@ -1,44 +1,45 @@
 var express = require('express');
 var router = express.Router();
 
-var demo = [
-    {
-        start:  new Date(2018, 01, 03, 8, 30).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 35).toISOString(),
-        title:  "Bachelorarbeit besprechen",
-        professor: "abc12345",
-        student:   "def12345",
-        description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
-    }, {
-        start:  new Date(2018, 01, 03, 8, 35).toISOString(),
-        end:    new Date(2018, 01, 03, 8, 40).toISOString(),
-        title:  "Bachelorarbeit besprechen",
-        professor: "abc12346",
-        student:   "def12345",
-        description: "asdköleölkfölkadlkjwlkjd alsdkjasdlkajsdl asdlk ajsdlkaj dlwiajdsalk jalkwjd"
-    }
-]
+// TODO: replace dummy data with real mongoose connection
+var DummyDataService = require('../demo_data/demoDataService.js');
+var mongoDb = require('../middleware/mongodb');
 
-/* GET all meetings. */
+/* GET all meetings. TODO: risky operation, restrict access to certain user groups*/
 router.get('/', function(req, res, next) {
     // TODO: implement
-    res.send(demo);
+    res.send(DummyDataService.meetings);
 });
 
-router.get('/:professorId', function(req, res, next) {
-    // TODO: implement
-    res.send(demo[1]);
+router.get('/testdb',
+    mongoDb.testDatabase,
+    function(req, res, next){
+    res.status(200).send(res.data);
 });
 
-router.put('/:professorId', function(req, res, next){
-    var item = req.body;
-    item.professor = req.params.professorId;
-
-    // TODO: implement
-    demo.push(item);
-    res.status(200).send(req.body);
+router.get('/:id',
+    mongoDb.getMeetingById,
+    function(req, res, next) {
+    if(res.result === undefined) res.status(404).send('No meeting with this id found');
+    else res.status(200).send(res.result);
 });
 
-router.get('/')
+router.post('/',
+    mongoDb.postMeeting,
+    function(req, res, next) {
+    res.status(201).send(req.body);
+});
+
+router.delete('/:id',
+    mongoDb.removeMeeting,
+    function(req, res, next){
+    res.status(202).send('Meeting deleted successfully');
+});
+
+router.patch('/:id',
+    mongoDb.replaceMeeting,
+    function(req, res, next){
+        res.status(200).send(res.result);
+});
 
 module.exports = router;

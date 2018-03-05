@@ -1,0 +1,116 @@
+//const MongoClient = require('mongodb').MongoClient;
+const URI = require('../config/security').uriMongo;
+var User = require('../models/models').User;
+var  Meeting = require('../models/models').Meeting;
+var  OfficeHour = require('../models/models').OfficeHour;
+
+const mongoose = require('mongoose', function(err){
+    console.log(err);
+});
+mongoose.connect(URI);
+
+module.exports = {
+    testDatabase: function(req, res, next){
+        var newProf = new User({
+            username:"abc12345",
+            prename:"Christopher ",
+            name:"Fuchs",
+            role:"professor",
+            email:"chrisopher.fuchs@fakeur.de",
+            rank:"Professor"
+        });
+        newProf.save(function (err, fluffy) {
+            if (err) return console.error(err);
+            next();
+        });
+    },
+
+    getProfessors: function(req, res, next){
+        User.find({"role":"professor"}, function(err, result){
+            if(err) throw err;
+            console.log(result);
+            res.result = result;
+            next();
+        });
+    },
+
+    getMeetingsForUser: function(req, res, next){
+            Meeting.find({$or:[{"student":req.params.id},{"professor":req.params.id}]}, function(err, result){
+                if(err) throw err;
+                console.log(result);
+                res.result = result;
+                next();
+        });
+    },
+
+    getMeetingById: function(req, res, next){
+        Meeting.find({"_id":req.params.id}, function(err, result){
+            if(err) throw err;
+            console.log(result);
+            res.result = result;
+            next();
+        })
+    },
+
+    postMeeting: function(req, res, next){
+        var newMeeting = new Meeting(req.body);
+        newMeeting.save(function (err, meeting) {
+            if (err) return console.error(err);
+            console.log(meeting);
+            next();
+        });
+    },
+
+    removeMeeting: function(req, res, next){
+        Meeting.remove({"_id":req.params.id}, function(err){
+            if(err) throw err;
+            next();
+        })
+    },
+
+    replaceMeeting: function(req, res, next){
+        Meeting.update(
+            {"_id":req.params.id},
+            {$set: req.body},
+            function(err, result){
+                if(err) throw err;
+                console.log(result);
+                res.result = result;
+                next();
+        });
+    },
+
+    postOfficeHour: function(req, res, next){
+        User.findOne({$and: [{"_id":req.params.id}, {"role":"professor"}]}, function(err, professor){
+            if(err) throw err;
+            if(professor) {
+                console.log(req.officeHours);
+                professor.officehours.push(req.officeHours);
+
+                professor.save(function(err, result){
+                    if(err) throw err;
+                    console.log(result);
+                    next();
+                });
+            }
+
+        })
+    },
+
+    updateOfficeHour: function(req, res, next){
+        console.log(req.officeHours);
+        User.update({'officehours._id': req.params.officeHourId},
+            {$set: {
+                "officehours.$.weekday": req.officeHours.weekday,
+                    "officehours.$.slots": req.officeHours.slots,
+                    "officehours.$.startTime": req.officeHours.startTime,
+                    "officehours.$.slotNumber": req.officeHours.slotNumber,
+                    "officehours.$.slotLength": req.officeHours.slotLength
+                }},
+            function(err, result){
+                if(err) throw err;
+                console.log(result);
+                next();
+        })
+    }
+}

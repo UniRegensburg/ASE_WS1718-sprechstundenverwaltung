@@ -1,0 +1,19 @@
+#officeHourDiv {
+  position: relative;
+  left: 10px;
+  width: 390px;
+  border-bottom: 1px solid #555;
+  text-align: center;
+  font-family: Roboto, Arial, sans-serif;
+}
+#editButton {
+  position: relative;
+  float: right;
+  right: 5px;
+}
+#addButton {
+  position: relative;
+  float: right;
+  top: 5px;
+  right: 5px;
+}

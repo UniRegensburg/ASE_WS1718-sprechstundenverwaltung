@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{header}}</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Titel vergeben" [(ngModel)]="title">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <textarea matInput placeholder="Anliegen beschreiben" matTextareaAutosize matAutosizeMinRows="4"
+              matautoSizeMaxRows="10" [(ngModel)]="body"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button style="float: right" (click)="submitRequestedSlot()">{{confirmButton}}</button>
+  <button mat-button style="float: left" (click)="dialogRef.close()">Abbrechen</button>
+  <button mat-button *ngIf="showDeleteButton" (click)="deleteSelectedSlot()">Buchung löschen</button>
+</div>
