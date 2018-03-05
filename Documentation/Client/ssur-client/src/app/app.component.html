@@ -3,9 +3,14 @@
   <h1>
     {{ title }}
   </h1>
+  <div id="userSelector">
+    <button style="float: right" (click)="setUser('Professor')">Prof</button>
+    <button style="float: right" (click)="setUser('Student')">Student</button>
+  </div>
 </div>
 <app-sidebar></app-sidebar>
-<div id="selectordiv">
+<!--If user is a student show prof-selector-->
+<div id="selectordiv" *ngIf="userService.loggedinUser.getValue() == 'Student'">
   <app-professor-selector></app-professor-selector>
 </div>
 <div id="bodydiv">

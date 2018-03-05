@@ -1,5 +1,9 @@
 <div id="sidebar">
-  <app-sidebar-content-prof></app-sidebar-content-prof>
-  <!--<app-sidebar-content-student></app-sidebar-content-student>-->
+  <div *ngIf="(role == 'Professor')">
+    <app-sidebar-content-prof></app-sidebar-content-prof>
+  </div>
+  <div *ngIf="(role == 'Student')">
+    <app-sidebar-content-student></app-sidebar-content-student>
+  </div>
 </div>
 

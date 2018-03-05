@@ -28,6 +28,7 @@ import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student
 import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
 import { NotesComponent } from './notes/notes.component';
 import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
+import {UserService} from './services/UserService';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.componen
   providers: [ProfessorService, ScheduleService,
     DialogsService,
     OfficehoursService,
+    UserService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
 

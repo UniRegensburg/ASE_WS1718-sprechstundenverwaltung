@@ -32,3 +32,9 @@ position: absolute;
   height: 80vh;
   width:75vw;
 }
+#userSelector {
+  position: absolute;
+  top: 0;
+  left: 90vw;
+  right: 0;
+}
