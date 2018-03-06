@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as moment from 'moment';
 import { ScheduleService} from '../services/ScheduleService';
