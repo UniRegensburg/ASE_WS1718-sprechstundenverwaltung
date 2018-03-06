@@ -35,6 +35,7 @@ export class ScheduleService {
     });
   }
 
+  // provides ID of clicked event
   onEventClicked(data) {
     this.idOfClickedEvent = data;
     console.log(this.idOfClickedEvent);

@@ -70,7 +70,6 @@ export class MainCalComponent implements OnInit {
         } else if (this.userRole === 'Student') {
           this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
         }
-
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
         return false;
@@ -103,7 +102,6 @@ export class MainCalComponent implements OnInit {
     };
   }
 
-
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
@@ -116,6 +114,7 @@ export class MainCalComponent implements OnInit {
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  // create single office hour and push it into finalEvents
   enterSingleOfficeHour(currentOfficeHour) {
       const  id = currentOfficeHour.id;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
