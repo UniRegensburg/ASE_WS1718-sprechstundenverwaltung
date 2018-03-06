@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as moment from 'moment';
 import { ScheduleService} from '../services/ScheduleService';
@@ -67,8 +67,9 @@ export class MainCalComponent implements OnInit {
         if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
+        } else if (this.userRole === 'Student') {
+          this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
         }
-
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
         return false;
@@ -101,7 +102,6 @@ export class MainCalComponent implements OnInit {
     };
   }
 
-
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
@@ -114,6 +114,7 @@ export class MainCalComponent implements OnInit {
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  // create single office hour and push it into finalEvents
   enterSingleOfficeHour(currentOfficeHour) {
       const  id = currentOfficeHour.id;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
