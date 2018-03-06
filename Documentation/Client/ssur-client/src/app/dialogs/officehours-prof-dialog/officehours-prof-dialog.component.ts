@@ -3,21 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {OwlDateTime} from 'ng-pick-datetime/date-time/date-time.class';
-import { OfficehoursService } from '../../services/officehours.service';
+import { OfficehoursService } from '../../services/Officehours.service';
 
 @Component({
-  selector: 'app-officehours-dialog',
-  templateUrl: './officehours-dialog.component.html',
-  styleUrls: ['./officehours-dialog.component.css']
+  selector: 'app-officehours-prof-dialog',
+  templateUrl: './officehours-prof-dialog.component.html',
+  styleUrls: ['./officehours-prof-dialog.component.css']
 })
-export class OfficehoursDialogComponent implements OnInit {
+export class OfficehoursProfDialogComponent implements OnInit {
 
   public title: string;
   selectedDateTime: any;
   slotSize: number;
   slotAmount: number;
+  confirmButton: string;
 
-  closeDialogBox() {
+  createOfficeHour() {
     this.officehourService.setOfficeHour(this.selectedDateTime, this.slotSize, this.slotAmount);
     this.dialogRef.close(true);
   }
@@ -39,7 +40,7 @@ export class OfficehoursDialogComponent implements OnInit {
 
  }
 */
-  constructor(public dialogRef: MatDialogRef<OfficehoursDialogComponent>, private officehourService: OfficehoursService) { }
+  constructor(public dialogRef: MatDialogRef<OfficehoursProfDialogComponent>, private officehourService: OfficehoursService) { }
 
   ngOnInit() {
   }

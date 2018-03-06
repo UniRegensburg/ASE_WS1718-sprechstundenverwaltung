@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../services/UserService';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  title_sidebar = 'Angelegte Sprechstunden';
+  private userListener;
+  public role: string;
 
-  constructor() { }
+  constructor(userService: UserService) {
+    // Subscribe to UserService to check what role is logged in
+    this.userListener = userService.loggedinUser.subscribe(data => this.role = data);
+  }
 
   ngOnInit() {
   }

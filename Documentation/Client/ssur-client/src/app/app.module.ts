@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule, MatButtonModule
 } from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule} from '@angular/material';
@@ -19,11 +19,16 @@ import { CalendarModule} from 'ap-angular2-fullcalendar';
 import { AppComponent } from './app.component';
 import { ProfessorSelectorComponent } from './professor-selector/professor-selector.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidebarContentComponent } from './sidebar/sidebar-content/sidebar-content.component';
-import { OfficehoursDialogComponent } from './dialogs/officehours-dialog/officehours-dialog.component';
+import { SidebarContentProfComponent } from './sidebar/sidebar-content-prof/sidebar-content-prof.component';
+import { OfficehoursProfDialogComponent } from './dialogs/officehours-prof-dialog/officehours-prof-dialog.component';
 import {DialogsService} from './dialogs/dialogs.service';
-import {OfficehoursService} from './services/officehours.service';
+import {OfficehoursService} from './services/Officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
+import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
+import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
+import { NotesComponent } from './notes/notes.component';
+import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
+import {UserService} from './services/UserService';
 
 
 @NgModule({
@@ -31,9 +36,14 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     AppComponent,
     ProfessorSelectorComponent,
     SidebarComponent,
-    SidebarContentComponent,
-    OfficehoursDialogComponent,
-    MainCalComponent
+    SidebarContentProfComponent,
+    OfficehoursProfDialogComponent,
+    MainCalComponent,
+    OfficehoursStudentDialogComponent,
+    SidebarContentStudentComponent,
+    MainCalComponent,
+    NotesComponent,
+    NotesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +60,7 @@ import { MainCalComponent } from './main-cal/main-cal.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSelectModule,
+    MatButtonModule,
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -58,8 +69,11 @@ import { MainCalComponent } from './main-cal/main-cal.component';
   providers: [ProfessorService, ScheduleService,
     DialogsService,
     OfficehoursService,
+    UserService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
-  entryComponents: [OfficehoursDialogComponent]
+
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent]
+
 })
 export class AppModule { }
