@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import { Observable} from 'rxjs/Observable';
-import { of} from 'rxjs/observable/of';
-import { Http, Response} from '@angular/http';
+import { Http} from '@angular/http';
 import { ProfessorService} from './ProfessorService';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -9,7 +7,6 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class ScheduleService {
 
-  private url = 'https://ase1718data.herokuapp.com/professors/abc12345/meetings';
   private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
   private finalUrl;
 
