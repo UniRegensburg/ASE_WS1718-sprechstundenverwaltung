@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as moment from 'moment';
-import { ProfessorService} from '../services/ProfessorService';
 import { ScheduleService} from '../services/ScheduleService';
+import { DialogsService} from '../dialogs/dialogs.service';
+import { UserService} from '../services/UserService';
 
 @Component({
   selector: 'app-main-cal',
@@ -12,8 +13,10 @@ import { ScheduleService} from '../services/ScheduleService';
 export class MainCalComponent implements OnInit {
 
   private professorHoursListener;
+  private userListener;
 
   officeHoursProf;
+  userRole;
   finalEvents = [];
 
   calendarOptions;
@@ -35,7 +38,11 @@ export class MainCalComponent implements OnInit {
 
   }
 
-  constructor(private professorService: ProfessorService, private scheduleService: ScheduleService) {
+  constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService) {
+    this.userListener = this.userService.loggedinUser.subscribe( data => {
+      this.userRole = data;
+      console.log(this.userRole);
+    });
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
       this.officeHoursProf = data;
       console.log(data);
@@ -55,6 +62,15 @@ export class MainCalComponent implements OnInit {
         console.log('auf ein Event geklickt');
         console.log(event.id);
         this.scheduleService.onEventClicked(event.id);
+
+        // Hannes fragenÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        if (this.userRole === 'Professor') {
+          this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
+            this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
+        }
+
+        // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
         return false;
       },
 
