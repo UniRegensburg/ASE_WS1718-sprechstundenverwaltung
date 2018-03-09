@@ -1,4 +1,9 @@
 
 <textarea matInput [(ngModel)]="note" placeholder="Notieren Sie sich etwas... "></textarea>
-<button mat-raised-button id="save_note_button" (click)="saveNote()">Notiz speichern</button>
+
+Notizen:
+<ul><li *ngFor="let singlenote of notes">{{singlenote}}</li></ul>
+
+
+<button mat-raised-button id="save_note_button" (click)="saveNote(note)">Notiz speichern</button>
 <button mat-raised-button (click)="this.dialogRef.close()">Abbrechen</button>

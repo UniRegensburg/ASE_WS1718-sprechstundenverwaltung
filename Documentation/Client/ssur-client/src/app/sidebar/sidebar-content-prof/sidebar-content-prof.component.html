@@ -5,11 +5,12 @@
   <div id="officeHourDiv">
     <p><span>{{day}}, {{startDate}}</span><br>
       <span>{{startingTime}} - {{endingTime}}</span>
-      <span><button id="editButton" (click)="_editOfficeHour(true)">edit</button> </span></p>
+      <span><button  class="mat-raised-button" id="editButton" (click)="_editOfficeHour(true)">edit</button> </span></p>
   </div>
   <div id="addButton">
-    <button (click)="_createOfficeHour()">+</button>
+    <button class="mat-raised-button" (click)="_createOfficeHour()"> + </button>
   </div>
+
   <div>
     <!--
     testdiv<br>

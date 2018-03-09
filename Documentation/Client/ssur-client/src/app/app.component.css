@@ -27,13 +27,8 @@ position: absolute;
   bottom: 80vh;
   left: 450px;
 }
-#bodydiv {
-  position: absolute;
-  top: 25vh;
-  left: 450px;
-  height: 80vh;
-  width:75vw;
-}
+
+
 #userSelector {
   position: absolute;
   top: 0;

@@ -9,7 +9,6 @@ import {NotesDialogComponent} from "./notes-dialog/notes-dialog.component";
 })
 export class NotesComponent implements OnInit {
 
-
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
   constructor(private dialog: MatDialog) { }
@@ -18,7 +17,10 @@ export class NotesComponent implements OnInit {
   }
 
   openNotesDialog(): void {
-      this.NotesDialogRef = this.dialog.open(NotesDialogComponent);
+      this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
+        width: '500px',
+        height: '500px',
+      });
 
       this.NotesDialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed.');

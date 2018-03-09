@@ -1,12 +1,12 @@
 #officeHourDiv {
   position: relative;
   left: 10px;
-  width: 390px;
+ /** width: 390px;**/
   border-bottom: 1px solid #555;
   text-align: center;
   font-family: Roboto, Arial, sans-serif;
 }
-#editButton {
+/*#editButton {
   position: relative;
   float: right;
   right: 5px;
@@ -17,3 +17,4 @@
   top: 5px;
   right: 5px;
 }
+*/

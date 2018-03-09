@@ -1,19 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div id="headerdiv">
-  <h1>
-    {{ title }}
-  </h1>
-  <div id="userSelector">
-    <button style="float: right" (click)="setUser('Professor')">Prof</button>
-    <button style="float: right" (click)="setUser('Student')">Student</button>
+<div class="row page-header">
+  <h1 class="col-sm-10"> {{ title }}</h1>
+  <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('Professor')">Prof</button>
+  <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('Student')">Student</button>
+</div>
+
+<div class="row">
+  <app-sidebar class="col-sm-4"></app-sidebar>
+  <div class="col-sm-8">
+    <!--If user is a student show prof-selector-->
+    <div *ngIf="userService.loggedinUser.getValue() == 'Student'">
+      <app-professor-selector></app-professor-selector>
+    </div>
+    <app-main-cal></app-main-cal>
   </div>
-</div>
-<app-sidebar></app-sidebar>
-<!--If user is a student show prof-selector-->
-<div id="selectordiv" *ngIf="userService.loggedinUser.getValue() == 'Student'">
-  <app-professor-selector></app-professor-selector>
-</div>
-<div id="bodydiv">
-  <app-main-cal></app-main-cal>
 </div>
 
