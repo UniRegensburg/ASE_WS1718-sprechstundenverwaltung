@@ -48,7 +48,6 @@ export class MainCalComponent implements OnInit {
       console.log(data);
       if (data.length > 0) {
         this.finalEvents = [];
-        console.log(this.finalEvents);
         this.enterOfficeHours();
       }
     });
