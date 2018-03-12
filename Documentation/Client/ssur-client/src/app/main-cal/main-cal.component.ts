@@ -43,7 +43,7 @@ export class MainCalComponent implements OnInit {
       this.userRole = data;
       console.log(this.userRole);
     });
-    this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe( data => {
+    this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
       if (data.length > 0) {
@@ -62,7 +62,7 @@ export class MainCalComponent implements OnInit {
         console.log(event.id);
         this.scheduleService.onEventClicked(event.id);
 
-        // Hannes fragenÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
         if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
@@ -123,10 +123,7 @@ export class MainCalComponent implements OnInit {
       if (currentOfficeHour.type === 'office hour') {
         typeColor = 'green';
         officeHourTitle = 'Offene Sprechstunde';
-      } else if (currentOfficeHour.type === 'individual') {
-        typeColor = 'blue';
-        officeHourTitle = 'Individualtermin';
-      } else {
+      }  else {
         typeColor = 'grey';
         officeHourTitle = 'I*Forgott*My*Name';
       }
