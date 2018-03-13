@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ScheduleService} from '../services/ScheduleService';
 import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
+import { OfficehoursService } from '../services/Officehours.service';
 
 @Component({
   selector: 'app-main-cal',
@@ -14,7 +15,9 @@ export class MainCalComponent implements OnInit {
 
   private professorHoursListener;
   private userListener;
+  private ownOfficeHoursListener;
 
+  ownOfficeHours;
   officeHoursProf;
   userRole;
   finalEvents = [];
@@ -38,7 +41,8 @@ export class MainCalComponent implements OnInit {
 
   }
 
-  constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService) {
+  constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
+              private officehoursService: OfficehoursService) {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
       this.userRole = data;
       console.log(this.userRole);
@@ -46,10 +50,20 @@ export class MainCalComponent implements OnInit {
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
-      if (data.length > 0) {
-        this.finalEvents = [];
-        this.enterOfficeHours();
+      if (data.length <= 0) {
+        return;
       }
+      this.finalEvents = [];
+      this.distinguishRoles();
+    });
+    this.ownOfficeHoursListener = this.officehoursService.profInfo.subscribe(data => {
+      this.ownOfficeHours = data;
+      console.log(data);
+      if (data.length <= 0) {
+        return;
+      }
+      this.finalEvents = [];
+      this.distinguishRoles();
     });
   }
 
@@ -99,6 +113,14 @@ export class MainCalComponent implements OnInit {
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
     };
+  }
+
+  distinguishRoles() {
+    if (this.userRole === 'Student') {
+      this.enterOfficeHours();
+    } else if (this.userRole === 'Professor') {
+      console.log('Ich bin ein Professor');
+    }
   }
 
   // renders all events when ready;
