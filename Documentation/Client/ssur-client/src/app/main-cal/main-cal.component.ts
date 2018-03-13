@@ -17,7 +17,7 @@ export class MainCalComponent implements OnInit {
   private userListener;
   private ownOfficeHoursListener;
 
-  ownOfficeHours;
+  ownOfficeHours = [];
   officeHoursProf;
   userRole;
   finalEvents = [];
@@ -32,7 +32,6 @@ export class MainCalComponent implements OnInit {
     color: 'color'
   };
 
-
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
   changeCalendarView(view) {
@@ -42,28 +41,33 @@ export class MainCalComponent implements OnInit {
   }
 
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
-              private officehoursService: OfficehoursService) {
+              private officeHoursService: OfficehoursService) {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
       this.userRole = data;
       console.log(this.userRole);
+      if (this.ownOfficeHours.length <= 0) {
+        return;
+      } else {
+        this.distinguishRoles();
+      }
     });
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
-      if (data.length <= 0) {
+      if (data.length == null) {
         return;
+      } else {
+        this.distinguishRoles();
       }
-      this.finalEvents = [];
-      this.distinguishRoles();
     });
-    this.ownOfficeHoursListener = this.officehoursService.profInfo.subscribe(data => {
+    this.ownOfficeHoursListener = this.officeHoursService.profInfo.subscribe(data => {
       this.ownOfficeHours = data;
       console.log(data);
       if (data.length <= 0) {
         return;
+      } else {
+        this.distinguishRoles();
       }
-      this.finalEvents = [];
-      this.distinguishRoles();
     });
   }
 
@@ -115,12 +119,23 @@ export class MainCalComponent implements OnInit {
     };
   }
 
+  // distinguish if user role is professor or student
   distinguishRoles() {
+    this.finalEvents = [];
     if (this.userRole === 'Student') {
       this.enterOfficeHours();
     } else if (this.userRole === 'Professor') {
+      this.enterOwnOfficeHours();
       console.log('Ich bin ein Professor');
     }
+  }
+
+  // enters professors own office hours
+  // ToDo: Fetch real dates
+  enterOwnOfficeHours() {
+    console.log(this.finalEvents);
+    this.myCalendar.fullCalendar('removeEvents');
+    this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
   // renders all events when ready;
