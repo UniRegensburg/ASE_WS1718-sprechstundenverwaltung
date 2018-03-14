@@ -164,7 +164,7 @@ export class MainCalComponent implements OnInit {
       title : myTitle,
       start : start,
       end : end,
-      color : color;
+      color : color
     };
     this.finalEvents.push(this.myOwnOfficeHour);
   }
