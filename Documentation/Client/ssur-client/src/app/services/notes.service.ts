@@ -11,9 +11,11 @@ export class NotesService {
     return this.notes;
   }
 
+
+
   //todo: change to german timestamp
-  setNotes(newNote){
-    let timestamp = moment().format('lll');
-    this.notes.push(timestamp+': '+newNote);
+  setNotes(newNotes){
+  /*  let timestamp = moment().format('lll');
+    this.notes.push(timestamp+': '+newNotes);*/
   }
 }
