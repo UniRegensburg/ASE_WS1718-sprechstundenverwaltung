@@ -14,6 +14,8 @@ export class SidebarContentProfComponent implements OnInit {
   public result: boolean;
   title_sidebar = 'Angelegte Sprechstunden';
   public editButtonClicked = false;
+  public officehourExists = true; // Todo: später ändern
+  public buttonName: string;
 
   day: any;
   startDate: any;
@@ -26,6 +28,12 @@ export class SidebarContentProfComponent implements OnInit {
 
   constructor(private dialogsService: DialogsService, private officehourService: OfficehoursService) {
     this.profInfoListener = officehourService.profInfo.subscribe(data => {
+      // Todo: Prüfen ob bereits eine Sprechstunde existiert -> officehourExists -> buttonName anpassen
+      if (this.officehourExists) {
+        this.buttonName = 'Editieren';
+      } else {
+        this.buttonName = 'Anlegen';
+      }
       //console.log(data.weekday);
       this.day = data.weekday;
       this.startDate = moment(data.startTime).format('DD.MM.YYYY');
