@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ProfessorService} from "../services/ProfessorService";
+import {ProfessorService} from '../services/ProfessorService';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
@@ -15,8 +15,8 @@ import {map} from 'rxjs/operators/map';
 
 export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
-  filteredProfs; //: Observable<any[]>;
-  profs = [];
+  filteredProfs;
+  profs = this.professorService.getProfNames();
 
   constructor(private professorService: ProfessorService) {
     this.profCtrl = new FormControl();
@@ -27,8 +27,7 @@ export class ProfessorSelectorComponent implements OnInit{
       );
   }
 
-  ngOnInit(): void {
-    this.profs = this.professorService.getProfNames();
+  ngOnInit(){
     this.filteredProfs = this.profs;
   }
 

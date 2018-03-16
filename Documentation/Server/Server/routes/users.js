@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var mongodb = require('../middleware/mongodb');
 
 // TODO: replace dummy data with real mongoose connection
 var DummyDataService = require('../demo_data/demoDataService.js');
@@ -20,12 +21,20 @@ router.get('/me', function(req, res, next) {
 /**
  * Route for returning all meetings of the currently logged in user.
  */
-router.get('/me/meetings', function(req, res, next){
-    const result = DummyDataService.getUserMeetings('jue123456');
-    if(result === undefined ||result.length < 1){
-        return status(204).send('No meetings found!');
+router.get('/me/meetings',
+    /*TODO replace this with own user id*/
+    function(req, res, next){
+        req.params.id = 'jue12345';
+        next();
+    },
+    mongodb.getMeetingsForUser,
+    function(req, res, next){
+    console.log(res.result);
+    //const result = DummyDataService.getUserMeetings('jue123456');
+    if(res.result === undefined ||res.result.length < 1){
+        return res.status(204).send('No meetings found!');
     }
-    res.status(200).send(result);
+    res.status(200).send(res.result);
 });
 
 

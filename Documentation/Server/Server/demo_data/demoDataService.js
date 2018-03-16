@@ -1,9 +1,5 @@
 const _ = require('lodash');
 
-exports.getUserMeetings = function(userId)  {
-    return _.filter(exports.meetings, {student:userId});
-}
-
 exports.getUserDetail = function(userid) {
     return _.find(exports.users, {id: userId});
 }
@@ -20,28 +16,6 @@ exports.updateOfficeHoursForProfessor = function(professorId, newOfficeHours){
     // TODO: validate, if me is no prof!
     (_.find(exports.professors, {id: professorId}))
         .officeHours = newOfficeHours;
-}
-
-exports.getMeetingById = function(meetingId){
-    return _.find(exports.meetings, {id: meetingId});
-}
-
-exports.addMeeting = function(data){
-    var newEntry = data;
-    newEntry.id = '' + Math.abs((Math.random() * (9999999999 - 0) )|0);
-    exports.meetings.push(newEntry);
-}
-
-exports.replaceMeetingWithId = function (meetingId, data){
-    const index = _.indexOf(exports.meetings, {id: meetingId});
-    //exports.meetings[index] = data;
-    exports.meetings.splice(index, 1);
-    let newItem = exports.meetings.push(data);
-    newItem.id = meetingId;
-}
-
-exports.removeMeetingWithId = function(meetingId){
-    exports.meetings.splice(_.indexOf(exports.meetings, {id: meetingId}), 1);
 }
 
 exports.officeHourDummies = [

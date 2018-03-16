@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule, MatButtonModule
 } from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule} from '@angular/material';
@@ -16,8 +16,6 @@ import {HttpModule} from '@angular/http';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import { ScheduleService} from './services/ScheduleService';
 import { CalendarModule} from 'ap-angular2-fullcalendar';
-
-
 import { AppComponent } from './app.component';
 import { ProfessorSelectorComponent } from './professor-selector/professor-selector.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -28,6 +26,9 @@ import {OfficehoursService} from './services/Officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
 import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
 import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
+import { NotesComponent } from './notes/notes.component';
+import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
+import {UserService} from './services/UserService';
 
 
 @NgModule({
@@ -39,7 +40,10 @@ import { SidebarContentStudentComponent } from './sidebar/sidebar-content-studen
     OfficehoursProfDialogComponent,
     MainCalComponent,
     OfficehoursStudentDialogComponent,
-    SidebarContentStudentComponent
+    SidebarContentStudentComponent,
+    MainCalComponent,
+    NotesComponent,
+    NotesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,13 +57,11 @@ import { SidebarContentStudentComponent } from './sidebar/sidebar-content-studen
     HttpClientModule,
     HttpModule,
     MatDialogModule,
-    MatNativeDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSelectModule,
+    MatButtonModule,
     MatDividerModule,
-    MatInputModule,
-    ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CalendarModule
@@ -67,8 +69,11 @@ import { SidebarContentStudentComponent } from './sidebar/sidebar-content-studen
   providers: [ProfessorService, ScheduleService,
     DialogsService,
     OfficehoursService,
+    UserService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
-  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent]
+
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent]
+
 })
 export class AppModule { }

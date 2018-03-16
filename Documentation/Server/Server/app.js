@@ -34,6 +34,8 @@ app.use('/users', users);
 app.use('/professors', professors)
 app.use('/meetings', meetings)
 
+const mongoDB = require("./middleware/mongodb")
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -52,4 +54,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(3000);
 module.exports = app;
