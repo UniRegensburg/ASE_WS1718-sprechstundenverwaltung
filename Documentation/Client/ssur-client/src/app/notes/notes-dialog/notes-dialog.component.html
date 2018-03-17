@@ -1,15 +1,18 @@
+<div class="container-fluid">
+  <textarea class="form-control row" matInput [(ngModel)]="note" placeholder="Notieren Sie sich etwas... "></textarea>
 
-<textarea matInput [(ngModel)]="note" placeholder="Notieren Sie sich etwas... "></textarea>
+  <ul class="row">
+    <li class="col-sm-12" *ngFor="let singlenote of data.notes">
+      {{singlenote}}
+    </li>
+  </ul>
 
-Notizen:
-<ul>
-  <li *ngFor="let singlenote of notes">
-    {{singlenote}}
-  </li>
-</ul>
-
-
-<button mat-raised-button id="save_note_button" [mat-dialog-close]="notes">
-  Notiz speichern
-</button>
-<button mat-raised-button>Abbrechen</button>
+  <div class="row">
+    <button class="col-sm-6"mat-raised-button id="save_note_button" [mat-dialog-close]="note">
+      Notiz speichern
+    </button>
+    <button (click)="onNoClick()" class="col-sm-6" mat-raised-button>
+      Abbrechen
+    </button>
+  </div>
+</div>

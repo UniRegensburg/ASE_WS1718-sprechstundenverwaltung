@@ -13,7 +13,8 @@ import {Inject} from "@angular/core";
 })
 export class NotesComponent implements OnInit {
 
-  notes: string[];
+  note: string;
+  notes = this.notesService.getNotes();
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
   constructor(private dialog: MatDialog, public notesService: NotesService) { }
@@ -29,9 +30,8 @@ export class NotesComponent implements OnInit {
       });
 
       this.NotesDialogRef.afterClosed().subscribe(result => {
-        this.notes = result;
-        this.notesService.setNotes(this.notes);
-        console.log('The dialog was closed.Current Notes: '+this.notes);
+        this.note = result;
+        this.notesService.setNotes(this.note);
       });
   }
 }

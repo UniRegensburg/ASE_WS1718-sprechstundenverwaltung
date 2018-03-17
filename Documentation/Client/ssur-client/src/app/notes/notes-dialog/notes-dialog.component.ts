@@ -10,9 +10,7 @@ import {NgModel} from "@angular/forms";
   styleUrls: ['./notes-dialog.component.css']
 })
 export class NotesDialogComponent implements OnInit {
-
-  public notes: string [];
-
+  
   constructor(
     public dialogRef: MatDialogRef<NotesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
