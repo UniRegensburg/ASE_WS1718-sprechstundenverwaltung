@@ -81,12 +81,23 @@ export class MainCalComponent implements OnInit {
         this.scheduleService.onEventClicked(event.id);
 
         // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
-        if (this.userRole === 'Professor') {
+        /*if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
         } else if (this.userRole === 'Student') {
           this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-        }
+        }*/
+       /* if (Todo: Prüfen, ob ausgewählter Slot von eingeloggtem Student belegt ist) {
+          this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
+            this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
+        }*/
+        //else if (Todo: Prüfen, ob Slot noch frei ist) {
+        this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+        //}
+       /* else {
+          Todo: Meldung: Slot nicht mehr verfügbar bzw. ist gar nicht klickbar
+        }*/
+
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
         return false;
@@ -182,5 +193,4 @@ export class MainCalComponent implements OnInit {
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
   }
-
 }

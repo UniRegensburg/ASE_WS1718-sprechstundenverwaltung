@@ -44,12 +44,12 @@ export class DialogsService {
   }
 
   // Opens Dialog to edit registered officehour as student
-  public editRegisteredOfficeHourDialog(header: string, title: string, body: string): Observable<boolean> {
+  public editRegisteredOfficeHourDialog(header: string, title: string, description: string): Observable<boolean> {
     let dialogRef: MatDialogRef<OfficehoursStudentDialogComponent>;
     dialogRef = this.dialog.open(OfficehoursStudentDialogComponent);
     dialogRef.componentInstance.header = header;
     dialogRef.componentInstance.title = title;
-    dialogRef.componentInstance.body = body;
+    dialogRef.componentInstance.description = description;
     dialogRef.componentInstance.confirmButton = 'Editieren';
     dialogRef.componentInstance.showDeleteButton = true;
     return dialogRef.afterClosed();
