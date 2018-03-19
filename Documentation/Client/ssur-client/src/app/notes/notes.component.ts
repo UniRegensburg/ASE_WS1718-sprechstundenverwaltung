@@ -14,6 +14,7 @@ import {Inject} from "@angular/core";
 export class NotesComponent implements OnInit {
 
   note: string;
+  //todo: hand over the id, so that you only get the correct notes
   notes = this.notesService.getNotes();
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
@@ -31,6 +32,7 @@ export class NotesComponent implements OnInit {
 
       this.NotesDialogRef.afterClosed().subscribe(result => {
         this.note = result;
+        //todo: hand over the id of the date
         this.notesService.setNotes(this.note);
       });
   }
