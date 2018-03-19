@@ -27,7 +27,11 @@ position: absolute;
   bottom: 80vh;
   left: 450px;
 }
-
+#bodydiv {
+  position: absolute;
+  top: 22vh;
+  left: 420px;
+}
 
 #userSelector {
   position: absolute;
