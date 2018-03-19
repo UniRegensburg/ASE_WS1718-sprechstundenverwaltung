@@ -1,14 +1,24 @@
-<div>
-  <h3 style="text-align: center">{{title_sidebar}}</h3>
-</div>
-<div>
-  <div id="officeHourDiv">
-    <span>{{day}}, {{startDate}}</span><br>
-      <span>{{startingTime}} - {{endingTime}}</span>
-      <span *ngIf="officehourExists == true"><button id="editButton" (click)="_editOfficeHour(true)">{{buttonName}}</button> </span>
-      <span *ngIf="officehourExists == false"><button id="addButton" (click)="_createOfficeHour()">{{buttonName}}</button> </span>
+<div class="container-fluid">
+  <div class="row">
+    <h3 class="col-sm-12">{{title_sidebar}}</h3>
   </div>
-<!--  <div id="addButton">
-    <button  (click)="_createOfficeHour()">Anlegen</button>
-  </div>-->
+
+  <div class="row" id="officeHourDiv">
+    <mat-label class="col-sm-12">
+      {{day}}, {{startDate}}: {{startingTime}} - {{endingTime}}
+    </mat-label>
+   </div>
+
+
+  <div class="row">
+      <button class="mat-raised-button col-sm-6" id="editButton" (click)="_editOfficeHour(true)">edit</button>
+      <button class="mat-raised-button col-sm-6" id="addButton"(click)="_createOfficeHour()"> + </button>
+  </div>
+
+  <div>
+      <!--
+      testdiv<br>
+      {{result}}<br>
+      -->
+    </div>
 </div>
