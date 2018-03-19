@@ -4,15 +4,15 @@
   </div>
 
   <div class="row" id="officeHourDiv">
-    <mat-label class="col-sm-12">
+    <mat-label class="col-sm-12" *ngIf="officehourExists == true">
       {{day}}, {{startDate}}: {{startingTime}} - {{endingTime}}
     </mat-label>
    </div>
 
 
   <div class="row">
-      <button class="mat-raised-button col-sm-6" id="editButton" (click)="_editOfficeHour(true)">edit</button>
-      <button class="mat-raised-button col-sm-6" id="addButton"(click)="_createOfficeHour()"> + </button>
+      <button *ngIf="officehourExists == true" class="mat-raised-button col-sm-6" id="editButton" (click)="_editOfficeHour(true)">{{buttonName}}</button>
+      <button *ngIf="officehourExists == false" class="mat-raised-button col-sm-6" id="addButton"(click)="_createOfficeHour()">{{buttonName}}</button>
   </div>
 
   <div>
