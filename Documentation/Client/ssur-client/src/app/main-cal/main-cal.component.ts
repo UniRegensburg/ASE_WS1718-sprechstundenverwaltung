@@ -40,6 +40,8 @@ export class MainCalComponent implements OnInit {
     color: 'color'
   };
 
+
+
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
   changeCalendarView(view) {
@@ -86,15 +88,17 @@ export class MainCalComponent implements OnInit {
 
       eventClick: (event) => {
         console.log('auf ein Event geklickt');
-        console.log(event.id);
+        console.log(event.id.type);
         this.scheduleService.onEventClicked(event.id);
-
+        console.log(event.id.type);
         // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
         if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
         } else if (this.userRole === 'Student') {
-          this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+          // this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+          this.machesrichtig(event.id);
+          console.log(event.id + 'in Student');
         }
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
@@ -126,6 +130,17 @@ export class MainCalComponent implements OnInit {
       allDayText: 'Ganztägig',
       slotLabelFormat: 'HH:mm',
     };
+  }
+
+
+/*  eventClick() {
+    console.log('Mein neuer Event Click');
+  }*/
+
+  machesrichtig(data) {
+    console.log('In Mach es richtig');
+    console.log(data);
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
   }
 
   // distinguish if user role is professor or student
