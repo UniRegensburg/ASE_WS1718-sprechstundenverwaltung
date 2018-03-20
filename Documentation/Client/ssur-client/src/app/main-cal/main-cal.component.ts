@@ -130,7 +130,7 @@ export class MainCalComponent implements OnInit {
       slotLabelFormat: 'HH:mm',
     };
   }
-  
+
   machesrichtig(data) {
     console.log('In Mach es richtig');
     console.log(data);
