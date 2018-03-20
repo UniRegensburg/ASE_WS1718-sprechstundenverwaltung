@@ -1,9 +1,14 @@
-<div id="sidebar">
-  <div *ngIf="(role == 'Professor')">
-    <app-sidebar-content-prof></app-sidebar-content-prof>
+<div class="container-fluid">
+  <div class="row float-left">
+    <div *ngIf="(role == 'Professor')">
+      <app-sidebar-content-prof class="col-sm-12"></app-sidebar-content-prof>
+    </div>
+    <div *ngIf="(role == 'Student')">
+      <app-sidebar-content-student class="col-sm-12"></app-sidebar-content-student>
+    </div>
   </div>
-  <div *ngIf="(role == 'Student')">
-    <app-sidebar-content-student></app-sidebar-content-student>
+
+  <div class="row float-left">
+    <app-notes></app-notes>
   </div>
 </div>
-

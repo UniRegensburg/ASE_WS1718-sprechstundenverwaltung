@@ -17,7 +17,7 @@ export class MainCalComponent implements OnInit {
   private userListener;
   private ownOfficeHoursListener;
 
-  ownOfficeHours = [];
+  ownOfficeHours;
   officeHoursProf;
   userRole;
   finalEvents = [];
@@ -32,6 +32,16 @@ export class MainCalComponent implements OnInit {
     color: 'color'
   };
 
+  myOwnOfficeHour = {
+    id: 'id',
+    title: 'title',
+    start: 'start',
+    end: 'end',
+    color: 'color'
+  };
+
+
+
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
   changeCalendarView(view) {
@@ -45,7 +55,8 @@ export class MainCalComponent implements OnInit {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
       this.userRole = data;
       console.log(this.userRole);
-      if (this.ownOfficeHours.length <= 0) {
+      console.log(this.ownOfficeHours);
+      if (this.ownOfficeHours == null) {
         return;
       } else {
         this.distinguishRoles();
@@ -77,14 +88,15 @@ export class MainCalComponent implements OnInit {
 
       eventClick: (event) => {
         console.log('auf ein Event geklickt');
-        console.log(event.id);
+        console.log(event.id.type);
         this.scheduleService.onEventClicked(event.id);
-
+        console.log(event.id.type);
         // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
         /*if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
         } else if (this.userRole === 'Student') {
+<<<<<<< HEAD
           this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
         }*/
        /* if (Todo: Prüfen, ob ausgewählter Slot von eingeloggtem Student belegt ist) {
@@ -98,6 +110,11 @@ export class MainCalComponent implements OnInit {
           Todo: Meldung: Slot nicht mehr verfügbar bzw. ist gar nicht klickbar
         }*/
 
+=======
+          // this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+          console.log(event.id + 'in Student');
+        }
+>>>>>>> calendarBranch
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
         return false;
@@ -130,6 +147,12 @@ export class MainCalComponent implements OnInit {
     };
   }
 
+  machesrichtig(data) {
+    console.log('In Mach es richtig');
+    console.log(data);
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+  }
+
   // distinguish if user role is professor or student
   distinguishRoles() {
     this.finalEvents = [];
@@ -144,9 +167,31 @@ export class MainCalComponent implements OnInit {
   // enters professors own office hours
   // ToDo: Fetch real dates
   enterOwnOfficeHours() {
+    for (let v = 0; v < this.ownOfficeHours.slots.length; v++) {
+      const currentSlot = this.ownOfficeHours.slots[v];
+      this.enterSingleOwnOfficeHour(currentSlot);
+    }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
+  }
+
+  enterSingleOwnOfficeHour(currentSlot) {
+    const id = '55';
+    const start = moment(currentSlot.startTime).format('YYYY-MM-DDTHH:mm:ss');
+    const end = moment(currentSlot.endTime).format('YYYY-MM-DDTHH:mm:ss');
+    const myTitle = 'schöner Titel';
+    const color = 'green';
+    console.log(start);
+    console.log(end);
+    this.myOwnOfficeHour = {
+      id: id,
+      title : myTitle,
+      start : start,
+      end : end,
+      color : color
+    };
+    this.finalEvents.push(this.myOwnOfficeHour);
   }
 
   // renders all events when ready;
