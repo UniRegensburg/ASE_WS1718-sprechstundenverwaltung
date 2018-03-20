@@ -91,13 +91,14 @@ export class MainCalComponent implements OnInit {
         console.log(event.id.type);
         this.scheduleService.onEventClicked(event.id);
         console.log(event.id.type);
+
         // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
+
         if (this.userRole === 'Professor') {
           this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
         } else if (this.userRole === 'Student') {
-          // this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-          console.log(event.id + 'in Student');
+          this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
         }
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
@@ -222,5 +223,4 @@ export class MainCalComponent implements OnInit {
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
   }
-
 }

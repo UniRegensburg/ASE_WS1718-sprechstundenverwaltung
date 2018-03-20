@@ -9,7 +9,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class OfficehoursService {
 
-  response: any;
   professorInfo = [];
   profInfo: BehaviorSubject<any> = new BehaviorSubject<any>(this.professorInfo);
 
@@ -26,7 +25,7 @@ export class OfficehoursService {
       });
   }
 
-  public setOfficeHour(datetime: any, slotSize: number, slotAmount: number) {
+  public setOfficeHourProf(datetime: any, slotSize: number, slotAmount: number) {
 
     const body = {
       weekday: moment(datetime).format('dddd'),
@@ -43,5 +42,13 @@ export class OfficehoursService {
         //console.log(res.status);
         this.profInfo.next(res.json().officeHours);
       });
+  }
+
+  public setOfficeHourStudent(title: string, description: string/*,timeSlot: any*/) {
+    // Todo: Send data to server
+  }
+
+  public deleteOfficeHourStudent() {
+    // Todo: Send delete request to server
   }
 }
