@@ -97,7 +97,6 @@ export class MainCalComponent implements OnInit {
             this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
         } else if (this.userRole === 'Student') {
           // this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-          this.machesrichtig(event.id);
           console.log(event.id + 'in Student');
         }
         // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
