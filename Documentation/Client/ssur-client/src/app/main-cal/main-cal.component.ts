@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarComponent} from 'ap-angular2-fullcalendar';
 import * as moment from 'moment';
 import { ScheduleService} from '../services/ScheduleService';
 import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
 import { OfficehoursService } from '../services/Officehours.service';
+import { CalendarComponent } from 'ng-fullcalendar';
+import { Options } from 'fullcalendar';
 
 @Component({
   selector: 'app-main-cal',
@@ -22,34 +23,7 @@ export class MainCalComponent implements OnInit {
   userRole;
   finalEvents = [];
 
-  calendarOptions;
-
-  myOfficeHour = {
-    id: 'id',
-    title: 'title',
-    start: 'start',
-    end: 'end',
-    color: 'color'
-  };
-
-  myOwnOfficeHour = {
-    id: 'id',
-    title: 'title',
-    start: 'start',
-    end: 'end',
-    color: 'color'
-  };
-
-
-
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
-
-  changeCalendarView(view) {
-
-    this.myCalendar.fullCalendar('changeView', view);
-
-  }
-
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
@@ -82,55 +56,67 @@ export class MainCalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  // calendarOptions;
 
-    this.calendarOptions = {
+  myOfficeHour = {
+    id: 'id',
+    title: 'title',
+    start: 'start',
+    end: 'end',
+    color: 'color'
+  };
 
-      eventClick: (event) => {
-        console.log('auf ein Event geklickt');
-        console.log(event.id.type);
-        this.scheduleService.onEventClicked(event.id);
-        console.log(event.id.type);
+  myOwnOfficeHour = {
+    id: 'id',
+    title: 'title',
+    start: 'start',
+    end: 'end',
+    color: 'color'
+  };
 
-        // Dialog-Aufruf zu Hannes auslagern --> übersichtlicher und einfacher
+  calendarOptions: Object = {
 
-        if (this.userRole === 'Professor') {
-          this.dialogsService.editOfficeHourDialog('Sprechstunde editieren', this.officeHoursProf.startTime,
-            this.officeHoursProf.slotLength, this.officeHoursProf.slotNumber);
-        } else if (this.userRole === 'Student') {
-          this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-        }
-        // ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    header: {
+      left: false,
+      center: 'agendaWeek,basicDay'
+    },
+    buttonText: {
+      today:    'Heute',
+      month:    'Monat',
+      week:     'Woche',
+      day:      'Tag'
+    },
+    locale: 'de',
+    timeFormat: 'HH:mm',
+    editable: false,
+    handleWindowResize: true,
+    weekends: false,
+    defaultView: 'agendaWeek',
+    navLinks: true,
+    minTime: '08:00:00',
+    maxTime: '18:00:00',
+    slotDuration: '00:15:00',
+    columnFormat: 'ddd D/M',
+    nowIndicator: true,
+    displayEventTime: true,
+    allDayText: 'Ganztägig',
+    slotLabelFormat: 'HH:mm',
+  };
 
-        return false;
-      },
-
-      header: {
-        center: 'agendaWeek,basicDay'
-      },
-      buttonText: {
-        today:    'Heute',
-        month:    'Monat',
-        week:     'Woche',
-        day:      'Tag'
-      },
-      locale: 'de',
-      timeFormat: 'HH:mm',
-      editable: false,
-      handleWindowResize: true,
-      weekends: false,
-      defaultView: 'agendaWeek',
-      navLinks: true,
-      minTime: '08:00:00',
-      maxTime: '18:00:00',
-      slotDuration: '00:15:00',
-      columnFormat: 'ddd D/M',
-      nowIndicator: true,
-      displayEventTime: true,
-      allDayText: 'Ganztägig',
-      slotLabelFormat: 'HH:mm',
-    };
+  eventClick(event) {
+    console.log(event);
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
   }
+
+/*  changeCalendarView(view) {
+
+    this.myCalendar.fullCalendar('changeView', view);
+
+  }*/
+  ngOnInit() {}
+
+
+
 
   machesrichtig(data) {
     console.log('In Mach es richtig');
