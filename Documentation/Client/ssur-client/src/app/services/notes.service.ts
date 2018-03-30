@@ -20,6 +20,7 @@ export class NotesService {
 
 
 //todo: add an 'id'parameter
+  //todo: add notes to the database and not only to the array
   setNotes(newNote){
     let timestamp = moment().format('lll');
     this.notes.push(timestamp+': '+newNote);
