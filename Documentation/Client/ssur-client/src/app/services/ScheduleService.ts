@@ -10,6 +10,10 @@ export class ScheduleService {
   private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
   private finalUrl;
 
+  // neue URL when rdy
+  // GET https://asesprechstunde.herokuapp.com/api/user/"id"/officehours
+  // private shortURL = 'https://asesprechstunde.herokuapp.com/api/user/';
+
   private professorListener;
 
   constructor(private professorService: ProfessorService, private http: Http) {
@@ -26,6 +30,8 @@ export class ScheduleService {
 
   getCurrentOfficeHours(data) {
     this.finalUrl = this.shortUrl + data + '/meetings';
+    // neue final URL when rdy
+    // this.finalUrl = this.shortURL + data + '/officehours';
 
     this.http.get(this.finalUrl).subscribe(officeData => {
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
