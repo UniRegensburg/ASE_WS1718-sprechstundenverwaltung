@@ -9,15 +9,20 @@
     </li>
   </ul>
 
+  <!--todo: add list that shows uploaded files belonging to the slot-->
+
   <div class="row">
-    <button class="col-sm-6"mat-raised-button id="upload_button"> <!--add mat-dialog-close-->
-      Datei hochladen
-    </button>
+    <div class="form-group">
+      <label for="file">Datei hinzufügen: </label>
+      <input type="file"
+             id="file"
+             (change)="handleFileInput($event.target.files)">
+    </div>
   </div>
 
   <div class="row">
     <button class="col-sm-6"mat-raised-button id="save_note_button" [mat-dialog-close]="note">
-      Notiz speichern
+        Speichern
     </button>
     <button (click)="onNoClick()" class="col-sm-6" mat-raised-button>
       Abbrechen
