@@ -77,6 +77,7 @@ export class MainCalComponent implements OnInit {
   calendarOptions: Object = {
 
     header: {
+      left: false,
       center: 'agendaWeek,basicDay'
     },
     buttonText: {
