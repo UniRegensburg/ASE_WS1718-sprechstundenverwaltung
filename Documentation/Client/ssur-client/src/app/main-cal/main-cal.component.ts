@@ -56,8 +56,6 @@ export class MainCalComponent implements OnInit {
     });
   }
 
-  // calendarOptions;
-
   myOfficeHour = {
     id: 'id',
     title: 'title',
@@ -103,8 +101,8 @@ export class MainCalComponent implements OnInit {
     slotLabelFormat: 'HH:mm',
   };
 
+  // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
-    console.log(event);
     this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
   }
 
@@ -115,14 +113,6 @@ export class MainCalComponent implements OnInit {
   }*/
   ngOnInit() {}
 
-
-
-
-  machesrichtig(data) {
-    console.log('In Mach es richtig');
-    console.log(data);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-  }
 
   // distinguish if user role is professor or student
   distinguishRoles() {
