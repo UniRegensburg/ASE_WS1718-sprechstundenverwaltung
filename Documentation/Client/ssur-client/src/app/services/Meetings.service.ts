@@ -6,20 +6,73 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class MeetingsService {
 
-  meetingsInfo = [];
-  meetings: BehaviorSubject<any> = new BehaviorSubject<any>(this.meetingsInfo);
+  meetingsInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  meetingsChanged: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+
+  studentID = '5ab50fb9118d842c2423b0bb'; // Todo: Later get ID of logged-in user from userservice
 
   constructor(private http: Http) {
     this.getMeetings();
   }
 
   // Get meetings
-  // Todo: Change to get meetings of logged in user
-  getMeetings() {
-    this.http.get(`https://ase1718data.herokuapp.com/meetings/123456754`)
-      .subscribe(data => {
-        this.meetings.next(data.json());
-        //console.log('Meetings: ' + data);
+  public getMeetings() {
+    this.http.get('https://asesprechstunde.herokuapp.com/api/user/' + this.studentID + '/officehourslot')
+      .subscribe(res => {
+        this.meetingsInfo.next(res.json());
+        //console.log('Meetings: ' + res);
+      });
+  }
+
+  // Take new slot or edit existing slot
+  public setOrEditOfficehourSlot(slotTitle: string, slotDescription: string, slotID: string, editSlot: boolean) {
+    const body = {
+      studentID: this.studentID,
+      title: slotTitle,
+      description: slotDescription,
+      slotTaken: true
+    };
+
+    this.http
+      .patch('https://asesprechstunde.herokuapp.com/api/officehourslot/' + slotID, body)
+      .subscribe(res => {
+
+        if(editSlot){
+          this.meetingsChanged.next(res.status);
+        }
+        else {
+          this.meetingsInfo.next([res.json()]);
+        }
+      });
+  }
+
+/*  public editOfficehourSlot(slotTitle: string, slotDescription: string, slotID: string) {
+    const body = {
+      studentID: this.studentID,
+      title: slotTitle,
+      description: slotDescription,
+      slotTaken: true
+    };
+
+    this.http
+      .patch('https://asesprechstunde.herokuapp.com/api/officehourslot/' + slotID, body)
+      .subscribe(res => {
+        this.meetingsInfo.next(res.json());
+      });
+  }*/
+
+  public deleteOfficehourSlot(slotID: string) {
+    const body = {
+      studentID: '',
+      title: '',
+      description: '',
+      slotTaken: false
+    };
+
+    this.http
+      .patch('https://asesprechstunde.herokuapp.com/api/officehourslot/' + slotID, body)
+      .subscribe(res => {
+        this.meetingsChanged.next(res.status);
       });
   }
 }
