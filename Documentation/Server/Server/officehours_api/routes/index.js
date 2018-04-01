@@ -18,6 +18,7 @@ router.delete("/user/:id", ctrlUser.deleteUser);    // delete user with specific
 // ****office hour api routes****
 router.get("/officehours", ctrlOfficehour.getAllOfficehours);   // get all officehours
 router.get('/user/:id/officehours', ctrlOfficehour.getAllOfficehoursOfLecturer); // get all officehours of specific lecturer
+router.get('/user/:id/officehourslot', ctrlOfficehour.getAllOfficehourslotsOfStudent); // get all officehourslots of specific student
 router.get("/officehours/:id", ctrlOfficehour.getOfficehour);    // get specific officehour
 router.get('/officehourslot/:id', ctrlOfficehour.getOfficehourSlot);    // get specific officehourslot
 

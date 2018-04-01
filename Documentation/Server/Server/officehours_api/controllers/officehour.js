@@ -35,6 +35,32 @@ module.exports.getAllOfficehoursOfLecturer = function (req, res) {
         });
 };
 
+// Gives back all officehourslots of student with specified id
+module.exports.getAllOfficehourslotsOfStudent = function (req, res) {
+    var id;
+    var slotsArray = [];
+    if (req.params && req.params.id) {
+        id = req.params.id;
+    } else {
+        sendJSONresponse(res, 404, {
+            "message": "id is required"
+        });
+        return;
+    }
+    Officehour
+        .find({'slots.studentID': id})
+        .exec(function (err, officehour) {
+            for(i in officehour){
+                for(j in officehour[i].slots) {
+                    if(officehour[i].slots[j].studentID == id){
+                        slotsArray.push(officehour[i].slots[j]);
+                    }
+                }
+            }
+            readResponseHandler(err, slotsArray, res, "id not found");
+        });
+};
+
 // Gives back officehour with specified id
 module.exports.getOfficehour = function (req, res) {
     var id;
@@ -64,7 +90,7 @@ module.exports.createOfficehour = function (req, res) {
             lecturerID: req.body.lecturerID, //mongoose.Types.ObjectId(req.body.lecturerId),
             descriptionNeeded: req.body.descriptionNeeded,
             slots: calculateSlots(req.body.start, req.body.slotLength, req.body.slotCount)  // fill slotsarray with slots
-        }, function (err, user) {
+        }, function (err, officehour) {
             if (err) {
                 console.log(err);
                 if (err.name = "ValidationError") {
@@ -73,7 +99,7 @@ module.exports.createOfficehour = function (req, res) {
                     sendInternalErrorResponse(res);
                 }
             } else {
-                sendJSONresponse(res, 201, user);
+                sendJSONresponse(res, 201, officehour);
             }
         });
 };
@@ -182,7 +208,7 @@ module.exports.updateOfficehourSlot = function (req, res) {
                 title: req.body.title,
                 description: req.body.description,
                 slotTaken: req.body.slotTaken
-            });
+                });
             officehour.save(function(err, officehour) {
                 readResponseHandler(err, officehour.slots.id(id), res, "id not found");
             });

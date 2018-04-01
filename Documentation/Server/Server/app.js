@@ -8,6 +8,13 @@ var routes = require('./officehours_api/routes/index');
 
 var app = express();
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -35,5 +42,12 @@ app.use(function (err, req, res, next) {
 });
 
 var port = process.env.PORT || "3000";
-app.listen(port);
-//app.listen(8080);
+if (process.env.NODE_ENV === "production") {
+    app.listen(port);
+}
+else {
+    app.listen(8080);
+}
+
+
+
