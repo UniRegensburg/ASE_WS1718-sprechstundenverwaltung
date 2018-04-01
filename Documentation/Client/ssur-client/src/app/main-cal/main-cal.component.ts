@@ -45,7 +45,7 @@ export class MainCalComponent implements OnInit {
         this.distinguishRoles();
       }
     });
-    this.ownOfficeHoursListener = this.officeHoursService.profInfo.subscribe(data => {
+    this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
       console.log(data);
       if (data.length <= 0) {
@@ -105,7 +105,7 @@ export class MainCalComponent implements OnInit {
 
   eventClick(event) {
     console.log(event);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
   }
 
 /*  changeCalendarView(view) {
@@ -121,7 +121,7 @@ export class MainCalComponent implements OnInit {
   machesrichtig(data) {
     console.log('In Mach es richtig');
     console.log(data);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
   }
 
   // distinguish if user role is professor or student

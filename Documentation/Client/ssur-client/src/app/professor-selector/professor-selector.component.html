@@ -1,9 +1,10 @@
 <div class ="row">
   <form class="example-form col-sm-6">
   <mat-form-field class="example-full-width">
-    <input (click)="this.professorService.getProfNames()" matInput placeholder="Dozent auswählen..." aria-label="Prof" [matAutocomplete]="auto" [formControl]="profCtrl">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected) = "sendSelectedProf()" >
-      <mat-option *ngFor="let prof of filteredProfs" [value]="prof">
+    <!--<input (click)="this.professorService.getProfNames()" matInput placeholder="Dozent auswählen..." aria-label="Prof" [matAutocomplete]="auto" [formControl]="profCtrl">-->
+    <input type="text" matInput placeholder="Dozent auswählen..." aria-label="Prof" [matAutocomplete]="auto" [formControl]="profCtrl">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected) = "sendSelectedProfID()" >
+      <mat-option *ngFor="let prof of filteredProfs | async" [value]="prof">
         <span>{{ prof }}</span>
       </mat-option>
     </mat-autocomplete>

@@ -4,12 +4,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatNativeDateModule,
-  MatSelectModule, MatButtonModule
+  MatSelectModule, MatButtonModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule
 } from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule} from '@angular/material';
-import { MatInputModule} from '@angular/material';
-import { MatSlideToggleModule} from '@angular/material';
 import { HttpClientModule} from '@angular/common/http';
 import { ProfessorService} from './services/ProfessorService';
 import { HttpModule } from '@angular/http';
