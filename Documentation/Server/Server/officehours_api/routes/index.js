@@ -31,9 +31,14 @@ router.delete('/officehourslot/:id', ctrlOfficehour.deleteOfficehourSlot);   // 
 
 
 //  ****conversation api routes****
-//router.get("/user/:id/conversation", ctrlConversation.getAllConversationsByUser);
-//router.post("/user/:id/conversation", ctrlConversation.createConversation);
+router.get('/conversation/lecturer/:id', ctrlConversation.getAllConversationsForLecturer);  // get all conversations for lecturer with specific id
+router.get('/conversation/student/:id', ctrlConversation.getAllConversationsForStudent);  // get all conversations for student with specific id
+router.get('/conversation/:id', ctrlConversation.getConversationByID);  // get conversation with specific id
 
+router.post('/conversation', ctrlConversation.createConversation);  // create new conversation
+router.patch('/conversation/:id', ctrlConversation.updateConversation); // update existing conversation with new notes
+
+router.delete('/conversation/:id', ctrlConversation.deleteConversation);    // delete conversation with specific id
 
 
 

@@ -81,7 +81,6 @@ module.exports.getOfficehour = function (req, res) {
 
 // Creates officehour
 module.exports.createOfficehour = function (req, res) {
-    // Todo: Fix, so that student, title & description is not needed when creating office hour
     Officehour
         .create({
             start: req.body.start,
