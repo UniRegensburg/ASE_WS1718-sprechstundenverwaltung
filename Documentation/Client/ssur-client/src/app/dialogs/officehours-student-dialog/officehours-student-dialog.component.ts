@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material';
 import { ScheduleService } from '../../services/ScheduleService';
+import { OfficehoursService } from '../../services/Officehours.service';
+import { MeetingsService } from '../../services/Meetings.service';
 
 
 @Component({
@@ -13,24 +15,31 @@ export class OfficehoursStudentDialogComponent implements OnInit {
 
   public header: string;
   public title: string;
-  public body: string;
-  public confirmButton: string;
-  public showDeleteButton = false;
+  public description: string;
+  public meetingID: string;
+  //public confirmButton: string;
+  public editSlot = false;
 
   // Confirm request of slot
-  submitRequestedSlot() {
-    // ToDo: What should happen after slot is requested (probably send data to server)
+  submitSelectedSlot(editSlot: boolean) {
+   this.meetingService.setOrEditOfficehourSlot(this.title, this.description, this.meetingID, editSlot);
     this.dialogRef.close(true);
   }
 
+  /*editSelectedSlot() {
+    this.meetingService.editOfficehourSlot(this.title, this.description, this.meetingID);
+    this.dialogRef.close(true);
+  }*/
+
   // delete the reserved slot
   deleteSelectedSlot() {
-    if (confirm("Wollen Sie die Sprechstunde wirklich löschen?")) {
-      // ToDo: What should happen after slot is deleted (probably send delete request to server)
+    if (confirm('Wollen Sie die Sprechstunde wirklich löschen?')) {
+      this.meetingService.deleteOfficehourSlot(this.meetingID);
+      this.dialogRef.close(true);
     }
   }
 
-  constructor(public dialogRef: MatDialogRef<OfficehoursStudentDialogComponent>, private scheduleService: ScheduleService) { }
+  constructor(public dialogRef: MatDialogRef<OfficehoursStudentDialogComponent>, private meetingService: MeetingsService) { }
 
   ngOnInit() {
   }

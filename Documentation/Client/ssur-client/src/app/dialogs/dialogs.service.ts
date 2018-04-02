@@ -34,24 +34,26 @@ export class DialogsService {
   }
 
   // Opens Dialog to register for officehour as student
-  public registerOfficeHourDialog(header: string): Observable<boolean> {
+  public registerOfficeHourDialog(header: string, meetingID: string): Observable<boolean> {
     let dialogRef: MatDialogRef<OfficehoursStudentDialogComponent>;
     dialogRef = this.dialog.open(OfficehoursStudentDialogComponent);
     dialogRef.componentInstance.header = header;
-    dialogRef.componentInstance.confirmButton = 'Belegen';
-    dialogRef.componentInstance.showDeleteButton = false;
+    dialogRef.componentInstance.meetingID = meetingID;
+    //dialogRef.componentInstance.confirmButton = 'Belegen';
+    dialogRef.componentInstance.editSlot = false;
     return dialogRef.afterClosed();
   }
 
   // Opens Dialog to edit registered officehour as student
-  public editRegisteredOfficeHourDialog(header: string, title: string, body: string): Observable<boolean> {
+  public editRegisteredOfficeHourDialog(header: string, title: string, description: string, id: string): Observable<boolean> {
     let dialogRef: MatDialogRef<OfficehoursStudentDialogComponent>;
     dialogRef = this.dialog.open(OfficehoursStudentDialogComponent);
     dialogRef.componentInstance.header = header;
     dialogRef.componentInstance.title = title;
-    dialogRef.componentInstance.body = body;
-    dialogRef.componentInstance.confirmButton = 'Editieren';
-    dialogRef.componentInstance.showDeleteButton = true;
+    dialogRef.componentInstance.description = description;
+    dialogRef.componentInstance.meetingID = id;
+    //dialogRef.componentInstance.confirmButton = 'Editieren';
+    dialogRef.componentInstance.editSlot = true;
     return dialogRef.afterClosed();
   }
 

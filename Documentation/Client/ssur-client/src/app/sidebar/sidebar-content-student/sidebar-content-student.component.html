@@ -1,9 +1,23 @@
-<div>
-  <h3 style="text-align: center">{{title_sidebar}}</h3>
-</div>
+<div class="container-fluid">
+  <div class="row">
+    <h3 style="text-align: center">{{title_sidebar}}</h3>
+  </div>
 
-<!-- Just for testing purposes -->
-<div>
-  <button style="float: right" (click)="requestSlot()">Slot belegen</button>
-  <button style="float: right" (click)="editSlot()">Slot editieren</button>
+  <div *ngFor="let item of meetingsArray; let i = index"  class="row" id="officeHourDiv">
+    <mat-label class="col-sm-12" *ngIf="meetingExists == true">
+      <hr>
+      <b>{{meetingsArray[i].title}}</b><br>
+      {{meetingsArray[i].start}} - {{meetingsArray[i].end}}<br>
+      <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Edit</button>
+    </mat-label>
+  </div>
+
+  <!-- Just for testing purposes -->
+  <div class = 'row'>
+    <!-- Todo: Change to use id of slected slot -->
+    <button class="mat-raised-button" (click)="requestSlot('5abf8f6c9a40f000141cb04a')">Slot belegen</button>
+
+  </div>
 </div>
+<br>
+

@@ -17,9 +17,10 @@ export class OfficehoursProfDialogComponent implements OnInit {
   slotSize: number;
   slotAmount: number;
   confirmButton: string;
+  descriptionNeeded = false;
 
   createOfficeHour() {
-    this.officehourService.setOfficeHour(this.selectedDateTime, this.slotSize, this.slotAmount);
+    this.officehourService.createOfficeHourLecturer(this.selectedDateTime, this.slotSize, this.slotAmount, this.descriptionNeeded);
     this.dialogRef.close(true);
   }
 

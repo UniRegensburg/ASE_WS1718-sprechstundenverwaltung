@@ -9,39 +9,51 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class OfficehoursService {
 
-  response: any;
-  professorInfo = [];
-  profInfo: BehaviorSubject<any> = new BehaviorSubject<any>(this.professorInfo);
+  lecInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  lecturerID = '5ab52a8fc9513830d07bc13b';  // Todo: Later get ID of logged-in user from userservice
+
+  delInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
   constructor(private http: Http) {
-    this.getProfessorInfo();
+    this.getLecturerInfo();
   }
 
-  // TODO: adjust to get all profs later
-  getProfessorInfo() {
-    this.http.get(`https://ase1718data.herokuapp.com/professors/abc12345`)
-      .subscribe(data => {
-        this.profInfo.next(data.json().officeHours);
-        //console.log(JSON.parse(data['_body']).officeHours);
+  public getLecturerInfo() {
+    //console.log('Getting officehour...');
+    this.http.get('https://asesprechstunde.herokuapp.com/api/user/' + this.lecturerID + '/officehours')
+      .subscribe(res => {
+        this.lecInfo.next(res.json());
+        //console.log(JSON.parse(res['_body']));
       });
   }
 
-  public setOfficeHour(datetime: any, slotSize: number, slotAmount: number) {
+  public createOfficeHourLecturer(datetime: any, slotSize: number, slotAmount: number, descriptionNeeded: boolean) {
 
     const body = {
-      weekday: moment(datetime).format('dddd'),
-      slotNumber: slotAmount,
+      start: datetime,
       slotLength: slotSize,
-      startTime: datetime
+      slotCount: slotAmount,
+      lecturerID: this.lecturerID,
+      descriptionNeeded: descriptionNeeded
     };
 
     this.http
-      .patch('https://ase1718data.herokuapp.com/professors/me/officehours', body)
+      .post('https://asesprechstunde.herokuapp.com/api/officehours', body)
       .subscribe(res => {
-        //console.log(res);
-        //console.log(res.json().officeHours);
-        //console.log(res.status);
-        this.profInfo.next(res.json().officeHours);
+        this.lecInfo.next([res.json()]);  // needs to be in an array, comes back as object
+      });
+
+  }
+
+  public deleteOfficehourLecturer(id: string) {
+    //console.log('Deleting officehour: ' + 'https://asesprechstunde.herokuapp.com/api/officehours/' + id)
+
+    this.http
+      .delete('https://asesprechstunde.herokuapp.com/api/officehours/' + id)
+      .subscribe(res => {
+        //console.log('antwort-----> ' + res.status);
+        //this.lecInfo.next([res.json()]);
+        this.delInfo.next(res.status);
       });
   }
 }
