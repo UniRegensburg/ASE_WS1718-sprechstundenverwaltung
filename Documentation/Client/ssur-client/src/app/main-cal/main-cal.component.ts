@@ -45,7 +45,7 @@ export class MainCalComponent implements OnInit {
         this.distinguishRoles();
       }
     });
-    this.ownOfficeHoursListener = this.officeHoursService.profInfo.subscribe(data => {
+    this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
       console.log(data);
       if (data.length <= 0) {
@@ -103,7 +103,8 @@ export class MainCalComponent implements OnInit {
 
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+    console.log(event);
+    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
   }
 
 /*  changeCalendarView(view) {

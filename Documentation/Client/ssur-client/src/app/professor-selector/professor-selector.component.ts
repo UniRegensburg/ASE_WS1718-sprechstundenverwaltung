@@ -15,28 +15,47 @@ import {map} from 'rxjs/operators/map';
 
 export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
-  filteredProfs;
-  profs = this.professorService.getProfNames();
+  profsArray = [];
+  filteredProfs: Observable<string[]>;
 
   constructor(private professorService: ProfessorService) {
     this.profCtrl = new FormControl();
+
+    for(var i = 0; i < this.professorService.existingProfs.length; i++) {
+      var completeName = this.professorService.existingProfs[i].name + ' ' + this.professorService.existingProfs[i].lastName;
+      this.profsArray.push({
+        id: this.professorService.existingProfs[i]._id,
+        name: completeName
+      });
+      //console.log('blaldfasld--->' + this.profsArray[i].id);
+    }
+
     this.filteredProfs = this.profCtrl.valueChanges
       .pipe(
         startWith(''),
-        map(prof => prof ? this.filterProfs(prof) : this.profs.slice())
+        map(val => this.filterProfs(val))
       );
   }
 
   ngOnInit(){
-    this.filteredProfs = this.profs;
   }
 
- filterProfs(name: string) {
-    return this.profs.filter(prof =>
-      prof.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  filterProfs(val: string): string[] {
+    var dummyArray = [];
+    for(var i = 0; i < this.profsArray.length; i++) {
+      dummyArray.push(this.profsArray[i].name);
+    }
+    return dummyArray.filter(option =>
+      option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
-  sendSelectedProf(){
-    this.professorService.setSelectedProf(this.profCtrl.value);
+  sendSelectedProfID(){
+    for(var i = 0; i < this.profsArray.length; i++) {
+      if(this.profsArray[i].name == this.profCtrl.value) {
+        this.professorService.setSelectedProf(this.profsArray[i].id);
+        //console.log('testtest----->' + this.profsArray[i].id);
+      }
+    }
+
   }
 }
