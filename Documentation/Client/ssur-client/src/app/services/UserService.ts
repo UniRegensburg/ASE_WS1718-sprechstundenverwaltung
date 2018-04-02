@@ -19,6 +19,7 @@ export class UserService {
   }
 
   public getUserInfoByID(userID: string) {
+    //console.log('Anfrage-------------------');
     this.http
       .get('https://asesprechstunde.herokuapp.com/api/user/' + userID)
       .subscribe(res => {

@@ -1,12 +1,12 @@
 <h2 mat-dialog-title>Slotdetails</h2>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
-  Start: {{startDateTime}}<br>
-  Titel: {{title}}<br>
-  Beschreibung: {{description}}<br>
-  Student: {{getStudentName()}}<br>
+  <b>Start:</b>  {{startDateTime}}<br>
+  <b>Titel:</b>  {{title}}<br>
+  <b>Beschreibung:</b>  {{description}}<br>
+  <b>Student:</b>  {{studentName}}<br>
 </div>
 <div mat-dialog-actions>
-  <button mat-button style="float: right" (click)="startNewConverstion()">Unterhaltung starten</button>
+  <button mat-button style="float: right" (click)="startNewConverstion()">Notiz hinzufügen</button>
   <button mat-button style="float: left" (click)="dialogRef.close()">Ok</button>
 </div>
