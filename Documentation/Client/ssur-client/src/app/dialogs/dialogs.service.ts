@@ -42,6 +42,7 @@ export class DialogsService {
     dialogRef.componentInstance.title = title;
     dialogRef.componentInstance.description = description;
     dialogRef.componentInstance.studentID = id;
+    dialogRef.componentInstance.getStudentName();
     return dialogRef.afterClosed();
   }
 
