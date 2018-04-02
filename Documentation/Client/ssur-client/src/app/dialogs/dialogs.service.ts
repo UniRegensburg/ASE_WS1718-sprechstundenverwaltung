@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { OfficehoursProfDialogComponent } from './officehours-prof-dialog/officehours-prof-dialog.component';
 import { OfficehoursStudentDialogComponent } from './officehours-student-dialog/officehours-student-dialog.component';
+import { SlotDetailsDialogComponent } from './slot-details-dialog/slot-details-dialog.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Injectable()
@@ -30,6 +31,17 @@ export class DialogsService {
     dialogRef.componentInstance.slotAmount = slotAmount;
     dialogRef.componentInstance.confirmButton = 'Editieren';
 
+    return dialogRef.afterClosed();
+  }
+
+  // Opens dialog to see slotdetails and start conversation as prof
+  public showSlotDetails(start: any, title: string, description: string, id: string) {
+    let dialogRef: MatDialogRef<SlotDetailsDialogComponent>;
+    dialogRef = this.dialog.open(SlotDetailsDialogComponent);
+    dialogRef.componentInstance.startDateTime = start;
+    dialogRef.componentInstance.title = title;
+    dialogRef.componentInstance.description = description;
+    dialogRef.componentInstance.studentID = id;
     return dialogRef.afterClosed();
   }
 
