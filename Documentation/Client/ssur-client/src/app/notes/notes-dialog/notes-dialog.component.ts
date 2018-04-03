@@ -17,7 +17,8 @@ export class NotesDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<NotesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public fileUploadService: FileUploadService) { }
+    public fileUploadService: FileUploadService,
+    private notesService: NotesService) { }
 
   ngOnInit() {
   }

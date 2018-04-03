@@ -15,7 +15,6 @@ export class NotesComponent implements OnInit {
 
   note: string;
   notes = this.notesService.getNotes('5ac0ffc395c39920e0cbdea2');
-
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
   constructor(private dialog: MatDialog, public notesService: NotesService) {
