@@ -31,7 +31,9 @@ export class SlotDetailsDialogComponent implements OnInit {
 
     this.NotesDialogRef.afterClosed().subscribe(result => {
       this.note = result;
-      this.notesService.setNotes(this.note, this.id);
+      if (this.note != undefined) {
+        this.notesService.setNotes(this.note, this.id);
+      }
     });
   }
 
