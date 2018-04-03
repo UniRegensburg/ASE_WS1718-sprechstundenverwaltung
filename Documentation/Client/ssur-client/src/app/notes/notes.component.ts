@@ -14,19 +14,18 @@ import {Inject} from "@angular/core";
 export class NotesComponent implements OnInit {
 
   note: string;
-  notes = this.notesService.getNotes('5ac0ffc395c39920e0cbdea2');
+  id = '5ac0fccbfb910820e064fada' ;
+  notes = this.notesService.getNotes(this.id);
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
-  constructor(private dialog: MatDialog, public notesService: NotesService) {
-  }
+  constructor(private dialog: MatDialog, public notesService: NotesService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   //todo: use actual id as parameter, not constant value of dummy-conversation
   openNotesDialog(): void {
     console.log(this.notes);
-    this.notes = this.notesService.getNotes('5ac0ffc395c39920e0cbdea2');
+    this.notes = this.notesService.getNotes(this.id);
     this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
         width: '500px',
         height: '500px',
@@ -35,7 +34,7 @@ export class NotesComponent implements OnInit {
 
       this.NotesDialogRef.afterClosed().subscribe(result => {
         this.note = result;
-        this.notesService.setNotes(this.note, '5ac0ffc395c39920e0cbdea2');
+        this.notesService.setNotes(this.note, this.id);
       });
   }
 }

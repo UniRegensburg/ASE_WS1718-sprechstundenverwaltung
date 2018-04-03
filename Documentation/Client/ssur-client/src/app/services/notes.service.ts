@@ -34,4 +34,17 @@ export class NotesService {
         this.NoteInfo.next([res.json()]);
       });
   }
+
+
+
+  createNewConversation(){
+    const body= {
+      lecturer: '2309uadölfj23',
+      student:  '309uadölfj232',
+      notes: [],
+      files: []
+    }
+
+    this.http.post(this.baseUrl, body);
+  }
 }

@@ -11,7 +11,8 @@ import {NotesDialogComponent} from "../../notes/notes-dialog/notes-dialog.compon
 })
 export class SlotDetailsDialogComponent implements OnInit {
   note: string;
-  notes = this.notesService.getNotes('5ac0ffc395c39920e0cbdea2');
+  id = '5ac0fccbfb910820e064fada' ;
+  notes = this.notesService.getNotes(this.id);
 
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
@@ -22,7 +23,7 @@ export class SlotDetailsDialogComponent implements OnInit {
   public studentName: string;
 
   startNewConversation() {
-    this.notes = this.notesService.getNotes('5ac0ffc395c39920e0cbdea2');
+    this.notes = this.notesService.getNotes(this.id);
     this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
       width: '500px',
       height: '500px',
@@ -31,7 +32,7 @@ export class SlotDetailsDialogComponent implements OnInit {
 
     this.NotesDialogRef.afterClosed().subscribe(result => {
       this.note = result;
-      this.notesService.setNotes(this.note, '5ac0ffc395c39920e0cbdea2');
+      this.notesService.setNotes(this.note, this.id);
     });
   }
 
