@@ -111,7 +111,8 @@ export class MainCalComponent implements OnInit {
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
     console.log(event);
-    if (this.userRole === 'Student') {
+    console.log(event.event.title);
+    if (this.userRole === 'Student' && event.event.title === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
     } else if (this.userRole === 'Professor') {
       return;
