@@ -28,6 +28,8 @@ import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.componen
 import { UserService } from './services/UserService';
 import { MeetingsService } from './services/Meetings.service';
 import { FullCalendarModule } from 'ng-fullcalendar';
+import { SlotDetailsDialogComponent } from './dialogs/slot-details-dialog/slot-details-dialog.component';
+import {NotesService} from './services/notes.service';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     SidebarContentStudentComponent,
     MainCalComponent,
     NotesComponent,
-    NotesDialogComponent
+    NotesDialogComponent,
+    SlotDetailsDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -73,10 +76,11 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     OfficehoursService,
     UserService,
     MeetingsService,
+    NotesService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
 
-  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent]
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent, SlotDetailsDialogComponent]
 
 })
 export class AppModule { }

@@ -102,6 +102,14 @@ export class SidebarContentProfComponent implements OnInit {
       });
     }
   }
+
+  // just for testing
+  showDetails() {
+    this.dialogsService
+      .showSlotDetails('2018-03-27 15:38:42.000', 'Titel', 'Beschreibung', '5ab52ad7c9513830d07bc13c')
+      .subscribe(res => this.result = res);
+  }
+
   ngOnInit() {
   }
 
