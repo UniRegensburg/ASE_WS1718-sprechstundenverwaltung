@@ -17,7 +17,9 @@ export class MainCalComponent implements OnInit {
   private professorHoursListener;
   private userListener;
   private ownOfficeHoursListener;
+  private meetingListener;
 
+  actualMeeting;
   ownOfficeHours;
   officeHoursProf;
   userRole;
@@ -36,6 +38,12 @@ export class MainCalComponent implements OnInit {
         this.distinguishRoles();
       }
     });
+
+    this.meetingListener = this.scheduleService.selectedMeeting.subscribe(data => {
+      this.actualMeeting = data;
+      console.log(data);
+    });
+
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
@@ -56,6 +64,7 @@ export class MainCalComponent implements OnInit {
   }
 
 
+  // ToDo: Templates noch zusammenwerfen
   myOwnOfficeHour = {
     id: 'id',
     title: 'title',
@@ -90,6 +99,7 @@ export class MainCalComponent implements OnInit {
     weekends: false,
     defaultView: 'agendaWeek',
     navLinks: true,
+    navLinkDayClick: true,
     minTime: '09:00:00',
     maxTime: '18:00:00',
     slotDuration: '00:10:00',
@@ -112,7 +122,8 @@ export class MainCalComponent implements OnInit {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'Professor') {
       // ToDo: Funktion noch richtig implementieren
-      this.scheduleService.getSingleMeeting(clickedId);
+      const newConst = this.scheduleService.getSingleMeeting(clickedId);
+      console.log(this.actualMeeting);
       this.dialogsService.showSlotDetails(eventStart, eventTitle, 'Ich bin eine Beschreibung', studentId);
     }
   }
@@ -138,15 +149,12 @@ export class MainCalComponent implements OnInit {
   // enters professors own office hours
   enterOwnOfficeHours() {
     for (let w = 0; w < this.ownOfficeHours.length; w++) {
-      console.log(this.ownOfficeHours[w]);
-    }
-    // ToDo: For-Schleife noch reinschalten
 
-
-    const ownOfficeHour = this.ownOfficeHours[0];
-    for (let v = 0; v < ownOfficeHour.slotCount; v++) {
-      const currentSlot = ownOfficeHour.slots[v];
-      this.enterSingleSlot(currentSlot);
+    const ownOfficeHour = this.ownOfficeHours[w];
+      for (let v = 0; v < ownOfficeHour.slotCount; v++) {
+        const currentSlot = ownOfficeHour.slots[v];
+        this.enterSingleSlot(currentSlot);
+      }
     }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');

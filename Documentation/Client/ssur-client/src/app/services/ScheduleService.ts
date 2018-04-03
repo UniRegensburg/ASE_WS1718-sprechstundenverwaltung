@@ -25,6 +25,9 @@ export class ScheduleService {
   _selectedOfficeHours = {};
   selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedOfficeHours);
 
+  _selectedMeeting = {};
+  selectedMeeting: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedMeeting);
+
   getCurrentOfficeHours(data) {
     // this.finalUrl = this.shortURL + data + '/meetings';
     // neue final URL when rdy
@@ -36,13 +39,15 @@ export class ScheduleService {
     });
   }
 
-  getSingleMeeting(data) {
-    // GET https://asesprechstunde.herokuapp.com/api/officehourslot/"id"
+  getSingleMeeting(data): any {
     const shortURL = 'https://asesprechstunde.herokuapp.com/api/officehourslot/';
     const finalURL = shortURL + data;
 
-    this.http.get(finalURL).subscribe(meetingData => {
+    return this.http.get(finalURL).subscribe(meetingData => {
+      this.selectedMeeting.next(JSON.parse(meetingData['_body']));
       console.log(meetingData);
+      console.log(this.selectedMeeting);
     });
   }
 }
+
