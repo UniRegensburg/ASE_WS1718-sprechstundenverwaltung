@@ -47,7 +47,6 @@ export class MainCalComponent implements OnInit {
     });
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
-      console.log(data);
       if (data.length <= 0) {
         return;
       } else {
@@ -56,9 +55,15 @@ export class MainCalComponent implements OnInit {
     });
   }
 
-  // calendarOptions;
+ /* myOfficeHour = {
+    id: 'id',
+    title: 'title',
+    start: 'start',
+    end: 'end',
+    color: 'color'
+  };*/
 
-  myOfficeHour = {
+  myOwnOfficeHour = {
     id: 'id',
     title: 'title',
     start: 'start',
@@ -66,7 +71,7 @@ export class MainCalComponent implements OnInit {
     color: 'color'
   };
 
-  myOwnOfficeHour = {
+  slotTemplate = {
     id: 'id',
     title: 'title',
     start: 'start',
@@ -88,24 +93,29 @@ export class MainCalComponent implements OnInit {
     },
     locale: 'de',
     timeFormat: 'HH:mm',
-    editable: false,
     handleWindowResize: true,
     weekends: false,
     defaultView: 'agendaWeek',
     navLinks: true,
-    minTime: '08:00:00',
+    minTime: '09:00:00',
     maxTime: '18:00:00',
-    slotDuration: '00:15:00',
+    slotDuration: '00:10:00',
     columnFormat: 'ddd D/M',
     nowIndicator: true,
     displayEventTime: true,
-    allDayText: 'Ganztägig',
+    displayEventEnd: false,
+    allDaySlot: false,
     slotLabelFormat: 'HH:mm',
   };
 
+  // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
     console.log(event);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
+    if (this.userRole === 'Student') {
+      this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
+    } else if (this.userRole === 'Professor') {
+      return;
+    }
   }
 
 /*  changeCalendarView(view) {
@@ -116,31 +126,26 @@ export class MainCalComponent implements OnInit {
   ngOnInit() {}
 
 
-
-
-  machesrichtig(data) {
-    console.log('In Mach es richtig');
-    console.log(data);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
-  }
-
   // distinguish if user role is professor or student
   distinguishRoles() {
     this.finalEvents = [];
+    this.myCalendar.fullCalendar('removeEvents');
     if (this.userRole === 'Student') {
       this.enterOfficeHours();
     } else if (this.userRole === 'Professor') {
       this.enterOwnOfficeHours();
-      console.log('Ich bin ein Professor');
     }
   }
 
   // enters professors own office hours
   // ToDo: Fetch real dates
   enterOwnOfficeHours() {
-    for (let v = 0; v < this.ownOfficeHours.slots.length; v++) {
-      const currentSlot = this.ownOfficeHours.slots[v];
-      this.enterSingleOwnOfficeHour(currentSlot);
+    const ownOfficeHour = this.ownOfficeHours[0];
+    for (let v = 0; v < ownOfficeHour.slotCount; v++) {
+      const currentSlot = ownOfficeHour.slots[v];
+      console.log(currentSlot);
+      this.enterSingleSlot(currentSlot);
+      // this.enterSingleOwnOfficeHour(currentSlot);
     }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
@@ -168,29 +173,49 @@ export class MainCalComponent implements OnInit {
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
-    for (let u = 0; u < this.officeHoursProf.length; u++) {
-      const currentOfficeHour = this.officeHoursProf[u];
-      this.enterSingleOfficeHour(currentOfficeHour);
+    const currentOfficeHour = this.officeHoursProf[0];
+    console.log(currentOfficeHour.slotCount);
+    for (let u = 0; u < currentOfficeHour.slotCount; u++) {
+      console.log(currentOfficeHour.slots[u]);
+      const singleSlot = currentOfficeHour.slots[u];
+      this.enterSingleSlot(singleSlot);
     }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  enterSingleSlot(currentSlot) {
+    const slotID = currentSlot._id;
+    const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
+    const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
+    let typeColor;
+    let slotStatus;
+    if (currentSlot.slotTaken === false) {
+      slotStatus = 'Belegt';
+      typeColor = 'red';
+    } else if (currentSlot.slotTaken === true) {
+      slotStatus = 'Frei';
+      typeColor = 'green';
+    }
+
+    this.slotTemplate = {
+      id: slotID,
+      title: slotStatus,
+      start: startOf,
+      end: endOf,
+      color: typeColor
+    };
+    this.finalEvents.push(this.slotTemplate);
+  }
+
   // create single office hour and push it into finalEvents
-  enterSingleOfficeHour(currentOfficeHour) {
-      const  id = currentOfficeHour.id;
+  /*enterSingleOfficeHour(currentOfficeHour) {
+      const  id = currentOfficeHour._id;
       const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
       const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
-      let officeHourTitle;
-      let typeColor;
-      if (currentOfficeHour.type === 'office hour') {
-        typeColor = 'green';
-        officeHourTitle = 'Offene Sprechstunde';
-      }  else {
-        typeColor = 'grey';
-        officeHourTitle = 'I*Forgott*My*Name';
-      }
+      const officeHourTitle = 'Offene Sprechstunde';
+      let typeColor = 'green';
       let statusText = '   Frei';
       if (currentOfficeHour.status === 'closed') {
         typeColor = 'red';
@@ -204,7 +229,7 @@ export class MainCalComponent implements OnInit {
         color: typeColor
       };
       this.finalEvents.push(this.myOfficeHour);
-  }
+  }*/
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
