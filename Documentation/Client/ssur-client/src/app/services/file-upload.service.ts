@@ -9,6 +9,7 @@ export class FileUploadService {
     private http: Http
   ) { }
 
+  //todo: use url of the conversation
   postFile(fileToUpload): Observable<boolean> {
     const endpoint = 'your-destination-url';
     const formData: FormData = new FormData();
