@@ -7,8 +7,12 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class ScheduleService {
 
-  private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
+  // private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
   private finalUrl;
+
+  // neue URL when rdy
+  // GET https://asesprechstunde.herokuapp.com/api/user/"id"/officehours
+  private shortURL = 'https://asesprechstunde.herokuapp.com/api/user/';
 
   private professorListener;
 
@@ -25,7 +29,10 @@ export class ScheduleService {
   idOfClickedEvent: BehaviorSubject<any> = new BehaviorSubject<any>(this._idOfClickedEvent);
 
   getCurrentOfficeHours(data) {
-    this.finalUrl = this.shortUrl + data + '/meetings';
+    // this.finalUrl = this.shortURL + data + '/meetings';
+    // neue final URL when rdy
+    console.log(data);
+    this.finalUrl = this.shortURL + data + '/officehours';
 
     this.http.get(this.finalUrl).subscribe(officeData => {
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
