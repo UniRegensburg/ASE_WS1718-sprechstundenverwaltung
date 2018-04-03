@@ -29,7 +29,7 @@ export class MainCalComponent implements OnInit {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
       this.userRole = data;
       console.log(this.userRole);
-      console.log(this.ownOfficeHours);
+      console.log('wechsel');
       if (this.ownOfficeHours == null) {
         return;
       } else {
@@ -55,13 +55,6 @@ export class MainCalComponent implements OnInit {
     });
   }
 
- /* myOfficeHour = {
-    id: 'id',
-    title: 'title',
-    start: 'start',
-    end: 'end',
-    color: 'color'
-  };*/
 
   myOwnOfficeHour = {
     id: 'id',
@@ -111,12 +104,16 @@ export class MainCalComponent implements OnInit {
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
     console.log(event);
+    const studentId = event.event._id;
     const clickedId = event.event.id;
-    console.log(clickedId);
+    const eventStart = event.event.start;
+    const eventTitle = event.event.title;
     if (this.userRole === 'Student' && event.event.title === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'Professor') {
-      return;
+      // ToDo: Funktion noch richtig implementieren
+      this.scheduleService.getSingleMeeting(clickedId);
+      this.dialogsService.showSlotDetails(eventStart, eventTitle, 'Ich bin eine Beschreibung', studentId);
     }
   }
 
@@ -126,7 +123,6 @@ export class MainCalComponent implements OnInit {
 
   }*/
   ngOnInit() {}
-
 
   // distinguish if user role is professor or student
   distinguishRoles() {
@@ -140,20 +136,24 @@ export class MainCalComponent implements OnInit {
   }
 
   // enters professors own office hours
-  // ToDo: Fetch real dates
   enterOwnOfficeHours() {
+    for (let w = 0; w < this.ownOfficeHours.length; w++) {
+      console.log(this.ownOfficeHours[w]);
+    }
+    // ToDo: For-Schleife noch reinschalten
+
+
     const ownOfficeHour = this.ownOfficeHours[0];
     for (let v = 0; v < ownOfficeHour.slotCount; v++) {
       const currentSlot = ownOfficeHour.slots[v];
-      console.log(currentSlot);
       this.enterSingleSlot(currentSlot);
-      // this.enterSingleOwnOfficeHour(currentSlot);
     }
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  // ToDo: noch löschen
   enterSingleOwnOfficeHour(currentSlot) {
     const id = '55';
     const start = moment(currentSlot.startTime).format('YYYY-MM-DDTHH:mm:ss');
@@ -187,6 +187,7 @@ export class MainCalComponent implements OnInit {
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  // create single office hour and push it into finalEvents
   enterSingleSlot(currentSlot) {
     const slotID = currentSlot._id;
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
@@ -210,28 +211,6 @@ export class MainCalComponent implements OnInit {
     };
     this.finalEvents.push(this.slotTemplate);
   }
-
-  // create single office hour and push it into finalEvents
-  /*enterSingleOfficeHour(currentOfficeHour) {
-      const  id = currentOfficeHour._id;
-      const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
-      const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
-      const officeHourTitle = 'Offene Sprechstunde';
-      let typeColor = 'green';
-      let statusText = '   Frei';
-      if (currentOfficeHour.status === 'closed') {
-        typeColor = 'red';
-        statusText = '   Belegt';
-      }
-      this.myOfficeHour = {
-        id: id,
-        title: officeHourTitle + statusText,
-        start: start,
-        end: endOF,
-        color: typeColor
-      };
-      this.finalEvents.push(this.myOfficeHour);
-  }*/
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
