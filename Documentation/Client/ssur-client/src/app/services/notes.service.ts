@@ -8,6 +8,7 @@ export class NotesService {
   notes = [];
   baseUrl = 'https://asesprechstunde.herokuapp.com/api/conversation/'
   NoteInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  newConversation;
 
   constructor(private http: Http) { }
 
@@ -38,13 +39,18 @@ export class NotesService {
 
 
   createNewConversation(){
-    const body= {
-      lecturer: '2309uadölfj23',
-      student:  '309uadölfj232',
-      notes: [],
+    const body ={
+      lecturer: "5ab53157d7dc852ce4870756",
+      student: "5ab52ad7c9513830d07bc13c",
+      notes: ["bla1", "blub2"],
       files: []
     }
 
-    this.http.post(this.baseUrl, body);
+    this.http.post(this.baseUrl, body).subscribe(res =>{
+      this.newConversation = [res.json()];
+      console.log(this.newConversation)
+
+      }
+    );
   }
 }
