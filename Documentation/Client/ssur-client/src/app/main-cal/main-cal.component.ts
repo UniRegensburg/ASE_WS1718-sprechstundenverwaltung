@@ -29,9 +29,9 @@ export class MainCalComponent implements OnInit {
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
+      console.log('user Listener');
       this.userRole = data;
       console.log(this.userRole);
-      console.log('wechsel');
       if (this.ownOfficeHours == null) {
         return;
       } else {
@@ -47,6 +47,7 @@ export class MainCalComponent implements OnInit {
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
+      console.log('im Professor Hours Listener');
       if (data.length == null) {
         return;
       } else {
@@ -122,7 +123,9 @@ export class MainCalComponent implements OnInit {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'Professor') {
       // ToDo: Funktion noch richtig implementieren
-      const newConst = this.scheduleService.getSingleMeeting(clickedId);
+      // const newConst = this.scheduleService.doAsyncTask(clickedId);
+      this.scheduleService.doAsyncTask(clickedId).then(() => console.log('Task Complete!'));
+      // console.log(newConst);
       console.log(this.actualMeeting);
       this.dialogsService.showSlotDetails(eventStart, eventTitle, 'Ich bin eine Beschreibung', studentId);
     }
@@ -222,5 +225,6 @@ export class MainCalComponent implements OnInit {
 
   onCalendarInit(initialized: boolean) {
     console.log('Calendar initialized');
+    this.distinguishRoles();
   }
 }

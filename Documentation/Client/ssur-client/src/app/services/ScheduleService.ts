@@ -39,15 +39,44 @@ export class ScheduleService {
     });
   }
 
-  getSingleMeeting(data): any {
+ /* public getSingleMeeting(data): Promise<any> {
     const shortURL = 'https://asesprechstunde.herokuapp.com/api/officehourslot/';
     const finalURL = shortURL + data;
+
+    const promise = new Promise((resolve, reject) => {
+
+    })
 
     return this.http.get(finalURL).subscribe(meetingData => {
       this.selectedMeeting.next(JSON.parse(meetingData['_body']));
       console.log(meetingData);
       console.log(this.selectedMeeting);
     });
+  }*/
+
+  public doAsyncTask(data): Promise<any> {
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('Async Work Complete');
+        resolve();
+      }, 1000);
+    });
+    return promise;
+  }
+
+  public getUserNameAsynchonously(): Promise<any> {
+    const promise = new Promise((resolve, reject) => {
+      if (Math.round(Math.random() * 10) % 2 === 0) {
+        window.setTimeout(() => {
+          resolve('Tom Joad');
+        }, 1000);
+      } else {
+        window.setTimeout(() => {
+          reject();
+        }, 1000);
+      }
+    });
+    return promise;
   }
 }
 
