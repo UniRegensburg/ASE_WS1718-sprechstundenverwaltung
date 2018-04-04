@@ -141,6 +141,7 @@ export class MainCalComponent implements OnInit {
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
+  // enters office hours from selected professor
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
