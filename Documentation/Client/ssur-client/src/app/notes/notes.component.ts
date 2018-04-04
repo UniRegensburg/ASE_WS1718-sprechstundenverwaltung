@@ -22,7 +22,6 @@ export class NotesComponent implements OnInit {
   ngOnInit() {}
 
   openNotesDialog(): void {
-    console.log(this.notes);
     this.notes = this.notesService.getNotes(this.id);
     this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
         width: '500px',
