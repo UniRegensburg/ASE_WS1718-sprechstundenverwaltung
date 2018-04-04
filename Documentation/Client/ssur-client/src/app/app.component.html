@@ -2,9 +2,9 @@
   <div class="row">
     <h1 class="col-sm-8"> {{ title }}</h1>
     <div *ngIf="userService.userIsLoggedIn.getValue()">
-      <b>Eingloggt als:</b> {{userService.loggedInUserInfo.getValue()[0].foreName}} {{userService.loggedInUserInfo.getValue()[0].lastName}}
+      <b>Angemeldet als:</b> {{userService.loggedInUserInfo.getValue()[0].foreName}} {{userService.loggedInUserInfo.getValue()[0].lastName}}
 
-      <b>, Rolle:</b>
+      <b> Rolle:</b>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">Student</span>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">Dozent</span>
     </div>
