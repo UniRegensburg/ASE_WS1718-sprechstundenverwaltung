@@ -20,8 +20,7 @@ export class ScheduleService {
 
   _selectedOfficeHours = {};
   selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedOfficeHours);
-
-
+  
   getCurrentOfficeHours(data) {
     this.finalUrl = this.shortURL + data + '/officehours';
 
