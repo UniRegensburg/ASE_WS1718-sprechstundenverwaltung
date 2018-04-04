@@ -41,7 +41,6 @@ export class MainCalComponent implements OnInit {
 
     this.meetingListener = this.scheduleService.selectedMeeting.subscribe(data => {
       this.actualMeeting = data;
-      console.log(data);
     });
 
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
@@ -56,6 +55,7 @@ export class MainCalComponent implements OnInit {
     });
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
+      console.log(this.ownOfficeHours);
       if (data.length <= 0) {
         return;
       } else {
@@ -79,7 +79,8 @@ export class MainCalComponent implements OnInit {
     title: 'title',
     start: 'start',
     end: 'end',
-    color: 'color'
+    color: 'color',
+    description: ''
   };
 
   calendarOptions: Object = {
@@ -117,17 +118,18 @@ export class MainCalComponent implements OnInit {
     console.log(event);
     const studentId = event.event._id;
     const clickedId = event.event.id;
+    const eventDescription = event.event.description;
     const eventStart = event.event.start;
     const eventTitle = event.event.title;
     if (this.userRole === 'Student' && event.event.title === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'Professor') {
-      // ToDo: Funktion noch richtig implementieren
-      // const newConst = this.scheduleService.doAsyncTask(clickedId);
-      this.scheduleService.doAsyncTask(clickedId).then(() => console.log('Task Complete!'));
-      // console.log(newConst);
-      console.log(this.actualMeeting);
-      this.dialogsService.showSlotDetails(eventStart, eventTitle, 'Ich bin eine Beschreibung', studentId);
+
+      /*const brab = this.scheduleService.doAsyncTask(clickedId).then(() => {
+        console.log('Task Complete!');
+        console.log(brab);
+      });*/
+      this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
   }
 
@@ -201,16 +203,18 @@ export class MainCalComponent implements OnInit {
   // create single office hour and push it into finalEvents
   enterSingleSlot(currentSlot) {
     const slotID = currentSlot._id;
+    const slotDescription = currentSlot.description;
+    console.log(slotDescription);
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
     const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
     let typeColor;
     let slotStatus;
     if (currentSlot.slotTaken === false) {
-      slotStatus = 'Belegt';
-      typeColor = 'red';
-    } else if (currentSlot.slotTaken === true) {
       slotStatus = 'Frei';
       typeColor = 'green';
+    } else if (currentSlot.slotTaken === true) {
+      slotStatus = 'Belegt';
+      typeColor = 'red';
     }
 
     this.slotTemplate = {
@@ -218,7 +222,8 @@ export class MainCalComponent implements OnInit {
       title: slotStatus,
       start: startOf,
       end: endOf,
-      color: typeColor
+      color: typeColor,
+      description: slotDescription
     };
     this.finalEvents.push(this.slotTemplate);
   }

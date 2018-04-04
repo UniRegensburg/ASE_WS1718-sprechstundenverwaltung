@@ -55,13 +55,29 @@ export class ScheduleService {
   }*/
 
   public doAsyncTask(data): Promise<any> {
-    const promise = new Promise((resolve, reject) => {
+    const shortURL = 'https://asesprechstunde.herokuapp.com/api/officehourslot/';
+    const finalURL = shortURL + data;
+
+    /*return new Promise<any>(
+      function (resolve, reject) {
+        const myValue = this.http.get(finalURL).subscribe();
+        resolve(myValue);
+      }
+    );*/
+    let actualMeetingData;
+
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        console.log('Async Work Complete');
-        resolve();
+        this.http.get(finalURL).subscribe((meetingData => {
+          console.log(meetingData);
+          actualMeetingData = JSON.parse(meetingData['_body']);
+          resolve(actualMeetingData);
+        }));
+        console.log(actualMeetingData);
+        // resolve(actualMeetingData);
+        // resolve('bananenbaum');
       }, 1000);
     });
-    return promise;
   }
 
   public getUserNameAsynchonously(): Promise<any> {
