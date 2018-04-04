@@ -49,6 +49,12 @@ export class ProfessorSelectorComponent implements OnInit{
   ngOnInit(){
   }
 
+  clearSelection() {
+    // clear input
+    this.profCtrl.setValue('');
+    // Todo: show options without the need to click outside of input field first
+  };
+
   filterProfs(val: string): string[] {
     var dummyArray = [];
     for(var i = 0; i < this.profsArray.length; i++) {
@@ -59,12 +65,12 @@ export class ProfessorSelectorComponent implements OnInit{
   }
 
   sendSelectedProfID(){
+    //console.log('Arraylänge----->' + this.profsArray.length);
     for(var i = 0; i < this.profsArray.length; i++) {
       if(this.profsArray[i].name == this.profCtrl.value) {
-        this.professorService.selectedProfessor.next(this.profsArray[i].id);
         //console.log('testtest----->' + this.profsArray[i].id);
+        this.professorService.selectedProfessor.next(this.profsArray[i].id);
       }
     }
-
   }
 }

@@ -28,24 +28,25 @@ export class MainCalComponent implements OnInit {
               private officeHoursService: OfficehoursService) {
 
 
-    this.userRole = userService.loggedInUserInfo.getValue()[0].role;
+    /*this.userRole = userService.loggedInUserInfo.getValue()[0].role;
     console.log(this.userRole);
     console.log(this.ownOfficeHours);
     if (this.ownOfficeHours == null) {
       return;
     } else {
       this.distinguishRoles();
-    }
+    }*/
 
-    /*this.userListener = this.userService.loggedinUser.subscribe( data => {
-      this.userRole = data;
+    this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
+      this.userRole = data[0].role;
       console.log(this.userRole);
       if (this.ownOfficeHours == null) {
         return;
       } else {
         this.distinguishRoles();
       }
-    });*/
+    });
+
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       if (data.length == null) {
