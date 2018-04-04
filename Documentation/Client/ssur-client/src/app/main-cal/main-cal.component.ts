@@ -27,7 +27,6 @@ export class MainCalComponent implements OnInit {
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
     this.userListener = this.userService.loggedinUser.subscribe( data => {
-      console.log('user Listener');
       this.userRole = data;
       console.log(this.userRole);
       if (this.ownOfficeHours == null) {
@@ -39,8 +38,6 @@ export class MainCalComponent implements OnInit {
 
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
-      console.log(data);
-      console.log('im Professor Hours Listener');
       if (data.length == null) {
         return;
       } else {
@@ -49,7 +46,6 @@ export class MainCalComponent implements OnInit {
     });
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
-      console.log(this.ownOfficeHours);
       if (data.length <= 0) {
         return;
       } else {
@@ -105,9 +101,9 @@ export class MainCalComponent implements OnInit {
     const eventDescription = event.event.description;
     const eventStart = event.event.start;
     const eventTitle = event.event.title;
-    if (this.userRole === 'Student' && event.event.title === 'Frei') {
+    if (this.userRole === 'student' && event.event.title === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
-    } else if (this.userRole === 'Professor') {
+    } else if (this.userRole === 'lecturer') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
   }
@@ -123,9 +119,9 @@ export class MainCalComponent implements OnInit {
   distinguishRoles() {
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
-    if (this.userRole === 'Student') {
-      this.enterOfficeHours();
-    } else if (this.userRole === 'Professor') {
+    if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
+        this.enterOfficeHours();
+    } else if (this.userRole === 'lecturer') {
       this.enterOwnOfficeHours();
     }
   }
@@ -149,22 +145,21 @@ export class MainCalComponent implements OnInit {
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
     const currentOfficeHour = this.officeHoursProf[0];
-    console.log(currentOfficeHour.slotCount);
-    for (let u = 0; u < currentOfficeHour.slotCount; u++) {
-      console.log(currentOfficeHour.slots[u]);
-      const singleSlot = currentOfficeHour.slots[u];
-      this.enterSingleSlot(singleSlot);
+    if (currentOfficeHour.slotCount !== null) {
+      for (let u = 0; u < currentOfficeHour.slotCount; u++) {
+        const singleSlot = currentOfficeHour.slots[u];
+        this.enterSingleSlot(singleSlot);
+      }
+      console.log(this.finalEvents);
+      this.myCalendar.fullCalendar('removeEvents');
+      this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
     }
-    console.log(this.finalEvents);
-    this.myCalendar.fullCalendar('removeEvents');
-    this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
   // create single office hour and push it into finalEvents
   enterSingleSlot(currentSlot) {
     const slotID = currentSlot._id;
     const slotDescription = currentSlot.description;
-    console.log(slotDescription);
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
     const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
     let typeColor;
