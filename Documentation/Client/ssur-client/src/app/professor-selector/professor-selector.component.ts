@@ -27,7 +27,6 @@ export class ProfessorSelectorComponent implements OnInit{
         id: this.professorService.existingProfs[i]._id,
         name: completeName
       });
-      //console.log('blaldfasld--->' + this.profsArray[i].id);
     }
 
     this.filteredProfs = this.profCtrl.valueChanges
@@ -53,7 +52,6 @@ export class ProfessorSelectorComponent implements OnInit{
     for(var i = 0; i < this.profsArray.length; i++) {
       if(this.profsArray[i].name == this.profCtrl.value) {
         this.professorService.setSelectedProf(this.profsArray[i].id);
-        //console.log('testtest----->' + this.profsArray[i].id);
       }
     }
 

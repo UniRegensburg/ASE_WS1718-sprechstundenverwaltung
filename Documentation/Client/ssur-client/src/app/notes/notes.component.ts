@@ -1,8 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {NotesDialogComponent} from "./notes-dialog/notes-dialog.component";
+import {NotesDialogComponent} from "../dialogs/notes-dialog/notes-dialog.component";
 import {NotesService} from "../services/notes.service";
-import {Inject} from "@angular/core";
 
 
 @Component({
@@ -14,17 +13,17 @@ import {Inject} from "@angular/core";
 export class NotesComponent implements OnInit {
 
   note: string;
-  //todo: hand over the id, so that you only get the correct notes
-  notes = this.notesService.getNotes();
+  id = '5ac0fccbfb910820e064fada' ; //todo: use actual id as parameter, not constant value of dummy-conversation
+  notes = this.notesService.getNotes(this.id);
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
 
-  constructor(private dialog: MatDialog, public notesService: NotesService) { }
+  constructor(private dialog: MatDialog, public notesService: NotesService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openNotesDialog(): void {
-      this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
+    this.notes = this.notesService.getNotes(this.id);
+    this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
         width: '500px',
         height: '500px',
         data: {notes: this.notes}
@@ -32,8 +31,8 @@ export class NotesComponent implements OnInit {
 
       this.NotesDialogRef.afterClosed().subscribe(result => {
         this.note = result;
-        //todo: hand over the id of the date
-        this.notesService.setNotes(this.note);
+        if (this.note != undefined){
+          this.notesService.setNotes(this.note, this.id);}
       });
   }
 }
