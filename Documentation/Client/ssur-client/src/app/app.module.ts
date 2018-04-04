@@ -24,7 +24,7 @@ import { MainCalComponent } from './main-cal/main-cal.component';
 import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
 import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
 import { NotesComponent } from './notes/notes.component';
-import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
+import { NotesDialogComponent } from './dialogs/notes-dialog/notes-dialog.component';
 import { UserService } from './services/UserService';
 import { MeetingsService } from './services/Meetings.service';
 import { FullCalendarModule } from 'ng-fullcalendar';

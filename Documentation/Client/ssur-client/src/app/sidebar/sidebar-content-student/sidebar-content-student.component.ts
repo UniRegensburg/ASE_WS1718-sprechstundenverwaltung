@@ -12,7 +12,7 @@ import * as moment from 'moment';
 export class SidebarContentStudentComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Nächste Sprechtunden:'
+  title_sidebar = 'Nächste Sprechstunden:'
   private meetingsListener;
   private meetingsChangeListener;
   public meetingExists: boolean;
