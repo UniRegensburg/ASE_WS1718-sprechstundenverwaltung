@@ -5,13 +5,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class UserService {
 
-  userRole: string;
-  loggedinUser: BehaviorSubject<string> = new BehaviorSubject<string>(this.userRole); // Change to hold array later
+
+  loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
   userInfo: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
 
   constructor(private http: Http) {
-    this.loggedinUser.next('Professor');  // Replace with getLoggedInUserInfo() later or remove completely
+    //this.loggedinUser.next('Professor');  // Replace with getLoggedInUserInfo() later or remove completely
   }
 
   getLoggedInUserInfo(userID: string) {
