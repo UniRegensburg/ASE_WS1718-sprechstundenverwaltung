@@ -7,11 +7,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class ScheduleService {
 
-  // private shortUrl = 'https://ase1718data.herokuapp.com/professors/';
   private finalUrl;
-
-  // neue URL when rdy
-  // GET https://asesprechstunde.herokuapp.com/api/user/"id"/officehours
   private shortURL = 'https://asesprechstunde.herokuapp.com/api/user/';
 
   private professorListener;
@@ -25,74 +21,13 @@ export class ScheduleService {
   _selectedOfficeHours = {};
   selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedOfficeHours);
 
-  _selectedMeeting = {};
-  selectedMeeting: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedMeeting);
 
   getCurrentOfficeHours(data) {
-    // this.finalUrl = this.shortURL + data + '/meetings';
-    // neue final URL when rdy
-    console.log(data);
     this.finalUrl = this.shortURL + data + '/officehours';
 
     this.http.get(this.finalUrl).subscribe(officeData => {
       this.selectedOfficeHours.next(JSON.parse(officeData['_body']));
     });
-  }
-
- /* public getSingleMeeting(data): Promise<any> {
-    const shortURL = 'https://asesprechstunde.herokuapp.com/api/officehourslot/';
-    const finalURL = shortURL + data;
-
-    const promise = new Promise((resolve, reject) => {
-
-    })
-
-    return this.http.get(finalURL).subscribe(meetingData => {
-      this.selectedMeeting.next(JSON.parse(meetingData['_body']));
-      console.log(meetingData);
-      console.log(this.selectedMeeting);
-    });
-  }*/
-
-  public doAsyncTask(data): Promise<any> {
-    const shortURL = 'https://asesprechstunde.herokuapp.com/api/officehourslot/';
-    const finalURL = shortURL + data;
-
-    /*return new Promise<any>(
-      function (resolve, reject) {
-        const myValue = this.http.get(finalURL).subscribe();
-        resolve(myValue);
-      }
-    );*/
-    let actualMeetingData;
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.http.get(finalURL).subscribe((meetingData => {
-          console.log(meetingData);
-          actualMeetingData = JSON.parse(meetingData['_body']);
-          resolve(actualMeetingData);
-        }));
-        console.log(actualMeetingData);
-        // resolve(actualMeetingData);
-        // resolve('bananenbaum');
-      }, 1000);
-    });
-  }
-
-  public getUserNameAsynchonously(): Promise<any> {
-    const promise = new Promise((resolve, reject) => {
-      if (Math.round(Math.random() * 10) % 2 === 0) {
-        window.setTimeout(() => {
-          resolve('Tom Joad');
-        }, 1000);
-      } else {
-        window.setTimeout(() => {
-          reject();
-        }, 1000);
-      }
-    });
-    return promise;
   }
 }
 

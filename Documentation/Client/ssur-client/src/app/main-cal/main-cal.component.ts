@@ -17,9 +17,7 @@ export class MainCalComponent implements OnInit {
   private professorHoursListener;
   private userListener;
   private ownOfficeHoursListener;
-  private meetingListener;
 
-  actualMeeting;
   ownOfficeHours;
   officeHoursProf;
   userRole;
@@ -37,10 +35,6 @@ export class MainCalComponent implements OnInit {
       } else {
         this.distinguishRoles();
       }
-    });
-
-    this.meetingListener = this.scheduleService.selectedMeeting.subscribe(data => {
-      this.actualMeeting = data;
     });
 
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
@@ -63,16 +57,6 @@ export class MainCalComponent implements OnInit {
       }
     });
   }
-
-
-  // ToDo: Templates noch zusammenwerfen
-  myOwnOfficeHour = {
-    id: 'id',
-    title: 'title',
-    start: 'start',
-    end: 'end',
-    color: 'color'
-  };
 
   slotTemplate = {
     id: 'id',
@@ -124,11 +108,6 @@ export class MainCalComponent implements OnInit {
     if (this.userRole === 'Student' && event.event.title === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'Professor') {
-
-      /*const brab = this.scheduleService.doAsyncTask(clickedId).then(() => {
-        console.log('Task Complete!');
-        console.log(brab);
-      });*/
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
   }
@@ -164,25 +143,6 @@ export class MainCalComponent implements OnInit {
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
-  }
-
-  // ToDo: noch löschen
-  enterSingleOwnOfficeHour(currentSlot) {
-    const id = '55';
-    const start = moment(currentSlot.startTime).format('YYYY-MM-DDTHH:mm:ss');
-    const end = moment(currentSlot.endTime).format('YYYY-MM-DDTHH:mm:ss');
-    const myTitle = 'schöner Titel';
-    const color = 'green';
-    console.log(start);
-    console.log(end);
-    this.myOwnOfficeHour = {
-      id: id,
-      title : myTitle,
-      start : start,
-      end : end,
-      color : color
-    };
-    this.finalEvents.push(this.myOwnOfficeHour);
   }
 
   // renders all events when ready;
