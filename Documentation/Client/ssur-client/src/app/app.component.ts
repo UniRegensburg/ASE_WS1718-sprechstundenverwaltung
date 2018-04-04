@@ -13,9 +13,4 @@ export class AppComponent{
 
   constructor (public userService: UserService) {}
 
-  // Sets role
-  public setUser (userRole: string) {
-    this.userService.loggedinUser.next(userRole);
-    // console.log(userRole);
-  }
 }

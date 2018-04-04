@@ -33,7 +33,7 @@ export class SidebarContentProfComponent implements OnInit {
 
       //console.log('Logging---------->' + data[0]);
       // Check if entry exists
-      if (data[0].start !== undefined) {
+      if (data.length > 0) {
         //this.buttonName = 'Editieren';
         this.officehourExists = true;
 

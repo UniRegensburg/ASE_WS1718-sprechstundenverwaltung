@@ -1,14 +1,25 @@
 <div class="container-fluid">
   <div class="row">
     <h1 class="col-sm-8"> {{ title }}</h1>
-    <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('lecturer')">Prof</button>
-    <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('student')">Student</button>
+    <div *ngIf="userService.userIsLoggedIn.getValue()">
+      <b>Eingloggt als:</b> {{userService.loggedInUserInfo.getValue()[0].foreName}} {{userService.loggedInUserInfo.getValue()[0].lastName}}
+
+      <b>, Rolle:</b>
+      <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">Student</span>
+      <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">Dozent</span>
+    </div>
+    <!--<button class="mat-raised-button col-sm-1 float-right" (click)="setUser('lecturer')">Prof</button>
+    <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('student')">Student</button>-->
   </div>
-  <div class="row">
+  <div *ngIf="!userService.userIsLoggedIn.getValue()" id="logindiv">
+    <app-login></app-login>
+  </div>
+  <div *ngIf="userService.userIsLoggedIn.getValue()" class="row">
     <app-sidebar class="col-sm-4"></app-sidebar>
     <div class="col-sm-8">
       <!--If user is a student show prof-selector-->
-      <div *ngIf="userService.loggedinUser.getValue() == 'student'">
+      <!--<div *ngIf="userService.loggedinUser.getValue() == 'student'">-->
+      <div *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">
         <app-professor-selector></app-professor-selector>
       </div>
       <app-main-cal></app-main-cal>

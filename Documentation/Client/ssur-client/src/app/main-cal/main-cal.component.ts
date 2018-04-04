@@ -26,7 +26,18 @@ export class MainCalComponent implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
-    this.userListener = this.userService.loggedinUser.subscribe( data => {
+
+
+    this.userRole = userService.loggedInUserInfo.getValue()[0].role;
+    console.log(this.userRole);
+    console.log(this.ownOfficeHours);
+    if (this.ownOfficeHours == null) {
+      return;
+    } else {
+      this.distinguishRoles();
+    }
+
+    /*this.userListener = this.userService.loggedinUser.subscribe( data => {
       this.userRole = data;
       console.log(this.userRole);
       console.log(this.ownOfficeHours);
@@ -35,7 +46,7 @@ export class MainCalComponent implements OnInit {
       } else {
         this.distinguishRoles();
       }
-    });
+    });*/
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
       console.log(data);
@@ -111,9 +122,9 @@ export class MainCalComponent implements OnInit {
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
     console.log(event);
-    if (this.userRole === 'Student') {
+    if (this.userRole === 'student') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', '123');
-    } else if (this.userRole === 'Professor') {
+    } else if (this.userRole === 'lecturer') {
       return;
     }
   }
@@ -130,9 +141,9 @@ export class MainCalComponent implements OnInit {
   distinguishRoles() {
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
-    if (this.userRole === 'Student') {
+    if (this.userRole === 'student') {
       this.enterOfficeHours();
-    } else if (this.userRole === 'Professor') {
+    } else if (this.userRole === 'lecturer') {
       this.enterOwnOfficeHours();
     }
   }

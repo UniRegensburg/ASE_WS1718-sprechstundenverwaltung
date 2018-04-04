@@ -30,6 +30,7 @@ import { MeetingsService } from './services/Meetings.service';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { SlotDetailsDialogComponent } from './dialogs/slot-details-dialog/slot-details-dialog.component';
 import {NotesService} from './services/notes.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {NotesService} from './services/notes.service';
     MainCalComponent,
     NotesComponent,
     NotesDialogComponent,
-    SlotDetailsDialogComponent
+    SlotDetailsDialogComponent,
+    LoginComponent
   ],
   imports: [
     FullCalendarModule,

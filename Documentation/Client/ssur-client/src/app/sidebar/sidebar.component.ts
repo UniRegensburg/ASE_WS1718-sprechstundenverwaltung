@@ -12,9 +12,9 @@ export class SidebarComponent implements OnInit {
   private userListener;
   public role: string;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
     // Subscribe to UserService to check what role is logged in (here just for testing)
-    this.userListener = userService.loggedinUser.subscribe(data => this.role = data);
+    //this.userListener = userService.loggedinUser.subscribe(data => this.role = data);
   }
 
   ngOnInit() {

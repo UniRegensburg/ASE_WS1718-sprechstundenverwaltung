@@ -17,14 +17,20 @@ export class SlotDetailsDialogComponent implements OnInit {
   public studentID: string;
   public studentName: string;
 
+  userListener;
+
   startNewConverstion() {
     // Todo: Execute function in notesservice
   }
 
-  // Todo: Fix Bug: When details dialog is opened for the first time students name is undefined
   getStudentName() {
     this.userService.getUserInfoByID(this.studentID);
-    this.studentName = this.userService.userInfo.getValue().name + ' ' + this.userService.userInfo.getValue().lastName;
+
+    this.userListener = this.userService.userInfo.subscribe(data => {
+      if(data != undefined) {
+        this.studentName = data.foreName + ' ' + data.lastName;
+      }
+    });
   }
 
   constructor(public dialogRef: MatDialogRef<SlotDetailsDialogComponent>,
