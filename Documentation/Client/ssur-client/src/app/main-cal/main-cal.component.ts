@@ -156,12 +156,14 @@ export class MainCalComponent implements OnInit {
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
-    const currentOfficeHour = this.officeHoursProf[0];
+    for (let v = 0; v < this.officeHoursProf.length; v++) {
+    const currentOfficeHour = this.officeHoursProf[v];
     if (currentOfficeHour.slotCount !== null) {
       for (let u = 0; u < currentOfficeHour.slotCount; u++) {
         const singleSlot = currentOfficeHour.slots[u];
         this.enterSingleSlot(singleSlot);
       }
+    }
       console.log(this.finalEvents);
       this.myCalendar.fullCalendar('removeEvents');
       this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
