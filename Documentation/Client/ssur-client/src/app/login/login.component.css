@@ -1,0 +1,9 @@
+#logindiv {
+  position: fixed; /* or absolute */
+  top: 40%;
+  left: 50%;
+/*  height: 100px;
+  width: 200px;
+  background-color: aqua;*/
+  transform: translate(-50%, -50%);
+}

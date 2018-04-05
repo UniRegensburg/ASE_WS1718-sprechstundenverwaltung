@@ -26,7 +26,8 @@ export class SidebarContentStudentComponent implements OnInit {
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
 
       // Check if entry exists
-      if (data[0] !== undefined) {
+      //if (data[0] !== undefined) {
+      if (data.length > 0) {
         //this.buttonName = 'Editieren';
         this.meetingExists = true;
 
