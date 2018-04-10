@@ -71,7 +71,8 @@ export class MainCalComponent implements OnInit {
     start: 'start',
     end: 'end',
     color: 'color',
-    description: ''
+    description: '',
+    slotStatus: ''
   };
 
   calendarOptions: Object = {
@@ -112,7 +113,7 @@ export class MainCalComponent implements OnInit {
     const eventDescription = event.event.description;
     const eventStart = event.event.start;
     const eventTitle = event.event.title;
-    if (this.userRole === 'student' && event.event.title === 'Frei') {
+    if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
     } else if (this.userRole === 'lecturer') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
@@ -139,6 +140,7 @@ export class MainCalComponent implements OnInit {
 
   // enters professors own office hours
   enterOwnOfficeHours() {
+    console.log(this.ownOfficeHours);
     for (let w = 0; w < this.ownOfficeHours.length; w++) {
 
     const ownOfficeHour = this.ownOfficeHours[w];
@@ -176,8 +178,11 @@ export class MainCalComponent implements OnInit {
     const slotDescription = currentSlot.description;
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
     const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
-    let typeColor;
+
+    let slotTitle = currentSlot.title;
     let slotStatus;
+    let typeColor;
+
     if (currentSlot.slotTaken === false) {
       slotStatus = 'Frei';
       typeColor = 'green';
@@ -186,13 +191,18 @@ export class MainCalComponent implements OnInit {
       typeColor = 'red';
     }
 
+    if (this.userRole === 'student') {
+      slotTitle = slotStatus;
+    }
+
     this.slotTemplate = {
       id: slotID,
-      title: slotStatus,
+      title: slotTitle,
       start: startOf,
       end: endOf,
       color: typeColor,
-      description: slotDescription
+      description: slotDescription,
+      slotStatus: slotStatus
     };
     this.finalEvents.push(this.slotTemplate);
   }
