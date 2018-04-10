@@ -1,0 +1,54 @@
+<div id="logindiv">
+  <!-- Login -->
+  <div *ngIf="!needsToRegister">
+    <b>Willkommen</b>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Benutzer" [(ngModel)]="userName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Passwort" [(ngModel)]="password">
+    </mat-form-field>
+    <br>
+    <button class="mat-raised-button float-left" (click)="loginUser()">Login</button>
+  </div>
+  <!-- Registration -->
+  <div *ngIf="needsToRegister">
+    <b>Registrierung</b>
+    <br>
+    <mat-form-field>
+      <input required matInput placeholder="Benutzername" [(ngModel)]="userName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="password" placeholder="Passwort" [(ngModel)]="password">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput placeholder="Vorname" [(ngModel)]="foreName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput placeholder="Nachname" [(ngModel)]="surName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="email" placeholder="Email" [(ngModel)]="email">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select required [(value)]="role">
+        <mat-option value="lecturer">Dozent</mat-option>
+        <mat-option value="student">Student</mat-option>
+      </mat-select>
+      <mat-placeholder> Rolle</mat-placeholder>
+    </mat-form-field>
+    <br>
+    <button class="mat-raised-button float-left" (click)="registerUser()">Registrieren</button>
+  </div>
+</div>
+
+
+
+

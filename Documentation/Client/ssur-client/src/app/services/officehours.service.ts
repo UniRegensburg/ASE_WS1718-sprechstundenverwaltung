@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
+import { UserService } from './UserService';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -10,11 +11,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class OfficehoursService {
 
   lecInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  lecturerID = '5ab52a8fc9513830d07bc13b';  // Todo: Later get ID of logged-in user from userservice
+  //lecturerID = '5ab52a8fc9513830d07bc13b';  // Todo: Later get ID of logged-in user from userservice
+  lecturerID: string;
 
   delInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService: UserService) {
+    this.lecturerID = userService.loggedInUserInfo.getValue()[0]._id;
     this.getLecturerInfo();
   }
 

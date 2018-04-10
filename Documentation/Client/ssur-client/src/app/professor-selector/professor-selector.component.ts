@@ -17,28 +17,43 @@ export class ProfessorSelectorComponent implements OnInit{
   profCtrl: FormControl;
   profsArray = [];
   filteredProfs: Observable<string[]>;
+  profsListener;
 
   constructor(private professorService: ProfessorService) {
     this.profCtrl = new FormControl();
 
-    for(var i = 0; i < this.professorService.existingProfs.length; i++) {
-      var completeName = this.professorService.existingProfs[i].name + ' ' + this.professorService.existingProfs[i].lastName;
-      this.profsArray.push({
-        id: this.professorService.existingProfs[i]._id,
-        name: completeName
-      });
-      //console.log('blaldfasld--->' + this.profsArray[i].id);
-    }
+    //console.log('Professorenanzahl------>' + this.professorService.existingProfs.length);
 
-    this.filteredProfs = this.profCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.filterProfs(val))
-      );
+    this.profsListener = professorService.existingProfs.subscribe(data => {
+
+      // Check if array is filled
+      if(data.length > 0) {
+        for(var i = 0; i < data.length; i++) {
+          var completeName = data[i].foreName + ' ' + data[i].lastName;
+          //console.log('Professoren------>' + completeName);
+          this.profsArray.push({
+            id: data[i]._id,
+            name: completeName
+          });
+          //console.log('blaldfasld--->' + this.profsArray[i].id);
+        }
+      }
+      this.filteredProfs = this.profCtrl.valueChanges
+        .pipe(
+          startWith(''),
+          map(val => this.filterProfs(val))
+        );
+    });
   }
 
   ngOnInit(){
   }
+
+  clearSelection() {
+    // clear input
+    this.profCtrl.setValue('');
+    // Todo: show options without the need to click outside of input field first
+  };
 
   filterProfs(val: string): string[] {
     var dummyArray = [];
@@ -50,12 +65,12 @@ export class ProfessorSelectorComponent implements OnInit{
   }
 
   sendSelectedProfID(){
+    //console.log('Arraylänge----->' + this.profsArray.length);
     for(var i = 0; i < this.profsArray.length; i++) {
       if(this.profsArray[i].name == this.profCtrl.value) {
-        this.professorService.setSelectedProf(this.profsArray[i].id);
         //console.log('testtest----->' + this.profsArray[i].id);
+        this.professorService.selectedProfessor.next(this.profsArray[i].id);
       }
     }
-
   }
 }

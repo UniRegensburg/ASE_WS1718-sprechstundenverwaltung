@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { UserService } from './UserService';
 
 @Injectable()
 export class MeetingsService {
@@ -9,9 +10,11 @@ export class MeetingsService {
   meetingsInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   meetingsChanged: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
-  studentID = '5ab50fb9118d842c2423b0bb'; // Todo: Later get ID of logged-in user from userservice
+  //studentID = '5ab50fb9118d842c2423b0bb'; // Todo: Later get ID of logged-in user from userservice
+  studentID: string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService: UserService) {
+    this.studentID = userService.loggedInUserInfo.getValue()[0]._id;
     this.getMeetings();
   }
 

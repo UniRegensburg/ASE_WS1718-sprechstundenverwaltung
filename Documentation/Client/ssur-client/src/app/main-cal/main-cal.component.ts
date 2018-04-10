@@ -26,8 +26,19 @@ export class MainCalComponent implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
-    this.userListener = this.userService.loggedinUser.subscribe( data => {
-      this.userRole = data;
+
+
+    /*this.userRole = userService.loggedInUserInfo.getValue()[0].role;
+    console.log(this.userRole);
+    console.log(this.ownOfficeHours);
+    if (this.ownOfficeHours == null) {
+      return;
+    } else {
+      this.distinguishRoles();
+    }*/
+
+    this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
+      this.userRole = data[0].role;
       console.log(this.userRole);
       if (this.ownOfficeHours == null) {
         return;
@@ -145,12 +156,14 @@ export class MainCalComponent implements OnInit {
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
-    const currentOfficeHour = this.officeHoursProf[0];
+    for (let v = 0; v < this.officeHoursProf.length; v++) {
+    const currentOfficeHour = this.officeHoursProf[v];
     if (currentOfficeHour.slotCount !== null) {
       for (let u = 0; u < currentOfficeHour.slotCount; u++) {
         const singleSlot = currentOfficeHour.slots[u];
         this.enterSingleSlot(singleSlot);
       }
+    }
       console.log(this.finalEvents);
       this.myCalendar.fullCalendar('removeEvents');
       this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);

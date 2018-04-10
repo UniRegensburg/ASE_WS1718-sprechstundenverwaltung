@@ -12,7 +12,7 @@ import * as moment from 'moment';
 export class SidebarContentStudentComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Nächste Sprechtunden:'
+  title_sidebar = 'Nächste Sprechstunden:'
   private meetingsListener;
   private meetingsChangeListener;
   public meetingExists: boolean;
@@ -26,7 +26,8 @@ export class SidebarContentStudentComponent implements OnInit {
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
 
       // Check if entry exists
-      if (data[0] !== undefined) {
+      //if (data[0] !== undefined) {
+      if (data.length > 0) {
         //this.buttonName = 'Editieren';
         this.meetingExists = true;
 

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import { Http} from '@angular/http';
 import { ProfessorService} from './ProfessorService';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {isString} from 'util';
 
 
 @Injectable()
@@ -14,12 +15,13 @@ export class ScheduleService {
 
   constructor(private professorService: ProfessorService, private http: Http) {
     this.professorListener = professorService.selectedProfessor.subscribe(data => {
-      this.getCurrentOfficeHours(data);
+      if (isString(data)) {
+        this.getCurrentOfficeHours(data);
+      }
     });
   }
 
-  _selectedOfficeHours = {};
-  selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>(this._selectedOfficeHours);
+  selectedOfficeHours: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   getCurrentOfficeHours(data) {
     this.finalUrl = this.shortURL + data + '/officehours';

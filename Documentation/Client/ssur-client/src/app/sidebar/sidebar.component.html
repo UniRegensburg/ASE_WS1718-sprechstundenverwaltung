@@ -1,14 +1,17 @@
 <div class="container-fluid">
   <div class="row float-left">
-    <div *ngIf="(role == 'lecturer')">
+    <!--<div *ngIf="(role == 'lecturer')">-->
+    <div *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">
       <app-sidebar-content-prof class="col-sm-12"></app-sidebar-content-prof>
     </div>
-    <div *ngIf="(role == 'student')">
+    <!--<div *ngIf="(role == 'student')">-->
+    <div *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">
       <app-sidebar-content-student class="col-sm-12"></app-sidebar-content-student>
     </div>
   </div>
 
   <div class="row float-left">
-    <app-notes></app-notes>
+    <!--<app-notes></app-notes>
+    <button mat-raised-button (click)="this.notesService.createNewConversation()">Neue Unterhaltung</button>-->
   </div>
 </div>
