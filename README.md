@@ -1,20 +1,38 @@
-# Sprechstunde@UR
+# Sprechstunde.ur.de
+### Ziel dieses Projekts: Entwicklung einer webbasierten Anwendung zur Unterstützung der organisatorischen und thematischen Arbeitsabläufe im Kontext universitärer Sprechstunden
+
 
 ## Kurzbeschreibung:
+Dieses Repository beinhaltet eine webbasierte Anwendung, die die Planung von Sprechstunden sowohl für Dozierende als auch Studierende verbessern soll. Die wichtigsten Ziele waren hierbei eine einfachere Möglichkeit zur Vereinbarung von Sprechstundenterminen sowie eine Unterstützung bei der Vorbereitung von Sprechstunden durch einen vorhergehenden Austausch von wichtigen Informationen.
+Wesentliche Features der Anwendung:
 
+- *Login* - Möglichkeit zur Nutzung als Studierender oder Dozierender
+- *Anlegen* neuer Termine als Dozent
+- *Buchen* von Terminen als Student
+- *Kommunikation* von zusätzlichen Informationen zur Sprechstunde durch *Notizsystem* und *Dateiupload*
 
 
 ## Anleitung zur Nutzung:
 
-### Software Requirements:
 
-- node.js bzw. npm installieren: https://nodejs.org/en/download/ 
-- Angular CLI installieren: https://github.com/angular/angular-cli
+### Benötigte Software:
+
+Um die Anwendung zu starten, sind zuerst folgende Softwarekomponenten erforderlich:
+
+- node.js bzw. npm - Installation unter  https://nodejs.org/en/download/ 
+- Angular CLI - Installation unter: https://github.com/angular/angular-cli
+- Internetbrowser zum Abrufen der Anwendung
 
 
 ### Anwendung starten:
 
-- Repository auf lokalen Rechner klonen
-- via Kommandozeile in den Ordner ASE_WS1718-sprechstundenverwaltung\Documentation\Client\ssur-client wechseln
-- 'npm install' ausführen --> Installieren aller benötigten packages
-- 'ng serve -o' ausführen --> Anwendung ist im Browser unter localhost:4200 abrufbar
+- Klonen dieses Repositories auf einen lokalen Rechner
+- Im lokalen Repository in den Ordner *ASE_WS1718-sprechstundenverwaltung\Documentation\Client\ssur-client* wechseln
+- In der Kommandozeile / Terminal den Befehl 'npm install' ausführen, um alle benötigten Pakete (*node_modules*) zu installieren
+- Im selben Ordner den Befehl 'ng serve -o' ausführen --> Anwendung wird kompiliert und ist anschließend im Browser unter //localhost:4200 aufrufbar
+
+
+### Urheber:
+Johannes Dengler (johannes.dengler@stud.uni-regensburg.de)
+Paul Winderl (paul.winderl@stud.uni-regensburg.de)
+Ramona Völkel (ramona.voelkel@stud.uni-regensburg.de)
