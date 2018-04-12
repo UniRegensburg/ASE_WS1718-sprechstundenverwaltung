@@ -12,6 +12,7 @@ router.get("/user/:id", ctrlUser.getUser);  // get user with specific id
 router.get('/lecturers', ctrlUser.getLecturers);    // get all lecturers
 
 router.post("/user", ctrlUser.createUser);  // create new user
+router.post('/isuser', ctrlUser.checkUser); // check if user exists
 
 router.delete("/user/:id", ctrlUser.deleteUser);    // delete user with specific id
 

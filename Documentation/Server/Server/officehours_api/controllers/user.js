@@ -29,15 +29,32 @@ module.exports.getLecturers = function (req, res) {
         });
 };
 
+// Checks if user exists
+module.exports.checkUser = function (req, res) {
+    // Todo: Also check if passwords match
+    User
+        .find({'userName': req.body.userName})
+        .exec(function (err, user) {
+            if(user.length > 0) {
+                sendJSONresponse(res, 200, user);
+            }
+            else {
+                sendJSONresponse(res, 200, []);
+            }
+
+        });
+};
+
 // Creates user
 module.exports.createUser = function (req, res) {
     User
         .create({
             email: req.body.email,
+            userName: req.body.userName,
             password: req.body.password,
-            name: req.body.name,
+            foreName: req.body.foreName,
             lastName: req.body.lastName,
-            role: req.body.role,
+            role: req.body.role
         }, function (err, user) {
             if (err) {
                 console.log(err);
