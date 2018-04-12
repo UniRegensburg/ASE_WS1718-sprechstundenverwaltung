@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Slotdetails</h2>
+<h2 mat-dialog-title>Termindetails</h2>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
   <b>Start:</b>  {{startDateTime}}<br>
@@ -7,6 +7,6 @@
   <b>Student:</b>  {{studentName}}<br>
 </div>
 <div mat-dialog-actions>
-  <button mat-button style="float: right" (click)="startNewConversation()">Notiz hinzufügen</button>
+  <app-notes></app-notes>
   <button mat-button style="float: left" (click)="dialogRef.close()">Ok</button>
 </div>

@@ -21,7 +21,21 @@ export class NotesComponent implements OnInit {
 
   ngOnInit() {}
 
+  checkIfConversationExists(prof, student) {
+    //dummycode:
+    /*for (conv in convdb){
+      if (conv.lecturer == prof && conv.student == student){
+        return conv.id;
+      }
+      else
+        createNewConv(id, prof, student, notes)
+    }*/
+  }
+
   openNotesDialog(): void {
+    // todo: check if already existing conversation in db
+    // todo: if true: pass the notes of that
+    // todo: if false: create a new conversation in the service & add to it
     this.notes = this.notesService.getNotes(this.id);
     this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
         width: '500px',
