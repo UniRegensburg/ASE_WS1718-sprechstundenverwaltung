@@ -37,6 +37,7 @@ router.get('/conversation/student/:id', ctrlConversation.getAllConversationsForS
 router.get('/conversation/:id', ctrlConversation.getConversationByID);  // get conversation with specific id
 
 router.post('/conversation', ctrlConversation.createConversation);  // create new conversation
+router.post('/isconversation', ctrlConversation.checkConversation);    // check if conversation between two users already exists, if so: give back conversation
 router.patch('/conversation/:id', ctrlConversation.updateConversation); // update existing conversation with new notes
 
 router.delete('/conversation/:id', ctrlConversation.deleteConversation);    // delete conversation with specific id

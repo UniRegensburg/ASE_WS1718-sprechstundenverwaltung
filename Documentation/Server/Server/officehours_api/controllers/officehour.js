@@ -50,8 +50,8 @@ module.exports.getAllOfficehourslotsOfStudent = function (req, res) {
     Officehour
         .find({'slots.studentID': id})
         .exec(function (err, officehour) {
-            for(i in officehour){
-                for(j in officehour[i].slots) {
+            for(var i in officehour){
+                for(var j in officehour[i].slots) {
                     if(officehour[i].slots[j].studentID == id){
                         slotsArray.push(officehour[i].slots[j]);
                     }

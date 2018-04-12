@@ -78,6 +78,21 @@ module.exports.getConversationByID = function (req, res) {
         });
 };
 
+// Checks if conversation between users already exists
+module.exports.checkConversation = function(req, res) {
+    var conversationsArray = [];
+    Conversation
+        .find({'lecturer': req.body.lecturer})
+        .exec(function (err, conversation){
+            for(var i in conversation){
+                if(conversation[i].student == req.body.student) {
+                    conversationsArray.push(conversation[i]);
+                }
+            }
+            readResponseHandler(err, conversationsArray, res, "no conversation found");
+        });
+};
+
 // Updates existing conversation with new notes
 module.exports.updateConversation = function (req, res) {
     var id;
