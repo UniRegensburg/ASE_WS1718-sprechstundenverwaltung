@@ -7,6 +7,6 @@
   <b>Student:</b>  {{studentName}}<br>
 </div>
 <div mat-dialog-actions>
-  <app-notes></app-notes>
+  <button mat-raised-button (click)="openNotesDialog()">Chat starten</button>
   <button mat-button style="float: left" (click)="dialogRef.close()">Ok</button>
 </div>

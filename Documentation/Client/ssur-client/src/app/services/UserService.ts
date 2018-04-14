@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class UserService {
 
-
   //loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
   loggedInUserInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   userInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
