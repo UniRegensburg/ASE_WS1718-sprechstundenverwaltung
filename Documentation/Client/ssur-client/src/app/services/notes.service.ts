@@ -8,31 +8,33 @@ export class NotesService {
 
   baseUrl = 'https://asesprechstunde.herokuapp.com/api/conversation/';
   NoteInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  newConversation;
   currentConvID;
-
+  public convListener: boolean;
+  notes = [];
   constructor(private http: Http) { }
 
   getNotes(id) {
-    // this.currentConvID = id;
-    let notes;
+    console.log('getting notes');
     const convUrl = this.baseUrl + id;
     this.http.get(convUrl).subscribe(res => {
       this.NoteInfo.next(res.json());
-      notes = JSON.parse(res['_body']).notes;
+      this.notes = JSON.parse(res['_body']).notes;
+      console.log ('Notes:' + this.notes);
+      console.log('aktuelle ConvID: ' + id);
+
 
     });
-    console.log ('Notes:' + notes);
-    console.log('aktuelle ConvID: ' + id);
-    return notes;
+    return this.notes;
+
   }
 
   setNotes(newNote, id) {
+    console.log('setting notes');
     const convUrl = this.baseUrl + id;
     const timestamp = moment().format('lll');
-    const notes = [(timestamp + ': ' + newNote)];
+    this.notes.push([(timestamp + ': ' + newNote)])
     const notesObject = {
-      notes: notes
+      notes: this.notes
     };
 
     this.http.patch(convUrl, notesObject).subscribe(
@@ -51,7 +53,7 @@ export class NotesService {
     };
 
     this.http.post(this.baseUrl, body).subscribe(res => {
-      this.newConversation = [res.json()];
+      this.currentConvID = res.json()._id;
       }
     );
   }
@@ -68,11 +70,14 @@ export class NotesService {
         res => {
           console.log('Unterhaltung existiert: ' + (res.json()[0])._id);
           this.currentConvID = (res.json()[0]._id);
-          this.getNotes(this.currentConvID); },
-          error => {console.log('Fehler aufgetreten' + error); this.createNewConversation(lec, stud); }
+          this.convListener = true;
+          },
+          error => {
+          console.log('Fehler aufgetreten' + error);  }
       );
-
   }
+
+
 
 }
 

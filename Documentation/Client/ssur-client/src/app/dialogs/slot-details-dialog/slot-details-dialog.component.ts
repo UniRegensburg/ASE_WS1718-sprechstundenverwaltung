@@ -12,6 +12,7 @@ import {NotesDialogComponent} from '../notes-dialog/notes-dialog.component';
 export class SlotDetailsDialogComponent implements OnInit {
   note: string;
   notes;
+  convID;
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   currentProfID;
   userListener;
@@ -24,10 +25,16 @@ export class SlotDetailsDialogComponent implements OnInit {
 
 
   openNotesDialog() {
-    this.notesService.checkIfConversationExists(this.getProfID(), this.studentID);
-    const convid = this.notesService.currentConvID;
-    this.notes = this.notesService.getNotes(convid);
-    console.log('convid beim öffnen des dialogs: ' + convid);
+    console.log('opendialog');
+    if (this.notesService.convListener === true) {
+      this.convID = this.notesService.currentConvID;
+      this.notes = this.notesService.getNotes(this.convID);
+    } else {
+      this.notesService.createNewConversation(this.getProfID(), this.studentID);
+      this.convID = this.notesService.currentConvID;
+    }
+    console.log('convid im Dialog' +  this.convID);
+    console.log('notes im Dialog: ' + this.notes);
     this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
       width: '500px',
       height: '500px',
@@ -37,7 +44,7 @@ export class SlotDetailsDialogComponent implements OnInit {
     this.NotesDialogRef.afterClosed().subscribe(result => {
       this.note = result;
        if (this.note !== undefined) {
-          this.notesService.setNotes(this.note, convid);
+          this.notesService.setNotes(this.note, this.convID);
       }
     });
   }
@@ -61,9 +68,14 @@ export class SlotDetailsDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<SlotDetailsDialogComponent>,
               private notesService: NotesService,
               private dialog: MatDialog,
-              private userService: UserService) { }
+              private userService: UserService) {
+
+
+  }
 
   ngOnInit() {
+    console.log('oninit');
+    this.notesService.checkIfConversationExists(this.getProfID(), this.studentID);
   }
 
 }
