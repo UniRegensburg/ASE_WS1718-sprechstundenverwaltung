@@ -78,6 +78,7 @@ export class MainCalComponent implements OnInit {
     },
     locale: 'de',
     timeFormat: 'HH:mm',
+    height: 500,
     handleWindowResize: true,
     weekends: false,
     defaultView: 'agendaWeek',
