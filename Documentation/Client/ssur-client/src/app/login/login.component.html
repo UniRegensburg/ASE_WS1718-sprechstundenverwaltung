@@ -11,7 +11,7 @@
       <input matInput type="password" placeholder="Passwort" [(ngModel)]="password">
     </mat-form-field>
     <br>
-    <button class="mat-raised-button float-left" (click)="loginUser()">Login</button>
+    <button mat-raised-button class=" float-left" (click)="loginUser()">Login</button>
   </div>
   <!-- Registration -->
   <div *ngIf="needsToRegister">
@@ -45,7 +45,7 @@
       <mat-placeholder> Rolle</mat-placeholder>
     </mat-form-field>
     <br>
-    <button class="mat-raised-button float-left" (click)="registerUser()">Registrieren</button>
+    <button mat-raised-button class=" float-left" (click)="registerUser()">Registrieren</button>
   </div>
 </div>
 
