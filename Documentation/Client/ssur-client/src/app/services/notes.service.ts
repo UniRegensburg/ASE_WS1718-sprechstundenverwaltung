@@ -30,7 +30,7 @@ export class NotesService {
     console.log('setting notes');
     const convUrl = this.baseUrl + id;
     const timestamp = moment().format('lll');
-    this.notes.push([(timestamp + ': ' + newNote)]);
+    this.notes.push([(timestamp + ': ' + newNote)])
     const notesObject = {
       notes: this.notes
     };
@@ -42,7 +42,8 @@ export class NotesService {
   }
 
 
-   createNewConversation(lec, stud) {
+
+  createNewConversation(lec, stud) {
     const body = {
       lecturer: lec,
       student: stud,
