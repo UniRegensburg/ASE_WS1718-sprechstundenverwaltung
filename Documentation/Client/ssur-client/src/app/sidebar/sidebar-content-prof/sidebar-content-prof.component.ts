@@ -40,7 +40,7 @@ export class SidebarContentProfComponent implements OnInit {
         //console.log('Test-----> ' + data[0].start + '  ' + data.length);
 
         // iterate through each officehour in data-array
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           this.slotsAmount = data[i].slotCount;
           this.slotsSize = data[i].slotLength;
 

@@ -8,6 +8,7 @@ export class NotesService {
   notes = [];
   baseUrl = 'https://asesprechstunde.herokuapp.com/api/conversation/'
   NoteInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  Conversations: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   newConversation;
 
   constructor(private http: Http) { }
@@ -36,6 +37,22 @@ export class NotesService {
       });
   }
 
+  // Get all conversations for specific user
+  getConversations(userID: string, userRole: string) {
+
+    let url: string;
+
+    if(userRole == 'lecturer') {
+      url = this.baseUrl + 'lecturer/' + userID;
+    }
+    if(userRole == 'student') {
+      url = this.baseUrl + 'student/' + userID;
+    }
+
+    this.http.get(url).subscribe(res => {
+      this.Conversations.next(res.json());
+    });
+  }
 
   createNewConversation(){
     const body ={

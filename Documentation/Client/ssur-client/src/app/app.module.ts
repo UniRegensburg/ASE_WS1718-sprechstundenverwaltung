@@ -31,6 +31,8 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import { SlotDetailsDialogComponent } from './dialogs/slot-details-dialog/slot-details-dialog.component';
 import {NotesService} from './services/notes.service';
 import { LoginComponent } from './login/login.component';
+import { SidebarContentConvComponent } from './sidebar/sidebar-content-conv/sidebar-content-conv.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { LoginComponent } from './login/login.component';
     NotesComponent,
     NotesDialogComponent,
     SlotDetailsDialogComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarContentConvComponent
   ],
   imports: [
     FullCalendarModule,
@@ -69,7 +72,8 @@ import { LoginComponent } from './login/login.component';
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CalendarModule
+    CalendarModule,
+    MatTabsModule
   ],
   providers: [
     ProfessorService,

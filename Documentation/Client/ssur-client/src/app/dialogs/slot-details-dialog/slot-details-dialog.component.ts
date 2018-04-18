@@ -39,13 +39,18 @@ export class SlotDetailsDialogComponent implements OnInit {
   }
 
   getStudentName() {
-    this.userService.getUserInfoByID(this.studentID);
+    this.userService.getUserInfoByID(this.studentID)
+      .then(res => this.studentName = res.foreName + ' ' + res.lastName)
+      .catch(errorMessage => {
+        this.studentName = 'Not available';
+        console.log(errorMessage);
+      });
 
-    this.userListener = this.userService.userInfo.subscribe(data => {
-      if(data != undefined) {
+    /*this.userListener = this.userService.userInfo.subscribe(data => {
+      if(data.length > 0) {
         this.studentName = data.foreName + ' ' + data.lastName;
       }
-    });
+    });*/
   }
 
   constructor(public dialogRef: MatDialogRef<SlotDetailsDialogComponent>,
