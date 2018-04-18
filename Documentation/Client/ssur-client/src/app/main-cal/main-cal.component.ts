@@ -5,7 +5,6 @@ import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
 import { OfficehoursService } from '../services/Officehours.service';
 import { CalendarComponent } from 'ng-fullcalendar';
-import { Options } from 'fullcalendar';
 
 @Component({
   selector: 'app-main-cal',
@@ -29,7 +28,6 @@ export class MainCalComponent implements OnInit {
 
     this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
       this.userRole = data[0].role;
-      console.log(this.userRole);
       if (this.ownOfficeHours == null) {
         return;
       } else {
@@ -46,7 +44,6 @@ export class MainCalComponent implements OnInit {
       }
     });
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
-      console.log('In ownOfficeHoursListener======================');
       this.ownOfficeHours = data;
       if (data.length <= 0) {
         return;
@@ -85,7 +82,6 @@ export class MainCalComponent implements OnInit {
     weekends: false,
     defaultView: 'agendaWeek',
     navLinks: true,
-    navLinkDayClick: true,
     minTime: '09:00:00',
     maxTime: '18:00:00',
     slotDuration: '00:10:00',
@@ -99,9 +95,7 @@ export class MainCalComponent implements OnInit {
 
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
-    console.log(event);
     const studentId = event.event.studentID;
-    console.log(studentId)
     const clickedId = event.event.id;
     const eventDescription = event.event.description;
     const eventStart = event.event.start;
@@ -114,16 +108,10 @@ export class MainCalComponent implements OnInit {
     }
   }
 
-/*  changeCalendarView(view) {
-
-    this.myCalendar.fullCalendar('changeView', view);
-
-  }*/
   ngOnInit() {}
 
   // distinguish if user role is professor or student
   distinguishRoles() {
-    console.log('in distinguish Roles');
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
     if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
@@ -135,9 +123,7 @@ export class MainCalComponent implements OnInit {
 
   // enters professors own office hours
   enterOwnOfficeHours() {
-    console.log(this.ownOfficeHours);
     for (let w = 0; w < this.ownOfficeHours.length; w++) {
-
     const ownOfficeHour = this.ownOfficeHours[w];
       for (let v = 0; v < ownOfficeHour.slotCount; v++) {
         const currentSlot = ownOfficeHour.slots[v];
