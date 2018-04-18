@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class UserService {
 
   //loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
+
   loggedInUserInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   userInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -47,11 +48,11 @@ export class UserService {
   }
 
   public getUserInfoByID(userID: string) {
-    //console.log('Anfrage-------------------');
+    // console.log('Anfrage-------------------');
     this.http
       .get('https://asesprechstunde.herokuapp.com/api/user/' + userID)
       .subscribe(res => {
-        //console.log('Userinfo--------> ' + res.json().name);
+        // console.log('Userinfo--------> ' + res.json().name);
         this.userInfo.next(res.json());
       });
   }
