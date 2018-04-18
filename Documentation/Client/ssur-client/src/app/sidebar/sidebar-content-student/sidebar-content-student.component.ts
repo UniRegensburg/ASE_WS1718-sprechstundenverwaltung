@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
 import { DialogsService } from '../../dialogs/dialogs.service';
 import { MeetingsService } from '../../services/Meetings.service';
 import * as moment from 'moment';
+import {NotesDialogComponent} from '../../dialogs/notes-dialog/notes-dialog.component';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {NotesService} from '../../services/notes.service';
+import {UserService} from '../../services/UserService';
 
 @Component({
   selector: 'app-sidebar-content-student',
@@ -17,24 +20,29 @@ export class SidebarContentStudentComponent implements OnInit {
   private meetingsChangeListener;
   public meetingExists: boolean;
   public meetingsArray = [];
+  note: string;
+  notes;
+  convID;
+  userListener;
+  NotesDialogRef: MatDialogRef<NotesDialogComponent>;
+  currentProfID;
+  studentID;
 
   title: string;
   end: any;
   professor: string;
 
-  constructor(private dialogsService: DialogsService, private meetingsService: MeetingsService) {
+  constructor(private dialogsService: DialogsService,
+              private meetingsService: MeetingsService,
+              private notesService: NotesService,
+              private userService: UserService,
+              private dialog: MatDialog) {
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
-
       // Check if entry exists
-      //if (data[0] !== undefined) {
       if (data.length > 0) {
-        //this.buttonName = 'Editieren';
         this.meetingExists = true;
-
-        //console.log('Test-----> ' + data[0].start + '  ' + data.length);
-
         // Iterate through each meeting in data-array
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
 
           // Fill array with objects of partly transformed meetings values
           this.meetingsArray.push({
@@ -46,17 +54,13 @@ export class SidebarContentStudentComponent implements OnInit {
           });
         }
       } else {
-        //this.buttonName = 'Anlegen';
         this.meetingExists = false;
       }
+    });
 
-
-
-      /*this.title = data.title;
-      this.description = data.description;
-      this.start = moment(data.start).format('DD.MM.YYYY, HH:mm');
-      this.end = moment(data.end).format('HH:mm');
-      this.professor = data.professor;*/
+    this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
+      this.studentID = data[0]._id;
+      console.log(this.studentID);
     });
   }
 
@@ -75,16 +79,44 @@ export class SidebarContentStudentComponent implements OnInit {
     this.meetingsChangeListener = this.meetingsService.meetingsChanged.subscribe(data => {
 
       // Check if successfully edited or deleted
-      if(data == 200) {
+      if (data === 200) {
         // Empty the array
-        this.meetingsArray.splice(0,this.meetingsArray.length);
+        this.meetingsArray.splice(0, this.meetingsArray.length);
         // Get existing database entries
         this.meetingsService.getMeetings();
       }
     });
   }
 
+  openNotesDialog() {
+    console.log('opendialog');
+    if (this.notesService.convListener === true) {
+      this.convID = this.notesService.currentConvID;
+      this.notes = this.notesService.getNotes(this.convID);
+    } else {
+      // todo: get id from lec and stud
+    //  this.notesService.createNewConversation(this.getProfID(), this.studentID);
+      this.convID = this.notesService.currentConvID;
+    }
+    console.log('convid im Dialog' +  this.convID);
+    console.log('notes im Dialog: ' + this.notes);
+    this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
+      width: '500px',
+      height: '500px',
+      data: {notes: this.notes}
+    });
+
+    this.NotesDialogRef.afterClosed().subscribe(result => {
+      this.note = result;
+      if (this.note !== undefined) {
+        this.notesService.setNotes(this.note, this.convID);
+      }
+    });
+  }
+
   ngOnInit() {
+    console.log('oninit');
+    // this.notesService.checkIfConversationExists(this.getProfID(), this.studentID);
   }
 
 }

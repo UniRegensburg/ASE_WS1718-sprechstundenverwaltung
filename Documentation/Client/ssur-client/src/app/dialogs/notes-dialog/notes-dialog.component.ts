@@ -32,7 +32,7 @@ export class NotesDialogComponent implements OnInit {
     this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
       // do something, if upload success
     }, error => {
-      console.log(error);
+      console.log(error + 'Upload fehlgeschlagen!');
     });
   }
 

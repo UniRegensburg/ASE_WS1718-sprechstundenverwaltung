@@ -8,9 +8,8 @@
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">Student</span>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">Dozent</span>
     </div>
-    <!--<button class="mat-raised-button col-sm-1 float-right" (click)="setUser('lecturer')">Prof</button>
-    <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('student')">Student</button>-->
   </div>
+
   <div *ngIf="!userService.userIsLoggedIn.getValue()" id="logindiv">
     <app-login></app-login>
   </div>
