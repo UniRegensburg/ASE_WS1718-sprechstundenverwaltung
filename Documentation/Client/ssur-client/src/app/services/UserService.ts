@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class UserService {
 
-  // loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
+  //loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
+
   loggedInUserInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   userInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -23,7 +24,7 @@ export class UserService {
     this.http
       .post('https://asesprechstunde.herokuapp.com/api/isuser', body)
       .subscribe(res => {
-        // console.log('usercheck----->' + res.json()[0]._id);
+        //console.log('usercheck----->' + res.json()[0]._id);
         this.loggedInUserInfo.next(res.json());
       });
   }

@@ -22,7 +22,7 @@ export class NotesComponent implements OnInit {
   ngOnInit() {}
 
   checkIfConversationExists(prof, student) {
-    // dummycode:
+    //dummycode:
     /*for (conv in convdb){
       if (conv.lecturer == prof && conv.student == student){
         return conv.id;

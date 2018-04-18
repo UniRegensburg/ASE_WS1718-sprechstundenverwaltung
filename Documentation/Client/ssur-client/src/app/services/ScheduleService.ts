@@ -15,7 +15,7 @@ export class ScheduleService {
 
   constructor(private professorService: ProfessorService, private http: Http) {
     this.professorListener = professorService.selectedProfessor.subscribe(data => {
-      if (isString(data)) {
+      if(isString(data)) {
         this.getCurrentOfficeHours(data);
       }
     });

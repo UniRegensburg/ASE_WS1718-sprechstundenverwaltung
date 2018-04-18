@@ -26,8 +26,19 @@ export class MainCalComponent implements OnInit {
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
 
+
+    /*this.userRole = userService.loggedInUserInfo.getValue()[0].role;
+    console.log(this.userRole);
+    console.log(this.ownOfficeHours);
+    if (this.ownOfficeHours == null) {
+      return;
+    } else {
+      this.distinguishRoles();
+    }*/
+
     this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
       this.userRole = data[0].role;
+      console.log(this.userRole);
       if (this.ownOfficeHours == null) {
         return;
       } else {
