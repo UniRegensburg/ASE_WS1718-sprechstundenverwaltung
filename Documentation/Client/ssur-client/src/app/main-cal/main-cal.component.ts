@@ -27,16 +27,6 @@ export class MainCalComponent implements OnInit {
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
               private officeHoursService: OfficehoursService) {
 
-
-    /*this.userRole = userService.loggedInUserInfo.getValue()[0].role;
-    console.log(this.userRole);
-    console.log(this.ownOfficeHours);
-    if (this.ownOfficeHours == null) {
-      return;
-    } else {
-      this.distinguishRoles();
-    }*/
-
     this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
       this.userRole = data[0].role;
       console.log(this.userRole);
@@ -56,6 +46,7 @@ export class MainCalComponent implements OnInit {
       }
     });
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
+      console.log('In ownOfficeHoursListener======================');
       this.ownOfficeHours = data;
       if (data.length <= 0) {
         return;
@@ -66,6 +57,7 @@ export class MainCalComponent implements OnInit {
   }
 
   slotTemplate = {
+    studentID: '',
     id: 'id',
     title: 'title',
     start: 'start',
@@ -108,7 +100,8 @@ export class MainCalComponent implements OnInit {
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
     console.log(event);
-    const studentId = event.event._id;
+    const studentId = event.event.studentID;
+    console.log(studentId)
     const clickedId = event.event.id;
     const eventDescription = event.event.description;
     const eventStart = event.event.start;
@@ -116,9 +109,7 @@ export class MainCalComponent implements OnInit {
     if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
       // this.myCalendar.fullCalendar('updateEvent', event );
-      // TODO: erst warten bis der dialogService fertig ist
-      this.distinguishRoles();
-    } else if (this.userRole === 'lecturer') {
+    } else if (this.userRole === 'lecturer' && event.event.slotStatus === 'Belegt') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
   }
@@ -179,6 +170,7 @@ export class MainCalComponent implements OnInit {
   // create single office hour and push it into finalEvents
   enterSingleSlot(currentSlot) {
     const slotID = currentSlot._id;
+    const studentID = currentSlot.studentID;
     const slotDescription = currentSlot.description;
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
     const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
@@ -201,6 +193,7 @@ export class MainCalComponent implements OnInit {
 
     this.slotTemplate = {
       id: slotID,
+      studentID: studentID,
       title: slotTitle,
       start: startOf,
       end: endOf,
