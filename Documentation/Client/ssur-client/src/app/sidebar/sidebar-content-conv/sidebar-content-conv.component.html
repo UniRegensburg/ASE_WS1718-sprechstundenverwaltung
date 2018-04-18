@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 style="text-align: center">{{title_sidebar}}</h3>
+  </div>
+  <mat-label class="col-sm-12" *ngIf="conversationExists">
+    <div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
+      <div (click)="openConversation(conversationsArray[i].convID)">
+        <hr>
+        Mit: <b>{{conversationsArray[i].partnerName}}</b><br>
+        Mit: <b>{{conversationsArray[i].partnerID}}</b>
+      </div>
+    </div>
+  </mat-label>
+  <mat-label class="col-sm-12" *ngIf="!conversationExists">
+    Keine Unterhaltung vorhanden.
+  </mat-label>
+
+
+  <!--<div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
+
+    <mat-label class="col-sm-12" *ngIf="conversationExists == true">
+      <hr>
+      Mit: <b>{{conversationsArray[i].name}}</b><br>
+    </mat-label>
+  </div>-->
+
+
+</div>
+
