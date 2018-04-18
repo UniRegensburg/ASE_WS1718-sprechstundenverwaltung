@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {ProfessorSelectorComponent} from './professor-selector/professor-selector.component';
 import { UserService } from './services/UserService';
 
 
@@ -8,8 +7,8 @@ import { UserService } from './services/UserService';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-  title = 'Sprechstunde@UR';
+export class AppComponent {
+  title = 'Sprechstunde.ur.de';
 
   constructor (public userService: UserService) {}
 

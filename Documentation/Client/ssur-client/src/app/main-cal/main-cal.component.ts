@@ -115,6 +115,9 @@ export class MainCalComponent implements OnInit {
     const eventTitle = event.event.title;
     if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
+      // this.myCalendar.fullCalendar('updateEvent', event );
+      // TODO: erst warten bis der dialogService fertig ist
+      this.distinguishRoles();
     } else if (this.userRole === 'lecturer') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
@@ -129,6 +132,7 @@ export class MainCalComponent implements OnInit {
 
   // distinguish if user role is professor or student
   distinguishRoles() {
+    console.log('in distinguish Roles');
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
     if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
