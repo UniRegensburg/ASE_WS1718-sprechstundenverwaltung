@@ -21,8 +21,6 @@ export class NotesService {
       this.notes = JSON.parse(res['_body']).notes;
       console.log ('Notes:' + this.notes);
       console.log('aktuelle ConvID: ' + id);
-
-
     });
     return this.notes;
 
@@ -42,6 +40,7 @@ export class NotesService {
         this.NoteInfo.next([res.json()]);
       });
   }
+
 
 
   createNewConversation(lec, stud) {
