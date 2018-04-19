@@ -1,4 +1,4 @@
-<b>User Manual</b>
+<font size="6"><b>User Manual</b></font>
 
 Login:
 Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.
