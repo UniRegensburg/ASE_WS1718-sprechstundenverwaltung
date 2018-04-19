@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { DialogsService } from '../../dialogs/dialogs.service';
 import { MeetingsService } from '../../services/Meetings.service';
-import * as moment from 'moment';
+import { UserService } from '../../services/UserService';
+
 
 @Component({
   selector: 'app-sidebar-content-student',
@@ -12,21 +14,20 @@ import * as moment from 'moment';
 export class SidebarContentStudentComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Nächste Sprechstunden:'
+  title_sidebar = 'Nächste Sprechstunden:';
   private meetingsListener;
   private meetingsChangeListener;
   public meetingExists: boolean;
   public meetingsArray = [];
+  private lecturerName: string;
 
   title: string;
   end: any;
-  professor: string;
 
-  constructor(private dialogsService: DialogsService, private meetingsService: MeetingsService) {
+  constructor(private dialogsService: DialogsService, private meetingsService: MeetingsService, private userService: UserService) {
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
 
       // Check if entry exists
-      //if (data[0] !== undefined) {
       if (data.length > 0) {
         //this.buttonName = 'Editieren';
         this.meetingExists = true;
@@ -34,29 +35,33 @@ export class SidebarContentStudentComponent implements OnInit {
         //console.log('Test-----> ' + data[0].start + '  ' + data.length);
 
         // Iterate through each meeting in data-array
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
 
-          // Fill array with objects of partly transformed meetings values
-          this.meetingsArray.push({
-            id: data[i]._id,
-            start: moment(data[i].start).format('DD.MM.YYYY, HH:mm'),
-            end: moment(data[i].end).format('HH:mm'),
-            title: data[i].title,
-            description: data[i].description
-          });
+          // Get user name
+          this.userService.getUserInfoByID(data[i].lecturerID)
+            .then(res => {
+
+              if(res != undefined) {
+                this.lecturerName = res[0].foreName + ' ' + res[0].lastName;
+
+                // Fill array with objects of partly transformed meetings values
+                this.meetingsArray.push({
+                  id: data[i]._id,
+                  start: moment(data[i].start).format('DD.MM.YYYY, HH:mm'),
+                  end: moment(data[i].end).format('HH:mm'),
+                  lecturerID: data[i].lecturerID,
+                  lecturer: this.lecturerName,
+                  title: data[i].title,
+                  description: data[i].description
+                });
+              }
+            })
+            .catch(errorMessage => console.log(errorMessage))
         }
       } else {
         //this.buttonName = 'Anlegen';
         this.meetingExists = false;
       }
-
-
-
-      /*this.title = data.title;
-      this.description = data.description;
-      this.start = moment(data.start).format('DD.MM.YYYY, HH:mm');
-      this.end = moment(data.end).format('HH:mm');
-      this.professor = data.professor;*/
     });
   }
 
