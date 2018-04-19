@@ -40,7 +40,7 @@ position: absolute;
   right: 0;
 }
 
-#logoutSpan {
+.linkSpan {
   cursor: pointer;
   color: blue;
   text-decoration: underline;

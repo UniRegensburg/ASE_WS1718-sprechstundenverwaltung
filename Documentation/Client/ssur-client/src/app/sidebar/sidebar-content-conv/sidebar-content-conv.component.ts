@@ -14,12 +14,12 @@ export class SidebarContentConvComponent implements OnInit {
   private notesListener;
   public conversationsArray = [];
   public conversationExists = false;
-  private partnerName: string;
+  public userRole: string;
 
   constructor(private notesService: NotesService, private userService: UserService) {
 
     // Check which role logged in user has
-    let userRole = userService.loggedInUserInfo.getValue()[0].role;
+    this.userRole = userService.loggedInUserInfo.getValue()[0].role;
 
     // Request conversations of logged in user
     notesService.getConversations(userService.loggedInUserInfo.getValue()[0]._id, userService.loggedInUserInfo.getValue()[0].role);
@@ -37,33 +37,25 @@ export class SidebarContentConvComponent implements OnInit {
         // Iterate through each conversation in data-array
         for(let i = 0; i < data.length; i++) {
 
-          if(userRole == 'lecturer') {
+          if(this.userRole == 'lecturer') {
             conversationPartner = data[i].student;
           }
-          if(userRole == 'student') {
+          if(this.userRole == 'student') {
             conversationPartner = data[i].lecturer;
           }
           //console.log('Partner: ->>>>>>>>>>' + conversationPartner);
 
-          // Get user name
-          // Todo: Fix Bug -> somehow always same userid is saved in array
-          this.userService.getUserInfoByID(conversationPartner)
-            .then(res => {
+          // Fill array with objects
+          this.conversationsArray.push({
+            convID: data[i]._id,
+            partnerID: conversationPartner,
+            partnerName: ''
+          });
 
-              if(res != undefined) {
-                this.partnerName = res[0].foreName + ' ' + res[0].lastName;
-
-                //console.log('Pasrtner: ->>>>>>>>>>' + conversationPartner);
-
-                // Fill array with objects
-                this.conversationsArray.push({
-                  convID: data[i]._id,
-                  partnerID: conversationPartner,
-                  partnerName: this.partnerName
-                });
-              }
-            })
-            .catch(errorMessage => console.log(errorMessage));
+          // When array is filled, execute function to fill in usernames
+          if(i == data.length - 1) {
+            this.fillInNames();
+          }
         }
       }
       else {
@@ -71,6 +63,22 @@ export class SidebarContentConvComponent implements OnInit {
       }
 
     });
+  }
+
+  private fillInNames() {
+
+    let partnerName: string;
+
+    for(let i = 0; i < this.conversationsArray.length; i++) {
+      this.userService.getUserInfoByID(this.conversationsArray[i].partnerID)
+        .then(data => {
+          if(data != undefined) {
+            partnerName = data[0].foreName + ' ' + data[0].lastName;
+            this.conversationsArray[i].partnerName = partnerName;
+          }
+        })
+        .catch(errorMessage => console.log(errorMessage));
+    }
   }
 
   public openConversation(id: string) {

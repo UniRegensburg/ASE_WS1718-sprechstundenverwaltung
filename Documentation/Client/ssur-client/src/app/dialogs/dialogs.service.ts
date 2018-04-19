@@ -5,6 +5,7 @@ import { OfficehoursProfDialogComponent } from './officehours-prof-dialog/office
 import { OfficehoursStudentDialogComponent } from './officehours-student-dialog/officehours-student-dialog.component';
 import { SlotDetailsDialogComponent } from './slot-details-dialog/slot-details-dialog.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
+import * as moment from 'moment';
 
 @Injectable()
 export class DialogsService {
@@ -38,11 +39,11 @@ export class DialogsService {
   public showSlotDetails(start: any, title: string, description: string, id: string) {
     let dialogRef: MatDialogRef<SlotDetailsDialogComponent>;
     dialogRef = this.dialog.open(SlotDetailsDialogComponent);
-    dialogRef.componentInstance.startDateTime = start;
+    dialogRef.componentInstance.startDateTime = moment(start).format('DD.MM.YYYY, HH:mm');
     dialogRef.componentInstance.title = title;
     dialogRef.componentInstance.description = description;
     dialogRef.componentInstance.studentID = id;
-    dialogRef.componentInstance.getStudentName();
+    dialogRef.componentInstance.getStudentName(id);
     return dialogRef.afterClosed();
   }
 
