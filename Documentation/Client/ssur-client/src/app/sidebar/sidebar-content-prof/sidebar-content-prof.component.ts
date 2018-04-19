@@ -12,16 +12,10 @@ import * as moment from 'moment';
 export class SidebarContentProfComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Angelegte Sprechstunden';
-  //public editButtonClicked = false;
+  title_sidebar = 'Angelegte Sprechstunden:';
   public officehourExists: boolean;
-  //public buttonName: string;
   public officehoursArray = [];
 
-  //day: any;
-  //startDate: any;
-  //startingTime: any;
-  //endingTime: any;
   slotsSize: number;
   slotsAmount: number;
 
@@ -39,7 +33,7 @@ export class SidebarContentProfComponent implements OnInit {
 
         //console.log('Test-----> ' + data[0].start + '  ' + data.length);
 
-        // iterate through each officehour in data-array
+        // Iterate through each officehour in data-array
         for (let i = 0; i < data.length; i++) {
           this.slotsAmount = data[i].slotCount;
           this.slotsSize = data[i].slotLength;
@@ -82,7 +76,6 @@ export class SidebarContentProfComponent implements OnInit {
     if (confirm('Wollen Sie die Sprechstunde wirklich löschen?')) {
       this.officehourService.deleteOfficehourLecturer(officehourID);
 
-      // Todo: Fix Bug: When deleting first officehour -> command to get server data gets executed twice
       this.deleteListener = this.officehourService.delInfo.subscribe(data => {
 
         // Check if successfully deleted

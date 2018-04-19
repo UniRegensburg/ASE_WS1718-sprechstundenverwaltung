@@ -7,23 +7,13 @@
       <div (click)="openConversation(conversationsArray[i].convID)">
         <hr>
         Mit: <b>{{conversationsArray[i].partnerName}}</b><br>
-        Mit: <b>{{conversationsArray[i].partnerID}}</b>
       </div>
     </div>
   </mat-label>
   <mat-label class="col-sm-12" *ngIf="!conversationExists">
-    Keine Unterhaltung vorhanden.
+    <b>Keine Unterhaltung vorhanden.</b><br>
+    <span *ngIf="userRole == 'lecturer'" style="font-size: small"> Sie haben die Möglichkeit eine Unterhaltung starten, nachdem Sie auf einen belegten Sprechstundenslot geklickt haben.</span>
+    <span *ngIf="userRole == 'student'" style="font-size: small"> Sie können eine Unterhaltung über die Sidebar starten, nachdem Sie einen Sprechstundenslot belegt haben.</span>
   </mat-label>
-
-
-  <!--<div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
-
-    <mat-label class="col-sm-12" *ngIf="conversationExists == true">
-      <hr>
-      Mit: <b>{{conversationsArray[i].name}}</b><br>
-    </mat-label>
-  </div>-->
-
-
 </div>
 

@@ -29,8 +29,11 @@ export class AppComponent {
   public logout() {
     if(this.userService.logoutUser()) {
       this.logoutSucessfull = true;
+      this.userService.userIsLoggedIn = false;
     }
-
   }
 
+  public login() {
+  this.logoutSucessfull = false;
+  }
 }
