@@ -116,7 +116,7 @@ Colors: Use the following - https://www.google.com/design/spec/style/color.html#
     padding: 0 6px;
     margin: 6px 8px;
     letter-spacing: .01em;
-    background: transparent;
+    background: grey;
     color: currentColor;
     white-space: nowrap;
     text-transform: uppercase;
@@ -137,6 +137,7 @@ Colors: Use the following - https://www.google.com/design/spec/style/color.html#
 
 .fc-button:focus, .fc-button:hover {
     text-decoration: none;
+    background: #9C004B;
 }
 
 /* The active button box is ugly so the active button will have the same appearance of the hover */
