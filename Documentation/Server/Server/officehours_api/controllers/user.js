@@ -1,6 +1,8 @@
 /* global require, module */
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 // Gives back user with specified id
 module.exports.getUser = function (req, res) {
@@ -33,15 +35,19 @@ module.exports.getLecturers = function (req, res) {
 module.exports.checkUser = function (req, res) {
     // Todo: Also check if passwords match
     User
-        .find({'userName': req.body.userName})
+        .find({'email': req.body.email.toLowerCase()})
         .exec(function (err, user) {
             if(user.length > 0) {
-                sendJSONresponse(res, 200, user);
+                if(bcrypt.compareSync(req.body.password, user[0].password)) {
+                    sendJSONresponse(res, 200, user);
+                }
+                else {
+                    sendJSONresponse(res, 400, {"message": "wrong password"});
+                }
             }
             else {
-                sendInternalErrorResponse(res);
+                sendJSONresponse(res, 400, {"message": "user does not exist"});
             }
-
         });
 };
 
@@ -49,9 +55,8 @@ module.exports.checkUser = function (req, res) {
 module.exports.createUser = function (req, res) {
     User
         .create({
-            email: req.body.email,
-            userName: req.body.userName,
-            password: req.body.password,
+            email: req.body.email.toLowerCase(),
+            password: bcrypt.hashSync(req.body.password, salt),
             foreName: req.body.foreName,
             lastName: req.body.lastName,
             role: req.body.role
