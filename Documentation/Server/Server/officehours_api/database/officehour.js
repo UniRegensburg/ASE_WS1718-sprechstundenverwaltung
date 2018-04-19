@@ -4,6 +4,7 @@ var mongoose = require("mongoose");
 var officehourSlotSchema = new mongoose.Schema({
     start: {type: Date, required: true},
     end: {type: Date, required: true},
+    lecturerID: { type: String, ref: 'User' },
     //student: { type: Schema.Types.ObjectId, ref: 'User' },
     studentID: { type: String, ref: 'User' },
     title: {type: String},

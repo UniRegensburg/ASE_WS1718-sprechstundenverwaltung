@@ -88,7 +88,7 @@ module.exports.createOfficehour = function (req, res) {
             slotCount: req.body.slotCount,
             lecturerID: req.body.lecturerID, //mongoose.Types.ObjectId(req.body.lecturerId),
             descriptionNeeded: req.body.descriptionNeeded,
-            slots: calculateSlots(req.body.start, req.body.slotLength, req.body.slotCount)  // fill slotsarray with slots
+            slots: calculateSlots(req.body.start, req.body.slotLength, req.body.slotCount, req.body.lecturerID)  // fill slotsarray with slots
         }, function (err, officehour) {
             if (err) {
                 console.log(err);
@@ -104,7 +104,7 @@ module.exports.createOfficehour = function (req, res) {
 };
 
 // Calculates slots for officehour
-calculateSlots = function(startDate, slotLength, slotCount) {
+calculateSlots = function(startDate, slotLength, slotCount, lecturer) {
     var startTime = new Date(startDate);
     var slotsArray = [];
     //var slot = new OfficehourSlot;
@@ -114,6 +114,7 @@ calculateSlots = function(startDate, slotLength, slotCount) {
         slot = {
             start: startTime,
             end: endTime,
+            lecturerID: lecturer,
             studentID: '',
             title: '',
             description: '',
