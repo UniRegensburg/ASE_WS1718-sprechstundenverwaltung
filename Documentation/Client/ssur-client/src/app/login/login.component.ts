@@ -9,7 +9,6 @@ import {_catch} from 'rxjs/operator/catch';
 })
 export class LoginComponent implements OnInit {
 
-  public userName: string;
   public password: string;
   public foreName: string;
   public surName: string;
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   loginUser() {
-    this.userService.checkIfUserExists(this.userName)
+    this.userService.checkIfUserExists(this.email, this.password)
       .then(user => {
         if(user != undefined) {
           console.log('User logged in');
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   registerUser() {
-    this.userService.createUser(this.email, this.userName, this.password, this.foreName, this.surName, this.role)
+    this.userService.createUser(this.email, this.password, this.foreName, this.surName, this.role)
       .then(user => {
         if(user != undefined) {
           console.log('User created');
