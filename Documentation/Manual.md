@@ -1,54 +1,56 @@
 <h1>User Manual</h1>
 
-Login:
+<b>Login:</b>
 Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.
 
-Anmeldung:
+<b>Anmeldung:</b>
 Um sich zu registrieren lassen sie die Felder frei und klicken sie auf „Login“.
 Anschließend Füllen Sie die Eingabemaske mit Ihren Daten.
 
-Navigation:
+<b>Navigation:</b>
 Oberhalb des Kalender stehen Ihnen Buttons zum Umschalten zwischen der Wochen- und der Tagesansicht zur Verfügung
 Mit den Pfeiltasten navigieren im Kalender je nach ausgewählter Ansicht Tagweise oder Wochenweise vor und zurück.
 Der „Heute“ Button bringt Sie zum aktuellen Tag zurück.
 
-Unterhaltungen anzeigen:
+<b>Unterhaltungen anzeigen:</b>
 In der Sidebar haben Sie die Möglichkeit durch Klicken auf „Unterhaltungen“ sich Ihre Chats anzeigen zu lassen
 Durch auswählen eines Eintrags wird die jeweilige Unterhaltung angezeigt.
 
-<h1>Dozentensicht</h1>
+<h2>Dozentensicht</h2>
 
-Anlegen einer neuen Sprechstunde:
+<b>Anlegen einer neuen Sprechstunde:</b>
+<li>
 Drücken Sie den Button „Sprechstunde Anlegen“ in der Sidebar der Anwendung.
 Wählen Sie die gewünschte Startzeit mit Datum, die Dauer eines Termins und wieviele Termine Sie während dieser Sprechstunde hintereinander anbieten wollen.
 Durch Klicken des Häkchens ist die Angabe einer Beschreibung verpflichtend.
 Indem Sie auf „Anlegen“ klicken wird die neue Sprechstunde angelegt und die Sprechstunde wird in Ihrer Sidebar und im Kalender angezeigt.
+</li>
 
-Löschen einer Sprechstunde:
+<b>Löschen einer Sprechstunde:</b>
 Bestimmen Sie in der Sidebar die Sprechstunde welche Sie Löschen wollen und drücken Sie den „x“-Button rechts daneben.
 Ihre Sprechstunde wurde nun gelöscht.
 
-Termindetails einsehen:
+<b>Termindetails einsehen:</b>
 Durch Klicken auf einen belegten Termin (rot markiert) erhalten Sie genauere Informationen.
 Hier haben Sie auch die Möglichkeit einen Chat mit dem Studierenden zu Starten.
 
 
-Studentensicht
+<h2>Studentensicht</h2>
 
-Auswählen eines Dozierenden:
+<b>Auswählen eines Dozierenden:</b>
 Durch Klicken auf das Eingabefeld „Dozent auswählen“ haben Sie die Möglichkeit einen Dozierenden zu selektieren.
 
-Buchen einer Sprechstunde:
+<b>Buchen einer Sprechstunde:</b>
 Durch Auswählen eines freien Sprechstundentermins (grün markiert) öffnet sich ein Dialogfeld zur Buchung dieses Termins.
 In der Eingabemaske können Sie einen Titel und eine Beschreibung angeben.
 Durch drücken des „Belegen“-Buttons wird die Buchung durchgeführt.
 Anschließend wird der gebuchte Termin in Ihrer Sidebar angezeigt.
 
-Ändern/ Löschen einer gebuchten Sprechstunde:
+<b>Ändern/ Löschen einer gebuchten Sprechstunde:</b>
 Durch Klicken auf den „Termin ändern“ Button unterhalb eines Termins öffnet sich ein Dialogfeld zum Ändern oder Löschen der Buchung.
 In der Eingabemaske können Sie Ihre Angaben ändern und durch Drücken von „Editieren“ diesen neu abspeichern oder durch auswählen von „Buchung löschen“ Ihren Termin absagen.
 
-Starten einer Unterhaltung:
+<b>Starten einer Unterhaltung:</b>
 In der Sidebar können Sie durch Auswählen von „Chat starten“ eine Unterhaltung zum gebuchten Termin starten
 Im sich öffnenden Dialogfenster haben Sie die Möglichkeit eine neue Eingabe zu Tätigen.
 Die vorherigen Nachrichten werden unterhalb des Eingabefeldes angezeigt.
