@@ -1,4 +1,4 @@
-<font size="6"><b>User Manual</b></font>
+<h1>User Manual</h1>
 
 Login:
 Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.
@@ -16,7 +16,7 @@ Unterhaltungen anzeigen:
 In der Sidebar haben Sie die Möglichkeit durch Klicken auf „Unterhaltungen“ sich Ihre Chats anzeigen zu lassen
 Durch auswählen eines Eintrags wird die jeweilige Unterhaltung angezeigt.
 
-Dozentensicht
+<h1>Dozentensicht</h1>
 
 Anlegen einer neuen Sprechstunde:
 Drücken Sie den Button „Sprechstunde Anlegen“ in der Sidebar der Anwendung.
