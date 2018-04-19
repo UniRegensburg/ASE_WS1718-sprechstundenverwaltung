@@ -1,7 +1,8 @@
-<div id="logindiv">
+<div>
   <!-- Login -->
-  <div *ngIf="!needsToRegister">
+  <div *ngIf="!registration" id="loginDiv">
     <b>Willkommen</b>
+    <br>
     <br>
     <mat-form-field>
       <input matInput placeholder="Benutzer" [(ngModel)]="userName">
@@ -12,13 +13,30 @@
     </mat-form-field>
     <br>
     <button mat-raised-button class=" float-left" (click)="loginUser()">Login</button>
+    <div *ngIf="loginError">
+      <br>
+      <br>
+      <span style="color: red">Emailadresse oder Passwort falsch.</span><br>
+      Versuchen sie es erneut,<br>
+      oder <span class="registerSpan" (click)="showRegistration()">registrieren</span> sie sich.
+    </div>
+    <div *ngIf="!loginError">
+      <br>
+      <br>
+      Oder <span class="registerSpan" (click)="showRegistration()">registrieren</span> sie sich.
+    </div>
   </div>
   <!-- Registration -->
-  <div *ngIf="needsToRegister">
+  <div *ngIf="registration" id="registerDiv">
     <b>Registrierung</b>
+    <br>
     <br>
     <mat-form-field>
       <input required matInput placeholder="Benutzername" [(ngModel)]="userName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="email" placeholder="Email" [(ngModel)]="email">
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -31,10 +49,6 @@
     <br>
     <mat-form-field>
       <input required matInput placeholder="Nachname" [(ngModel)]="surName">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input required matInput type="email" placeholder="Email" [(ngModel)]="email">
     </mat-form-field>
     <br>
     <mat-form-field>
