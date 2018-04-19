@@ -1,4 +1,4 @@
-User Manual
+<b>User Manual</b>
 
 Login:
 Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.
