@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {NotesService} from '../../services/notes.service';
 import {UserService} from '../../services/UserService';
 
+
 @Component({
   selector: 'app-sidebar-content-student',
   templateUrl: './sidebar-content-student.component.html',
@@ -15,7 +16,7 @@ import {UserService} from '../../services/UserService';
 export class SidebarContentStudentComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Nächste Sprechstunden:'
+  title_sidebar = 'Nächste Sprechstunden:';
   private meetingsListener;
   private meetingsChangeListener;
   public meetingExists: boolean;
@@ -28,22 +29,23 @@ export class SidebarContentStudentComponent implements OnInit {
   currentProfID;
   studentID;
 
+  private lecturerName: string;
+
   title: string;
   end: any;
-  professor: string;
 
   constructor(private dialogsService: DialogsService,
               private meetingsService: MeetingsService,
               private notesService: NotesService,
               private userService: UserService,
               private dialog: MatDialog) {
+
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
       // Check if entry exists
       if (data.length > 0) {
         this.meetingExists = true;
         // Iterate through each meeting in data-array
         for (let i = 0; i < data.length; i++) {
-
           // Fill array with objects of partly transformed meetings values
           this.meetingsArray.push({
             id: data[i]._id,
@@ -52,6 +54,27 @@ export class SidebarContentStudentComponent implements OnInit {
             title: data[i].title,
             description: data[i].description
           });
+
+          // Get user name
+          this.userService.getUserInfoByID(data[i].lecturerID)
+            .then(res => {
+
+              if (res !== undefined) {
+                this.lecturerName = res[0].foreName + ' ' + res[0].lastName;
+
+                // Fill array with objects of partly transformed meetings values
+                this.meetingsArray.push({
+                  id: data[i]._id,
+                  start: moment(data[i].start).format('DD.MM.YYYY, HH:mm'),
+                  end: moment(data[i].end).format('HH:mm'),
+                  lecturerID: data[i].lecturerID,
+                  lecturer: this.lecturerName,
+                  title: data[i].title,
+                  description: data[i].description
+                });
+              }
+            })
+            .catch(errorMessage => console.log(errorMessage));
         }
       } else {
         this.meetingExists = false;
@@ -61,6 +84,7 @@ export class SidebarContentStudentComponent implements OnInit {
     this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
       this.studentID = data[0]._id;
       console.log(this.studentID);
+
     });
   }
 

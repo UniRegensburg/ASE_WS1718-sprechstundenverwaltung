@@ -8,6 +8,7 @@ export class NotesService {
 
   baseUrl = 'https://asesprechstunde.herokuapp.com/api/conversation/';
   NoteInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  Conversations: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   currentConvID;
   public convListener: boolean;
   notes = [];
@@ -41,6 +42,23 @@ export class NotesService {
       });
   }
 
+  // Get all conversations for specific user
+  getConversations(userID: string, userRole: string) {
+
+    let url: string;
+
+    if(userRole == 'lecturer') {
+      url = this.baseUrl + 'lecturer/' + userID;
+    }
+    if(userRole == 'student') {
+      url = this.baseUrl + 'student/' + userID;
+    }
+
+    this.http.get(url).subscribe(res => {
+      this.Conversations.next(res.json());
+    });
+  }
+
 
 
   createNewConversation(lec, stud) {
@@ -52,7 +70,7 @@ export class NotesService {
     };
 
     this.http.post(this.baseUrl, body).subscribe(res => {
-      this.currentConvID = res.json()._id;
+        this.currentConvID = res.json()._id;
       }
     );
   }
@@ -70,13 +88,9 @@ export class NotesService {
           console.log('Unterhaltung existiert: ' + (res.json()[0])._id);
           this.currentConvID = (res.json()[0]._id);
           this.convListener = true;
-          },
-          error => {
+        },
+        error => {
           console.log('Fehler aufgetreten' + error);  }
       );
   }
-
-
-
 }
-
