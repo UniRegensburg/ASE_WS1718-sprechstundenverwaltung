@@ -8,9 +8,7 @@ export class UserService {
   //loggedinUser: BehaviorSubject<any> = new BehaviorSubject<any>('lecturer'); // Change to hold object later
 
   loggedInUserInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  userInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor(private http: Http) {
   }
@@ -47,14 +45,12 @@ export class UserService {
       });
   }
 
-  public getUserInfoByID(userID: string) {
-    // console.log('Anfrage-------------------');
-    this.http
-      .get('https://asesprechstunde.herokuapp.com/api/user/' + userID)
-      .subscribe(res => {
-        // console.log('Userinfo--------> ' + res.json().name);
-        this.userInfo.next(res.json());
-      });
+  // Get user info from server
+  public getUserInfoByID(userID: string): Promise<any> {
+    //console.log('Anfrage-------------------');
+    return this.http
+      .get('https://asesprechstunde.herokuapp.com/api/user/' + userID).toPromise()
+      .then(response => [response.json()])
+      .catch(errorMessage => console.log('Error:' + errorMessage.statusText + ' ' + errorMessage.status));
   }
-
 }
