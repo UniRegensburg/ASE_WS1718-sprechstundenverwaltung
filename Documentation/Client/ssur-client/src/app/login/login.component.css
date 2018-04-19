@@ -1,9 +1,19 @@
-#logindiv {
+#loginDiv {
   position: fixed; /* or absolute */
   top: 40%;
   left: 50%;
-/*  height: 100px;
-  width: 200px;
-  background-color: aqua;*/
   transform: translate(-50%, -50%);
+}
+
+#registerDiv {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.registerSpan {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
 }

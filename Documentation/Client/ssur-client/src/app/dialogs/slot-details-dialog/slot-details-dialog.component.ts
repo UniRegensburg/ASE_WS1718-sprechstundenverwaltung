@@ -15,7 +15,6 @@ export class SlotDetailsDialogComponent implements OnInit {
   convID;
   NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   currentProfID;
-  userListener;
 
   public startDateTime: any;
   public title: string;
@@ -49,19 +48,17 @@ export class SlotDetailsDialogComponent implements OnInit {
     });
   }
 
-  getStudentName() {
-    this.userService.getUserInfoByID(this.studentID)
-      .then(res => this.studentName = res.foreName + ' ' + res.lastName)
+  getStudentName(id: string) {
+    this.userService.getUserInfoByID(id)
+      .then(res => {
+        if(res != undefined) {
+          this.studentName = res[0].foreName + ' ' + res[0].lastName;
+        }
+      })
       .catch(errorMessage => {
         this.studentName = 'Not available';
         console.log(errorMessage);
       });
-
-    /*this.userListener = this.userService.userInfo.subscribe(data => {
-      if(data.length > 0) {
-        this.studentName = data.foreName + ' ' + data.lastName;
-      }
-    });*/
   }
 
   getProfID() {
