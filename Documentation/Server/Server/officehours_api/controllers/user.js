@@ -39,7 +39,7 @@ module.exports.checkUser = function (req, res) {
                 sendJSONresponse(res, 200, user);
             }
             else {
-                sendJSONresponse(res, 200, []);
+                sendInternalErrorResponse(res);
             }
 
         });
