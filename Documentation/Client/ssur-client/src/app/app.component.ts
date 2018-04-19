@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {ProfessorSelectorComponent} from './professor-selector/professor-selector.component';
 import { UserService } from './services/UserService';
 
 
@@ -8,9 +7,30 @@ import { UserService } from './services/UserService';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-  title = 'Sprechstunde@UR';
+export class AppComponent {
+  public title = 'Sprechstunde.ur.de';
+  public logoutSucessfull = false;
 
-  constructor (public userService: UserService) {}
+  constructor (public userService: UserService) {
+
+    // Check if user is already logged in
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser != null) {
+      console.log('Angemeldet---->' + currentUser.foreName);
+      //this.userService.userIsLoggedIn.next(true);
+      this.userService.userIsLoggedIn = true;
+      this.userService.loggedInUserInfo.next([currentUser]);
+    }
+    else {
+      this.userService.userIsLoggedIn = false;
+    }
+  }
+
+  public logout() {
+    if(this.userService.logoutUser()) {
+      this.logoutSucessfull = true;
+    }
+
+  }
 
 }

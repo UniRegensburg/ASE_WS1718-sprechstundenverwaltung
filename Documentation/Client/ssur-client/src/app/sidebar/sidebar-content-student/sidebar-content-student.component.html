@@ -9,7 +9,8 @@
       <b>{{meetingsArray[i].title}}</b><br>
       {{meetingsArray[i].start}} - {{meetingsArray[i].end}}<br>
       Bei: {{meetingsArray[i].lecturer}}<br>
-      <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Edit</button>
+      <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Termin ändern</button>
+      <app-notes></app-notes>
     </mat-label>
   </div>
 

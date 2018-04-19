@@ -40,8 +40,15 @@ position: absolute;
   right: 0;
 }
 
-/*#logindiv {
-  position: fixed; !* or absolute *!
-  top: 50%;
+#logoutSpan {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+#logoutDiv {
+  position: fixed; /* or absolute */
+  top: 40%;
   left: 50%;
-}*/
+  transform: translate(-50%, -50%);
+}

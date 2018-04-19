@@ -5,7 +5,6 @@ import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
 import { OfficehoursService } from '../services/Officehours.service';
 import { CalendarComponent } from 'ng-fullcalendar';
-import { Options } from 'fullcalendar';
 
 @Component({
   selector: 'app-main-cal',
@@ -66,12 +65,14 @@ export class MainCalComponent implements OnInit {
   }
 
   slotTemplate = {
+    studentID: '',
     id: 'id',
     title: 'title',
     start: 'start',
     end: 'end',
     color: 'color',
-    description: ''
+    description: '',
+    slotStatus: ''
   };
 
   calendarOptions: Object = {
@@ -88,11 +89,11 @@ export class MainCalComponent implements OnInit {
     },
     locale: 'de',
     timeFormat: 'HH:mm',
+    height: 500,
     handleWindowResize: true,
     weekends: false,
     defaultView: 'agendaWeek',
     navLinks: true,
-    navLinkDayClick: true,
     minTime: '09:00:00',
     maxTime: '18:00:00',
     slotDuration: '00:10:00',
@@ -106,24 +107,19 @@ export class MainCalComponent implements OnInit {
 
   // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
-    console.log(event);
-    const studentId = event.event._id;
+    const studentId = event.event.studentID;
     const clickedId = event.event.id;
     const eventDescription = event.event.description;
     const eventStart = event.event.start;
     const eventTitle = event.event.title;
-    if (this.userRole === 'student' && event.event.title === 'Frei') {
+    if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
-    } else if (this.userRole === 'lecturer') {
+      // this.myCalendar.fullCalendar('updateEvent', event );
+    } else if (this.userRole === 'lecturer' && event.event.slotStatus === 'Belegt') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
   }
 
-/*  changeCalendarView(view) {
-
-    this.myCalendar.fullCalendar('changeView', view);
-
-  }*/
   ngOnInit() {}
 
   // distinguish if user role is professor or student
@@ -140,7 +136,6 @@ export class MainCalComponent implements OnInit {
   // enters professors own office hours
   enterOwnOfficeHours() {
     for (let w = 0; w < this.ownOfficeHours.length; w++) {
-
     const ownOfficeHour = this.ownOfficeHours[w];
       for (let v = 0; v < ownOfficeHour.slotCount; v++) {
         const currentSlot = ownOfficeHour.slots[v];
@@ -173,11 +168,15 @@ export class MainCalComponent implements OnInit {
   // create single office hour and push it into finalEvents
   enterSingleSlot(currentSlot) {
     const slotID = currentSlot._id;
+    const studentID = currentSlot.studentID;
     const slotDescription = currentSlot.description;
     const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
     const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
-    let typeColor;
+
+    let slotTitle = currentSlot.title;
     let slotStatus;
+    let typeColor;
+
     if (currentSlot.slotTaken === false) {
       slotStatus = 'Frei';
       typeColor = 'green';
@@ -186,13 +185,19 @@ export class MainCalComponent implements OnInit {
       typeColor = 'red';
     }
 
+    if (this.userRole === 'student') {
+      slotTitle = slotStatus;
+    }
+
     this.slotTemplate = {
       id: slotID,
-      title: slotStatus,
+      studentID: studentID,
+      title: slotTitle,
       start: startOf,
       end: endOf,
       color: typeColor,
-      description: slotDescription
+      description: slotDescription,
+      slotStatus: slotStatus
     };
     this.finalEvents.push(this.slotTemplate);
   }

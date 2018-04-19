@@ -53,7 +53,7 @@ export class SidebarContentConvComponent implements OnInit {
               if(res != undefined) {
                 this.partnerName = res[0].foreName + ' ' + res[0].lastName;
 
-                console.log('Pasrtner: ->>>>>>>>>>' + conversationPartner);
+                //console.log('Pasrtner: ->>>>>>>>>>' + conversationPartner);
 
                 // Fill array with objects
                 this.conversationsArray.push({
