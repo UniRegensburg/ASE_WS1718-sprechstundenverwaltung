@@ -10,10 +10,10 @@
       {{meetingsArray[i].start}} - {{meetingsArray[i].end}}<br>
       Bei: {{meetingsArray[i].lecturer}}<br>
       <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Termin ändern</button>
-      <button mat-raised-button (click)="openNotesDialog()" >Chat starten</button>
-
+      <button mat-raised-button (click)="openNotesDialog(meetingsArray[i].lecturerID)" >Chat starten</button>
     </mat-label>
   </div>
+
   <div class = 'row' *ngIf="!meetingExists">
     <b>Keine Sprechstunde belegt.</b><br>
     <span style="font-size: small">Sie können eine Sprechstunde belegen, indem Sie einen Dozenten auswählen und im Kalender auf einen freien Sprechstundenslot klicken.</span>

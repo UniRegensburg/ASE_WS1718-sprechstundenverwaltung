@@ -4,7 +4,7 @@
   </div>
   <mat-label class="col-sm-12" *ngIf="conversationExists">
     <div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
-      <div (click)="openConversation(conversationsArray[i].convID)">
+      <div (click)="openNotesDialog(conversationsArray[i].convID)">
         <hr>
         Mit: <b>{{conversationsArray[i].partnerName}}</b><br>
       </div>

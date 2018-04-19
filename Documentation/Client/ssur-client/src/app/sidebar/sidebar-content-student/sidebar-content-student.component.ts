@@ -25,8 +25,8 @@ export class SidebarContentStudentComponent implements OnInit {
   notes;
   convID;
   userListener;
-  NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   currentProfID;
+  NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   studentID;
 
   private lecturerName: string;
@@ -112,14 +112,14 @@ export class SidebarContentStudentComponent implements OnInit {
     });
   }
 
-  openNotesDialog() {
-    console.log('opendialog');
+  openNotesDialog(profID) {
+    this.notesService.checkIfConversationExists(profID, this.studentID);
     if (this.notesService.convListener === true) {
       this.convID = this.notesService.currentConvID;
       this.notes = this.notesService.getNotes(this.convID);
+      console.log(this.notes);
     } else {
-      // todo: get id from lec and stud
-    //  this.notesService.createNewConversation(this.getProfID(), this.studentID);
+      this.notesService.createNewConversation(profID, this.studentID);
       this.convID = this.notesService.currentConvID;
     }
     console.log('convid im Dialog' +  this.convID);
@@ -139,8 +139,6 @@ export class SidebarContentStudentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('oninit');
-    // this.notesService.checkIfConversationExists(this.getProfID(), this.studentID);
   }
 
 }

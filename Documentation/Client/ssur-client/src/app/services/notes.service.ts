@@ -44,16 +44,13 @@ export class NotesService {
 
   // Get all conversations for specific user
   getConversations(userID: string, userRole: string) {
-
     let url: string;
-
-    if(userRole == 'lecturer') {
+    if (userRole === 'lecturer') {
       url = this.baseUrl + 'lecturer/' + userID;
     }
-    if(userRole == 'student') {
+    if (userRole === 'student') {
       url = this.baseUrl + 'student/' + userID;
     }
-
     this.http.get(url).subscribe(res => {
       this.Conversations.next(res.json());
     });
@@ -76,7 +73,7 @@ export class NotesService {
   }
 
   checkIfConversationExists(lec, stud) {
-    console.log('checking conversation... ');
+    console.log('checking conversation for lec: ' + lec + 'and stud: ' + stud);
     const body = {
       lecturer: lec,
       student: stud
