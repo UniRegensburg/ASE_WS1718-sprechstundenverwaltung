@@ -11,10 +11,10 @@ export class UserService {
   constructor(private http: Http) {}
 
   // Check if user exists in db
-  // Todo: also check password -> adjust server route
-  public checkIfUserExists(name: string):Promise<any> {
+  public checkIfUserExists(name: string, password:string):Promise<any> {
     const body = {
-      userName: name
+      email: name,
+      password: password
     };
     return this.http
       .post('https://asesprechstunde.herokuapp.com/api/isuser', body).toPromise()
@@ -34,10 +34,9 @@ export class UserService {
   }
 
   // Create user
-  public createUser(userEmail: string, name: string, userPassword: string, userForeName: string, userLastName: string, userRole: string):Promise<any> {
+  public createUser(userEmail: string, userPassword: string, userForeName: string, userLastName: string, userRole: string):Promise<any> {
     const body = {
       email: userEmail,
-      userName: name,
       password: userPassword,
       foreName: userForeName,
       lastName: userLastName,

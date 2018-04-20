@@ -5,7 +5,7 @@
     <br>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Benutzer" [(ngModel)]="userName">
+      <input matInput placeholder="Benutzer" [(ngModel)]="email">
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -30,10 +30,6 @@
   <div *ngIf="registration" id="registerDiv">
     <b>Registrierung</b>
     <br>
-    <br>
-    <mat-form-field>
-      <input required matInput placeholder="Benutzername" [(ngModel)]="userName">
-    </mat-form-field>
     <br>
     <mat-form-field>
       <input required matInput type="email" placeholder="Email" [(ngModel)]="email">
