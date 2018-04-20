@@ -93,6 +93,43 @@ export class SidebarContentConvComponent implements OnInit {
 
 
   openNotesDialog(convID) {
+
+    // Request notes
+    this.notesService.getNotes(convID)
+
+      // When notes arrive...
+      .then(data => {
+
+        // Check if its actual data
+        if(data != undefined) {
+
+          // If so, set as notes
+          this.notes = data.notes;
+
+          // Needs to be done here instead of notes service (i think)
+          this.notesService.NoteInfo.next(data);
+
+
+          // Do the remaining stuff as before
+          this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
+            width: '500px',
+            height: '500px',
+            data: {notes: this.notes}
+          });
+
+          this.NotesDialogRef.afterClosed().subscribe(result => {
+
+            this.note = result;
+            if (this.note !== undefined) {
+              this.notesService.setNotes(this.note, convID);
+            }
+          });
+        }
+      })
+      .catch(errorMessage => console.log(errorMessage));
+  }
+
+  /*openNotesDialog(convID) {
       this.notes = this.notesService.getNotes(convID);
       console.log(this.notes);
     console.log('convid im Dialog' +  convID);
@@ -109,7 +146,8 @@ export class SidebarContentConvComponent implements OnInit {
         this.notesService.setNotes(this.note, convID);
       }
     });
-  }
+  }*/
+
   ngOnInit() {
   }
 

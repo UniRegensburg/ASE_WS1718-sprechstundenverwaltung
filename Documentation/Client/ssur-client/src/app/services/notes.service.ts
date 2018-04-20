@@ -14,7 +14,7 @@ export class NotesService {
   notes = [];
   constructor(private http: Http) { }
 
-  getNotes(id) {
+  /*getNotes(id) {
     console.log('getting notes');
     const convUrl = this.baseUrl + id;
     this.http.get(convUrl).subscribe(res => {
@@ -24,6 +24,20 @@ export class NotesService {
       console.log('aktuelle ConvID: ' + id);
     });
     return this.notes;
+
+  }*/
+
+  // Changed function to give back Promise (?)
+  getNotes(id):Promise<any> {
+    console.log('getting notes');
+    const convUrl = this.baseUrl + id;
+
+    return this.http.get(convUrl).toPromise()
+      // If server responded give back response as json
+      .then(response => response.json())
+
+      // Catch error if there is some server issue
+      .catch(errorMessage => console.log('Error:' + errorMessage.statusText + ' ' + errorMessage.status))
 
   }
 
@@ -55,8 +69,6 @@ export class NotesService {
       this.Conversations.next(res.json());
     });
   }
-
-
 
   createNewConversation(lec, stud) {
     const body = {
