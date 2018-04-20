@@ -24,7 +24,6 @@ export class MainCalComponent implements OnInit {
   studentsAppointments;
   userRole;
   finalEvents = [];
-  ownAppointments = [];
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
@@ -33,7 +32,6 @@ export class MainCalComponent implements OnInit {
     // Listens to the object containing the actual User
     this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
       this.userRole = data[0].role;
-      console.log(this.userRole);
       if (this.ownOfficeHours == null) {
         return;
       } else {
@@ -44,10 +42,7 @@ export class MainCalComponent implements OnInit {
     // Listens to the object containing the meetings of a student
     this.meetingsListener = this.meetingsService.meetingsInfo.subscribe(data => {
       this.studentsAppointments = data;
-      console.log(data);
       if (data.length > 0) {
-        console.log('Im Meetings Listener: ');
-        console.log(data);
         this.distinguishRoles();
       } else {
         return;
@@ -56,9 +51,7 @@ export class MainCalComponent implements OnInit {
 
     // Listens to the object containing the office hours of the selected professor
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
-      console.log('Im Prof Hours Listener');
       this.officeHoursProf = data;
-      console.log(data);
       if (data.length == null) {
         return;
       } else {
@@ -69,8 +62,6 @@ export class MainCalComponent implements OnInit {
     // Listens to the object containing the office hours of the logged in professor
     this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
-      console.log('Im Own office hours listener');
-      console.log(data);
       if (data.length <= 0) {
         return;
       } else {
@@ -130,9 +121,6 @@ export class MainCalComponent implements OnInit {
     const eventTitle = event.event.title;
     if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
       this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
-      // hier vielleicht: this.meetingsService.getMeetings();
-      // mit nem listener aus sidebar-content-student
-      // this.myCalendar.fullCalendar('updateEvent', event );
     } else if (this.userRole === 'lecturer' && event.event.slotStatus === 'Belegt') {
       this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
     }
@@ -142,18 +130,12 @@ export class MainCalComponent implements OnInit {
 
   // distinguish if user role is professor or student
   distinguishRoles() {
-    console.log('In distinguish Roles');
-    console.log(this.userRole);
-    console.log(this.ownOfficeHours);
-    console.log(this.officeHoursProf);
-    console.log('studMeet' + this.studentsAppointments);
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
     if (this.userRole === 'student') {
       this.enterStudentAppointments();
     }
     if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
-      console.log('In distinguish Roles - Student');
       this.enterOfficeHours();
     } else if (this.userRole === 'lecturer') {
       this.enterOwnOfficeHours();
@@ -171,7 +153,6 @@ export class MainCalComponent implements OnInit {
         this.enterSingleSlot(currentSlot);
       }
     }
-    console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
@@ -180,13 +161,11 @@ export class MainCalComponent implements OnInit {
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterStudentAppointments() {
-    console.log(this.studentsAppointments);
     for (let u = 0; u < this.studentsAppointments.length; u++) {
       const currentStudentAppointment = this.studentsAppointments[u];
       this.enterSingleSlot(currentStudentAppointment);
     }
     if (this.officeHoursProf[0] === undefined) {
-      console.log(this.finalEvents);
       this.myCalendar.fullCalendar('removeEvents');
       this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
     }
@@ -204,7 +183,6 @@ export class MainCalComponent implements OnInit {
           this.enterSingleSlot(singleSlot);
         }
       }
-      console.log(this.finalEvents);
       this.myCalendar.fullCalendar('removeEvents');
       this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
     }
@@ -252,7 +230,6 @@ export class MainCalComponent implements OnInit {
   }
 
   onCalendarInit(initialized: boolean) {
-    console.log('Calendar initialized');
     this.distinguishRoles();
   }
 }
