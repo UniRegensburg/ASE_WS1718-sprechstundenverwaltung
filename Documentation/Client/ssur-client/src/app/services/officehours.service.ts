@@ -16,7 +16,10 @@ export class OfficehoursService {
 
   constructor(private http: Http, private userService: UserService) {
     this.lecturerID = userService.loggedInUserInfo.getValue()[0]._id;
-    this.getLecturerInfo();
+
+    if(userService.loggedInUserInfo.getValue()[0].role == 'lecturer') {
+      this.getLecturerInfo();
+    }
   }
 
   public getLecturerInfo() {

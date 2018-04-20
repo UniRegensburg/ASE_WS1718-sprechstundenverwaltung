@@ -11,7 +11,7 @@
     </div>
     <div *ngIf="logoutSucessfull" id="logoutDiv">
       Erfolgreich Ausgeloggt.<br>
-      Seite neu laden und <span (click)="login()" class="linkSpan">erneut anmelden.</span>
+      <span (click)="login()" class="linkSpan">Seite neu laden und erneut anmelden.</span>
     </div>
   </div>
   <div *ngIf="!userService.userIsLoggedIn&&!logoutSucessfull" id="logindiv">

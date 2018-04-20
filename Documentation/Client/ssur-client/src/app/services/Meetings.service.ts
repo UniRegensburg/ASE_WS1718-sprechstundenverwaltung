@@ -13,7 +13,10 @@ export class MeetingsService {
 
   constructor(private http: Http, private userService: UserService) {
     this.studentID = userService.loggedInUserInfo.getValue()[0]._id;
-    this.getMeetings();
+
+    if(userService.loggedInUserInfo.getValue()[0].role == 'student') {
+      this.getMeetings();
+    }
   }
 
   // Get meetings
@@ -21,7 +24,6 @@ export class MeetingsService {
     this.http.get('https://asesprechstunde.herokuapp.com/api/user/' + this.studentID + '/officehourslot')
       .subscribe(res => {
         this.meetingsInfo.next(res.json());
-        //console.log('Meetings: ' + res);
       });
   }
 

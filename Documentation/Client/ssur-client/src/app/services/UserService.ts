@@ -51,7 +51,6 @@ export class UserService {
 
   // Get user info from server
   public getUserInfoByID(userID: string): Promise<any> {
-    //console.log('Anfrage-------------------');
     return this.http
       .get('https://asesprechstunde.herokuapp.com/api/user/' + userID).toPromise()
       .then(response => [response.json()])
