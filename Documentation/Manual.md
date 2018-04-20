@@ -73,6 +73,5 @@
 <li>In der Sidebar können Sie durch Auswählen von „Chat starten“ eine Unterhaltung zum gebuchten Termin starten.</li>
 <li>Im sich öffnenden Dialogfenster haben Sie die Möglichkeit eine neue Eingabe zu Tätigen.</li>
 <li>Die vorherigen Nachrichten werden unterhalb des Eingabefeldes angezeigt.</li>
-<li>Sie haben zudem die Möglichkeit über „Datei auswählen“ eine Datei zu der Unterhaltung hinzuzufügen.</li>
 <li>Durch Drücken von Speichern werden die Eingaben übernommen.</li>
   </ul>
