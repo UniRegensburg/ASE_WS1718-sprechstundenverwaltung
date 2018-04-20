@@ -5,6 +5,7 @@ import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
 import { OfficehoursService } from '../services/Officehours.service';
 import { CalendarComponent } from 'ng-fullcalendar';
+import {MeetingsService} from '../services/Meetings.service';
 
 @Component({
   selector: 'app-main-cal',
@@ -16,6 +17,7 @@ export class MainCalComponent implements OnInit {
   private professorHoursListener;
   private userListener;
   private ownOfficeHoursListener;
+  private meetingsListener;
 
   ownOfficeHours;
   officeHoursProf;
@@ -24,7 +26,7 @@ export class MainCalComponent implements OnInit {
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
-              private officeHoursService: OfficehoursService) {
+              private officeHoursService: OfficehoursService, private meetingsService: MeetingsService) {
 
 
     /*this.userRole = userService.loggedInUserInfo.getValue()[0].role;
@@ -43,6 +45,13 @@ export class MainCalComponent implements OnInit {
         return;
       } else {
         this.distinguishRoles();
+      }
+    });
+
+    this.meetingsListener = this.meetingsService.meetingsInfo.subscribe(data => {
+      if (data.length > 0) {
+        console.log('Im Meetings Listener: ');
+        console.log(data);
       }
     });
 
@@ -126,6 +135,9 @@ export class MainCalComponent implements OnInit {
   distinguishRoles() {
     this.finalEvents = [];
     this.myCalendar.fullCalendar('removeEvents');
+    if (this.userRole === 'student') {
+      this.enterStudentAppointments();
+    }
     if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
         this.enterOfficeHours();
     } else if (this.userRole === 'lecturer') {
@@ -145,6 +157,10 @@ export class MainCalComponent implements OnInit {
     console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
+  }
+
+  enterStudentAppointments() {
+    this.meetingsService.getMeetings();
   }
 
   // enters office hours from selected professor
