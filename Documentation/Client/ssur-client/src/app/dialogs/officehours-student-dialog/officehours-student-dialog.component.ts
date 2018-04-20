@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material';
-import { ScheduleService } from '../../services/ScheduleService';
-import { OfficehoursService } from '../../services/Officehours.service';
 import { MeetingsService } from '../../services/Meetings.service';
 
 
@@ -17,7 +15,6 @@ export class OfficehoursStudentDialogComponent implements OnInit {
   public title: string;
   public description: string;
   public meetingID: string;
-  //public confirmButton: string;
   public editSlot = false;
 
   // Confirm request of slot

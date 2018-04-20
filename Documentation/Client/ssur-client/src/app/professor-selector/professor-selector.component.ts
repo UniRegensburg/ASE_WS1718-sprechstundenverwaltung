@@ -43,12 +43,6 @@ export class ProfessorSelectorComponent implements OnInit {
   ngOnInit() {
   }
 
-  clearSelection() {
-    // clear input
-    this.profCtrl.setValue('');
-    // Todo: show options without the need to click outside of input field first
-  }
-
   filterProfs(val: string): string[] {
     const dummyArray = [];
     for (let i = 0; i < this.profsArray.length; i++) {

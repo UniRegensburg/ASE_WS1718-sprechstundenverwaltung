@@ -43,7 +43,6 @@ export class SidebarContentConvComponent implements OnInit {
           if(this.userRole == 'student') {
             conversationPartner = data[i].lecturer;
           }
-          //console.log('Partner: ->>>>>>>>>>' + conversationPartner);
 
           // Fill array with objects
           this.conversationsArray.push({
@@ -78,10 +77,6 @@ export class SidebarContentConvComponent implements OnInit {
         })
         .catch(errorMessage => console.log(errorMessage));
     }
-  }
-
-  public openConversation(id: string) {
-    confirm('blaaaaa ' + id);
   }
 
   ngOnInit() {

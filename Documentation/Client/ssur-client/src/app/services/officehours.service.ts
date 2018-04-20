@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Http} from '@angular/http';
 import 'rxjs/add/operator/map';
-import * as moment from 'moment';
 import { UserService } from './UserService';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';

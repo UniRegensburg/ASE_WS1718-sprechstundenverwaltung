@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import {OwlDateTime} from 'ng-pick-datetime/date-time/date-time.class';
 import { OfficehoursService } from '../../services/Officehours.service';
 
 @Component({
