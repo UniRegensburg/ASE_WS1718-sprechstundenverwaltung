@@ -30,7 +30,7 @@ Um die Anwendung zu starten, sind zuerst folgende Softwarekomponenten erforderli
 - Im lokalen Repository in den Ordner *ASE_WS1718-sprechstundenverwaltung\Documentation\Client\ssur-client* wechseln
 - In der Kommandozeile / Terminal den Befehl 'npm install' ausführen, um alle benötigten Pakete (*node_modules*) zu installieren
 - Im selben Ordner den Befehl 'ng serve -o' ausführen --> Anwendung wird kompiliert und ist anschließend im Browser unter //localhost:4200 aufrufbar
-- Weitere Informationen zur Nutzung als Student oder Dozent finden sie im User Manual:  https://github.com/UniRegensburg/ASE_WS1718-sprechstundenverwaltung/blob/master/Documentation/Manual.md
+- Weitere Informationen zur Nutzung als Student oder Dozent finden sie im User Manual:  https://github.com/UniRegensburg/ASE_WS1718-sprechstundenverwaltung/blob/master/Documentation/docs/Manual.md
 
 
 ### Urheber:
