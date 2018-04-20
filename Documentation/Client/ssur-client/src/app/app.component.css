@@ -52,3 +52,16 @@ position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#logoutIcon {
+  position: absolute;
+  top: 3px;
+  right: 20px;
+  cursor: pointer;
+  color: grey;
+}
+
+#logoutIcon:hover {
+  cursor: pointer;
+  color: black;
+}

@@ -61,7 +61,6 @@ export class SidebarContentConvComponent implements OnInit {
       else {
         this.conversationExists = false;
       }
-
     });
   }
 

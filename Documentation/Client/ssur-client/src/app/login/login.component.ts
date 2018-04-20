@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/UserService';
-import {_catch} from 'rxjs/operator/catch';
 
 @Component({
   selector: 'app-login',
@@ -47,6 +46,7 @@ export class LoginComponent implements OnInit {
           console.log('User created');
           this.userService.userIsLoggedIn = true;
           this.userService.loggedInUserInfo.next([user]);
+          this.userService.saveSession(user);
         }
       })
       .catch(errorMessage => console.log(errorMessage));

@@ -29,10 +29,7 @@ export class SidebarContentStudentComponent implements OnInit {
 
       // Check if entry exists
       if (data.length > 0) {
-        //this.buttonName = 'Editieren';
         this.meetingExists = true;
-
-        //console.log('Test-----> ' + data[0].start + '  ' + data.length);
 
         // Iterate through each meeting in data-array
         for (let i = 0; i < data.length; i++) {
@@ -59,17 +56,9 @@ export class SidebarContentStudentComponent implements OnInit {
             .catch(errorMessage => console.log(errorMessage))
         }
       } else {
-        //this.buttonName = 'Anlegen';
         this.meetingExists = false;
       }
     });
-  }
-
-  // Located here for testing purposes (later used in calendar when slot is selected)
-  public requestSlot(meetingID: string) {
-    this.dialogsService
-      .registerOfficeHourDialog('Sprechstunde belegen', meetingID)
-      .subscribe(res => this.result = res);
   }
 
   public editSlot(meetingID: string, title: string, description: string) {

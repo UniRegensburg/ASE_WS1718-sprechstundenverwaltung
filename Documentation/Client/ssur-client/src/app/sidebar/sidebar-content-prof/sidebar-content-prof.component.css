@@ -1,19 +1,18 @@
-/*#officeHourDiv {
-  position: relative;
-  left: 10px;
-  width: 390px;
-  text-align: center;
-  font-family: Roboto, Arial, sans-serif;
+#deleteButton {
+  cursor: pointer;
+  color: grey;
 }
-#editButton {
-  position: relative;
-  float: right;
-  right: 5px;
+#deleteButton:hover {
+  cursor: pointer;
+  color: black;
 }
+
 #addButton {
-  position: relative;
-  float: right;
-  top: 5px;
-  right: 5px;
+  cursor: pointer;
+  color: grey;
 }
-*/
+
+#addButton:hover {
+  cursor: pointer;
+  color: black;
+}

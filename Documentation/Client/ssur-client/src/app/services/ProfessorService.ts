@@ -7,7 +7,6 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class ProfessorService {
 
   selectedProfessor: BehaviorSubject<any> = new BehaviorSubject<any>({});
-  //public existingProfs = [];
   existingProfs: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   private url = 'https://asesprechstunde.herokuapp.com/api/lecturers';
 
@@ -17,10 +16,9 @@ export class ProfessorService {
 
   // Get all lecturers
  getAllProfs() {
-    var profsArray = [];
+    let profsArray = [];
     this.http.get(this.url).subscribe(data => {
-      for(var i = 0; i < data.json().length; i++) {
-        //console.log('profsanzahl----->' + data.json()[i].foreName);
+      for(let i = 0; i < data.json().length; i++) {
         profsArray.push(data.json()[i]);
       }
       this.existingProfs.next(profsArray);
