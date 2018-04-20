@@ -7,12 +7,11 @@
       <b> Rolle:</b>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">Student</span>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">Dozent</span>
-      <br>
-      <span style="float: right" (click)="logout()" class="linkSpan">Logout</span>
+      <i title="Logout" class="material-icons md-36" style="float: right" id="logoutIcon" (click)="logout()" >exit_to_app</i>
     </div>
     <div *ngIf="logoutSucessfull" id="logoutDiv">
       Erfolgreich Ausgeloggt.<br>
-      <span (click)="login()" class="linkSpan">Erneut Anmelden.</span>
+      Seite neu laden und <span (click)="login()" class="linkSpan">erneut anmelden.</span>
     </div>
   </div>
   <div *ngIf="!userService.userIsLoggedIn&&!logoutSucessfull" id="logindiv">
@@ -21,8 +20,6 @@
   <div *ngIf="userService.userIsLoggedIn&&!logoutSucessfull" class="row">
     <app-sidebar class="col-sm-4"></app-sidebar>
     <div class="col-sm-8">
-      <!--If user is a student show prof-selector-->
-      <!--<div *ngIf="userService.loggedinUser.getValue() == 'student'">-->
       <div *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">
         <app-professor-selector></app-professor-selector>
       </div>

@@ -1,18 +1,18 @@
 <div>
   <!-- Login -->
-  <div *ngIf="!registration" id="loginDiv">
+  <div *ngIf="!registration" id="loginDiv" (keydown.enter)="loginUser()">
     <b>Willkommen</b>
     <br>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Benutzer" [(ngModel)]="email">
+      <input matInput placeholder="Email" [(ngModel)]="email">
     </mat-form-field>
     <br>
     <mat-form-field>
       <input matInput type="password" placeholder="Passwort" [(ngModel)]="password">
     </mat-form-field>
     <br>
-    <button mat-raised-button class=" float-left" (click)="loginUser()">Login</button>
+    <button mat-raised-button class=" float-left"  (keydown.enter)="loginUser()" (click)="loginUser()">Login</button>
     <div *ngIf="loginError">
       <br>
       <br>
@@ -40,11 +40,11 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input required matInput placeholder="Vorname" [(ngModel)]="foreName">
+      <input required matInput type="text" placeholder="Vorname" [(ngModel)]="foreName">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input required matInput placeholder="Nachname" [(ngModel)]="surName">
+      <input required matInput type="text" placeholder="Nachname" [(ngModel)]="surName">
     </mat-form-field>
     <br>
     <mat-form-field>

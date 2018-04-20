@@ -33,6 +33,6 @@ export class AppComponent {
   }
 
   public login() {
-  this.logoutSucessfull = false;
+    window.location.reload();
   }
 }

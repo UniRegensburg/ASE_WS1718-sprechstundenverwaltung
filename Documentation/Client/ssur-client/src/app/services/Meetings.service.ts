@@ -9,8 +9,6 @@ export class MeetingsService {
 
   meetingsInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   meetingsChanged: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-
-  //studentID = '5ab50fb9118d842c2423b0bb'; // Todo: Later get ID of logged-in user from userservice
   studentID: string;
 
   constructor(private http: Http, private userService: UserService) {
@@ -48,21 +46,6 @@ export class MeetingsService {
         }
       });
   }
-
-/*  public editOfficehourSlot(slotTitle: string, slotDescription: string, slotID: string) {
-    const body = {
-      studentID: this.studentID,
-      title: slotTitle,
-      description: slotDescription,
-      slotTaken: true
-    };
-
-    this.http
-      .patch('https://asesprechstunde.herokuapp.com/api/officehourslot/' + slotID, body)
-      .subscribe(res => {
-        this.meetingsInfo.next(res.json());
-      });
-  }*/
 
   public deleteOfficehourSlot(slotID: string) {
     const body = {

@@ -26,11 +26,6 @@ export class OfficehoursStudentDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  /*editSelectedSlot() {
-    this.meetingService.editOfficehourSlot(this.title, this.description, this.meetingID);
-    this.dialogRef.close(true);
-  }*/
-
   // delete the reserved slot
   deleteSelectedSlot() {
     if (confirm('Wollen Sie die Sprechstunde wirklich löschen?')) {
