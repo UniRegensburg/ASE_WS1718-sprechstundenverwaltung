@@ -14,7 +14,7 @@ import { UserService } from '../../services/UserService';
 export class SidebarContentStudentComponent implements OnInit {
 
   public result: boolean;
-  title_sidebar = 'Nächste Sprechstunden:';
+  title_sidebar = 'Belegte Sprechstunden:';
   private meetingsListener;
   private meetingsChangeListener;
   public meetingExists: boolean;

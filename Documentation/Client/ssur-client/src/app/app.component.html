@@ -1,20 +1,24 @@
 <div class="container-fluid">
   <div class="row">
     <h1 class="col-sm-8"> {{ title }}</h1>
-    <div *ngIf="userService.userIsLoggedIn.getValue()">
+    <div *ngIf="userService.userIsLoggedIn&&!logoutSucessfull">
       <b>Angemeldet als:</b> {{userService.loggedInUserInfo.getValue()[0].foreName}} {{userService.loggedInUserInfo.getValue()[0].lastName}}
 
       <b> Rolle:</b>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'student'">Student</span>
       <span *ngIf="userService.loggedInUserInfo.getValue()[0].role == 'lecturer'">Dozent</span>
+      <br>
+      <span style="float: right" (click)="logout()" class="linkSpan">Logout</span>
     </div>
-    <!--<button class="mat-raised-button col-sm-1 float-right" (click)="setUser('lecturer')">Prof</button>
-    <button class="mat-raised-button col-sm-1 float-right" (click)="setUser('student')">Student</button>-->
+    <div *ngIf="logoutSucessfull" id="logoutDiv">
+      Erfolgreich Ausgeloggt.<br>
+      <span (click)="login()" class="linkSpan">Erneut Anmelden.</span>
+    </div>
   </div>
-  <div *ngIf="!userService.userIsLoggedIn.getValue()" id="logindiv">
+  <div *ngIf="!userService.userIsLoggedIn&&!logoutSucessfull" id="logindiv">
     <app-login></app-login>
   </div>
-  <div *ngIf="userService.userIsLoggedIn.getValue()" class="row">
+  <div *ngIf="userService.userIsLoggedIn&&!logoutSucessfull" class="row">
     <app-sidebar class="col-sm-4"></app-sidebar>
     <div class="col-sm-8">
       <!--If user is a student show prof-selector-->

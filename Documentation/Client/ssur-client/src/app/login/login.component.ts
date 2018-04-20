@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/UserService';
+import {_catch} from 'rxjs/operator/catch';
 
 @Component({
   selector: 'app-login',
@@ -8,39 +9,47 @@ import { UserService } from '../services/UserService';
 })
 export class LoginComponent implements OnInit {
 
-  userName: string;
-  password: string;
-  foreName: string;
-  surName: string;
-  email: string;
-  role: string;
-  needsToRegister = false;
+  public password: string;
+  public foreName: string;
+  public surName: string;
+  public email: string;
+  public role: string;
+  public registration = false;
+  public loginError = false;
 
-  userListener;
-
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   loginUser() {
-    this.userService.checkIfUserExists(this.userName);
-    this.userListener = this.userService.loggedInUserInfo.subscribe(data => {
+    this.userService.checkIfUserExists(this.email, this.password)
+      .then(user => {
+        if(user != undefined) {
+          console.log('User logged in');
+          this.userService.userIsLoggedIn = true;
+          this.userService.loggedInUserInfo.next(user);
+          this.userService.saveSession(user[0]);
+        }
+        else {
+          this.loginError = true;
+          this.password = '';
+        }
+      })
+      .catch(errorMessage => console.log(errorMessage));
+  }
 
-      //console.log('Login-------->' + data.length);
-
-      if(data.length > 0) {
-        console.log('User logged in');
-        this.userService.userIsLoggedIn.next(true);
-      }
-      else {
-        this.needsToRegister = true;
-      }
-    });
+  showRegistration() {
+    this.registration = true;
   }
 
   registerUser() {
-    this.userService.createUser(this.email, this.userName, this.password, this.foreName, this.surName, this.role);
-
-    // Todo: Check response first
-    this.userService.userIsLoggedIn.next(true);
+    this.userService.createUser(this.email, this.password, this.foreName, this.surName, this.role)
+      .then(user => {
+        if(user != undefined) {
+          console.log('User created');
+          this.userService.userIsLoggedIn = true;
+          this.userService.loggedInUserInfo.next([user]);
+        }
+      })
+      .catch(errorMessage => console.log(errorMessage));
   }
 
   ngOnInit() {
