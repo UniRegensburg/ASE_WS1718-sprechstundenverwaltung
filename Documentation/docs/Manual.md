@@ -2,48 +2,56 @@
 
 <b>Login:</b><br>
 <ul>
-<li>Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.</li>
+<li>Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.</li><br>
+<img src="/img/login.png"/>
   </ul>
 
 <b>Anmeldung:</b><br>
 <ul>
-<li>Um sich zu registrieren lassen sie die Felder frei und klicken sie auf „Login“.</li>
-<li>Anschließend Füllen Sie die Eingabemaske mit Ihren Daten.</li>
+<li>Um sich zu registrieren klicken Sie auf den entsprechenden Link.</li>
+<li>Anschließend Füllen Sie die Eingabemaske mit Ihren Daten.</li><br>
+<img src="/img/registration.png"/>
   </ul>
 
 <b>Navigation:</b><br>
 <ul>
-<li>Oberhalb des Kalender stehen Ihnen Buttons zum Umschalten zwischen der Wochen- und der Tagesansicht zur Verfügung.</li>
+<li>Oberhalb des Kalenders stehen Ihnen Buttons zum Umschalten zwischen der Wochen- und der Tagesansicht zur Verfügung.</li><br>
+<img src="/img/calendar.png"/><br><br>
 <li>Mit den Pfeiltasten navigieren im Kalender je nach ausgewählter Ansicht Tagweise oder Wochenweise vor und zurück.</li>
 <li>Der „Heute“ Button bringt Sie zum aktuellen Tag zurück.</li>
   </ul>
 
 <b>Unterhaltungen anzeigen:</b><br>
 <ul>
-<li>In der Sidebar haben Sie die Möglichkeit durch Klicken auf „Unterhaltungen“ sich Ihre Chats anzeigen zu lassen.</li>
-<li>Durch auswählen eines Eintrags wird die jeweilige Unterhaltung angezeigt.</li>
+<li>In der Sidebar haben Sie die Möglichkeit, sich durch Klicken auf „Unterhaltungen“ Ihre bereits bestehenden Chats anzeigen zu lassen.</li><br>
+<img src="/img/conversation_sidebar.png"/><br><br>
+<li>Durch klicken des „Chat“-Icons wird die jeweilige Unterhaltung angezeigt und Sie haben die Möglichkeit neue Notizen hinzuzufügen.</li><br>
+<img src="/img/conversation_dialog.png"/>
   </ul>
 
 <h2>Dozentensicht</h2>
 
 <b>Anlegen einer neuen Sprechstunde:</b><br>
 <ul>
-  <li>Drücken Sie den Button „Sprechstunde Anlegen“ in der Sidebar der Anwendung.</li>
-<li>Wählen Sie die gewünschte Startzeit mit Datum, die Dauer eines Termins und wieviele Termine Sie während dieser Sprechstunde hintereinander anbieten wollen.</li>
-<li>Durch Klicken des Häkchens ist die Angabe einer Beschreibung verpflichtend.</li>
+  <li>Drücken Sie das „+“-Icon in der Sidebar der Anwendung.</li><br>
+  <img src="/img/officehour_sidebar.png"/><br><br>
+<li>Wählen Sie die gewünschte Startzeit mit Datum, die Dauer eines Termins und wieviele Termine Sie während dieser Sprechstunde hintereinander anbieten wollen.</li><br>
+<img src="/img/officehour_dialog.png"/><br><br>
 <li>Indem Sie auf „Anlegen“ klicken wird die neue Sprechstunde angelegt und die Sprechstunde wird in Ihrer Sidebar und im Kalender angezeigt.</li>
 </ul>
 
 <b>Löschen einer Sprechstunde:</b><br>
 <ul>
-<li>Bestimmen Sie in der Sidebar die Sprechstunde welche Sie Löschen wollen und drücken Sie den „x“-Button rechts daneben.</li>
-<li>Ihre Sprechstunde wurde nun gelöscht.</li>
+<li>Bestimmen Sie in der Sidebar die Sprechstunde welche Sie Löschen wollen und drücken Sie das „Mülleimer“-Icon rechts daneben.</li>
+<li>Ihre Sprechstunde wird nach einer Bestätigung gelöscht.</li>
   </ul>
 
 <b>Termindetails einsehen:</b><br>
 <ul>
-<li>Durch Klicken auf einen belegten Termin (rot markiert) erhalten Sie genauere Informationen.</li>
-<li>Hier haben Sie auch die Möglichkeit einen Chat mit dem Studierenden zu Starten.</li>
+<li>Durch Klicken auf einen belegten Termin im Kalender (rot markiert) erhalten Sie genauere Informationen.</li><br>
+<img src="/img/calendar_slots.png"/><br><br>
+<li>Hier haben Sie auch die Möglichkeit einen Chat mit dem Studierenden zu Starten.</li><br>
+<img src="/img/details_dialog.png"/>
   </ul>
 
 
@@ -51,12 +59,14 @@
 
 <b>Auswählen eines Dozierenden:</b><br>
 <ul>
-<li>Durch Klicken auf das Eingabefeld „Dozent auswählen“ haben Sie die Möglichkeit einen Dozierenden zu selektieren.</li>
+<li>Durch Klicken auf das Eingabefeld „Dozent auswählen“ haben Sie die Möglichkeit einen Dozierenden zu selektieren. Anschließend werden dessen Sprechstunden im Kalender angezeigt.</li><br>
+<img src="/img/choose_lecturer.png"/>
   </ul>
 
 <b>Buchen einer Sprechstunde:</b><br>
 <ul>
-<li>Durch Auswählen eines freien Sprechstundentermins (grün markiert) öffnet sich ein Dialogfeld zur Buchung dieses Termins.</li>
+<li>Durch Auswählen eines freien Sprechstundentermins (grün markiert) öffnet sich ein Dialogfeld zur Buchung dieses Termins.</li><br>
+<img src="/img/officehour_take_dialog.png"/><br><br>
 <li>In der Eingabemaske können Sie einen Titel und eine Beschreibung angeben.</li>
 <li>Durch drücken des „Belegen“-Buttons wird die Buchung durchgeführt.</li>
 <li>Anschließend wird der gebuchte Termin in Ihrer Sidebar angezeigt.</li>
@@ -64,13 +74,15 @@
 
 <b>Ändern/ Löschen einer gebuchten Sprechstunde:</b><br>
 <ul>
-<li>Durch Klicken auf den „Termin ändern“ Button unterhalb eines Termins öffnet sich ein Dialogfeld zum Ändern oder Löschen der Buchung.</li>
-<li>In der Eingabemaske können Sie Ihre Angaben ändern und durch Drücken von „Editieren“ diesen neu abspeichern oder durch auswählen von „Buchung löschen“ Ihren Termin absagen.</li>
+<li>Durch Klicken auf das „Zahnrad“-Icon neben einem Termin in der Sidebar öffnet sich ein Dialogfeld zum Ändern der Angaben bzw. Löschen der Buchung.</li><br>
+<img src="/img/officehourslots_sidebar.png"/><br><br>
+<li>In der Eingabemaske können Sie Ihre Angaben ändern und durch Drücken von „Editieren“ diese neu abspeichern oder durch auswählen von „Buchung löschen“ Ihren Termin absagen. Dieser wird nach einer Bestätigung wieder für alle freigegeben.</li><br>
+<img src="/img/edit_officehour_dialog.png"/>
   </ul>
 
 <b>Starten einer Unterhaltung:</b><br>
 <ul>
-<li>In der Sidebar können Sie durch Auswählen von „Chat starten“ eine Unterhaltung zum gebuchten Termin starten.</li>
+<li>In der Sidebar können Sie durch Auswählen des „Chat“-Icons eine Unterhaltung zum gebuchten Termin starten.</li>
 <li>Im sich öffnenden Dialogfenster haben Sie die Möglichkeit eine neue Eingabe zu Tätigen.</li>
 <li>Die vorherigen Nachrichten werden unterhalb des Eingabefeldes angezeigt.</li>
 <li>Durch Drücken von Speichern werden die Eingaben übernommen.</li>
