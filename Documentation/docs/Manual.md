@@ -3,7 +3,7 @@
 <b>Login:</b><br>
 <ul>
 <li>Um sich anzumelden geben Sie Ihre Daten in die Vorgegebenen Felder ein und Loggen sich ein.</li><br>
-<img src="/img/login.png"/>
+![ScreenShot](/img/login.png)
   </ul>
 
 <b>Anmeldung:</b><br>
