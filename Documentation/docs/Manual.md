@@ -10,7 +10,7 @@
 <ul>
 <li>Um sich zu registrieren klicken Sie auf den entsprechenden Link.</li>
 <li>Anschließend Füllen Sie die Eingabemaske mit Ihren Daten.</li><br>
-<img src="/img/registration.png"/>
+<img src="https://raw.githubusercontent.com/UniRegensburg/ASE_WS1718-sprechstundenverwaltung/master/Documentation/docs/img/login.PNG"/>
   </ul>
 
 <b>Navigation:</b><br>
