@@ -11,7 +11,7 @@
       <i title="Sprechstunde editieren" class="material-icons" style="float: right" id="editButton" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">settings</i>
       <br>
       Bei: {{meetingsArray[i].lecturer}}
-      <i title="Unterhaltung mit Dozent/in starten/anzeigen" class="material-icons" id="conversation" style="float: right" (click)="openNotesDialog(meetingsArray[i].lecturerID)">chat</i>
+      <i title="Unterhaltung mit Dozent/in starten/anzeigen" class="material-icons" id="conversation" style="float: right" (click)="openNotesDialog(meetingsArray[i].lecturerID, studentID)">chat</i>
       <br>
     </mat-label>
   </div>

@@ -14,7 +14,7 @@ export class NotesService {
   notes = [];
   constructor(private http: Http) { }
 
-  getNotes(id) {
+  /*getNotes(id) {
     console.log('getting notes');
     const convUrl = this.baseUrl + id;
     this.http.get(convUrl).subscribe(res => {
@@ -25,13 +25,28 @@ export class NotesService {
     });
     return this.notes;
 
+  }*/
+
+  // Changed function to give back Promise (?)
+  getNotes(id): Promise<any> {
+    console.log('getting notes');
+    const convUrl = this.baseUrl + id;
+
+    return this.http.get(convUrl).toPromise()
+      // If server responded give back response as json
+      .then(response => response.json())
+
+      // Catch error if there is some server issue
+      .catch(errorMessage => console.log('Error:' + errorMessage.statusText + ' ' + errorMessage.status));
+
   }
 
   setNotes(newNote, id) {
     console.log('setting notes');
     const convUrl = this.baseUrl + id;
     const timestamp = moment().format('lll');
-    this.notes.push([(timestamp + ': ' + newNote)])
+    this.notes.push([(timestamp + ': ' + newNote)]);
+    console.log(this.notes);
     const notesObject = {
       notes: this.notes
     };
@@ -44,22 +59,17 @@ export class NotesService {
 
   // Get all conversations for specific user
   getConversations(userID: string, userRole: string) {
-
     let url: string;
-
-    if(userRole == 'lecturer') {
+    if (userRole === 'lecturer') {
       url = this.baseUrl + 'lecturer/' + userID;
     }
-    if(userRole == 'student') {
+    if (userRole === 'student') {
       url = this.baseUrl + 'student/' + userID;
     }
-
     this.http.get(url).subscribe(res => {
       this.Conversations.next(res.json());
     });
   }
-
-
 
   createNewConversation(lec, stud) {
     const body = {
@@ -75,22 +85,19 @@ export class NotesService {
     );
   }
 
-  checkIfConversationExists(lec, stud) {
-    console.log('checking conversation... ');
+  checkIfConversationExists(lec, stud): Promise<any> {
+    console.log('checking conversation for lec: ' + lec + 'and stud: ' + stud);
     const body = {
       lecturer: lec,
       student: stud
     };
 
-    this.http.post('https://asesprechstunde.herokuapp.com/api/isconversation', body)
-      .subscribe(
-        res => {
-          console.log('Unterhaltung existiert: ' + (res.json()[0])._id);
-          this.currentConvID = (res.json()[0]._id);
-          this.convListener = true;
-        },
-        error => {
-          console.log('Fehler aufgetreten' + error);  }
+    return this.http.post('https://asesprechstunde.herokuapp.com/api/isconversation', body).toPromise()
+      .then(
+        res => res.json()[0]._id)
+      .catch(error => {
+          console.log('Fehler aufgetreten' + error);
+        }
       );
   }
 }

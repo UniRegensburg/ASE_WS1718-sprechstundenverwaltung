@@ -14,6 +14,7 @@
       <span (click)="login()" class="linkSpan">Seite neu laden und erneut anmelden.</span>
     </div>
   </div>
+
   <div *ngIf="!userService.userIsLoggedIn&&!logoutSucessfull" id="logindiv">
     <app-login></app-login>
   </div>
