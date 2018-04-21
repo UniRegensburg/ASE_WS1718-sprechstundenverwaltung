@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { DialogsService } from '../../dialogs/dialogs.service';
 import { OfficehoursService } from '../../services/Officehours.service';
 import * as moment from 'moment';
@@ -72,7 +71,5 @@ export class SidebarContentProfComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

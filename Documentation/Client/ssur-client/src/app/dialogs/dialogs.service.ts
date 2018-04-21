@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import { OfficehoursProfDialogComponent } from './officehours-prof-dialog/officehours-prof-dialog.component';
 import { OfficehoursStudentDialogComponent } from './officehours-student-dialog/officehours-student-dialog.component';

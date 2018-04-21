@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-
 import { DialogsService } from '../../dialogs/dialogs.service';
 import { MeetingsService } from '../../services/Meetings.service';
 import { UserService } from '../../services/UserService';
@@ -20,11 +19,11 @@ export class SidebarContentStudentComponent implements OnInit {
   public meetingExists: boolean;
   public meetingsArray = [];
   private lecturerName: string;
-
   title: string;
   end: any;
 
   constructor(private dialogsService: DialogsService, private meetingsService: MeetingsService, private userService: UserService) {
+
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
 
       // Check if entry exists
@@ -78,7 +77,9 @@ export class SidebarContentStudentComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  openNotesDialog(profID) {
+
   }
 
+  ngOnInit() {}
 }

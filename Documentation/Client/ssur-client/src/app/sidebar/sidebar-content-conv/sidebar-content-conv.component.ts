@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NotesService } from '../../services/notes.service';
 import { UserService } from '../../services/UserService';
 
@@ -79,7 +78,9 @@ export class SidebarContentConvComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  openNotesDialog(convID) {
+
   }
 
+  ngOnInit() {}
 }

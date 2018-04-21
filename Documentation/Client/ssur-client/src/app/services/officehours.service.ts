@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { UserService } from './UserService';
-
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -13,6 +12,7 @@ export class OfficehoursService {
   delInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
   constructor(private http: Http, private userService: UserService) {
+
     this.lecturerID = userService.loggedInUserInfo.getValue()[0]._id;
 
     if(userService.loggedInUserInfo.getValue()[0].role == 'lecturer') {
@@ -40,7 +40,7 @@ export class OfficehoursService {
     this.http
       .post('https://asesprechstunde.herokuapp.com/api/officehours', body)
       .subscribe(res => {
-        this.lecInfo.next([res.json()]);  // needs to be in an array, comes back as object
+        this.lecInfo.next([res.json()]);
       });
 
   }

@@ -7,7 +7,7 @@
     <mat-label class="col-sm-12" *ngIf="conversationExists">
       <hr>
       Mit: <b>{{conversationsArray[i].partnerName}}</b>
-      <i title="Unterhaltung anzeigen" class="material-icons" id="conversationButton" style="float: right" (click)="openConversation(conversationsArray[i].convID)">chat</i>
+      <i title="Unterhaltung anzeigen" class="material-icons" id="conversationButton" style="float: right" (click)="openNotesDialog(conversationsArray[i].convID)">chat</i>
       <br>
     </mat-label>
   </div>
