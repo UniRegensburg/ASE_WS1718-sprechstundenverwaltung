@@ -14,22 +14,7 @@ export class NotesService {
   notes = [];
   constructor(private http: Http) { }
 
-  /*getNotes(id) {
-    console.log('getting notes');
-    const convUrl = this.baseUrl + id;
-    this.http.get(convUrl).subscribe(res => {
-      this.NoteInfo.next(res.json());
-      this.notes = JSON.parse(res['_body']).notes;
-      console.log ('Notes:' + this.notes);
-      console.log('aktuelle ConvID: ' + id);
-    });
-    return this.notes;
-
-  }*/
-
-  // Changed function to give back Promise (?)
   getNotes(id): Promise<any> {
-    console.log('getting notes');
     const convUrl = this.baseUrl + id;
 
     return this.http.get(convUrl).toPromise()
@@ -42,11 +27,9 @@ export class NotesService {
   }
 
   setNotes(newNote, id) {
-    console.log('setting notes');
     const convUrl = this.baseUrl + id;
     const timestamp = moment().format('lll');
     this.notes.push([(timestamp + ': ' + newNote)]);
-    console.log(this.notes);
     const notesObject = {
       notes: this.notes
     };
@@ -86,7 +69,6 @@ export class NotesService {
   }
 
   checkIfConversationExists(lec, stud): Promise<any> {
-    console.log('checking conversation for lec: ' + lec + 'and stud: ' + stud);
     const body = {
       lecturer: lec,
       student: stud

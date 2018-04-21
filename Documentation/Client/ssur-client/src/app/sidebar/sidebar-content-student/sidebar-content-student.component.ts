@@ -109,7 +109,6 @@ export class SidebarContentStudentComponent implements OnInit {
     this.notesService.checkIfConversationExists(lec, stud)
       .then(res => {
         this.convID = res;
-        console.log(this.convID);
         // Request notes
         this.notesService.getNotes(this.convID)
 
