@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./notes-dialog.component.css']
 })
 export class NotesDialogComponent implements OnInit {
+  note;
 
   constructor(
     public dialogRef: MatDialogRef<NotesDialogComponent>,
