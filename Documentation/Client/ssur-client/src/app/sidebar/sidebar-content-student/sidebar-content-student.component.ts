@@ -46,14 +46,6 @@ export class SidebarContentStudentComponent implements OnInit {
 
         // Iterate through each meeting in data-array
         for (let i = 0; i < data.length; i++) {
-          // Fill array with objects of partly transformed meetings values
-          this.meetingsArray.push({
-            id: data[i]._id,
-            start: moment(data[i].start).format('DD.MM.YYYY, HH:mm'),
-            end: moment(data[i].end).format('HH:mm'),
-            title: data[i].title,
-            description: data[i].description
-          });
 
           // Get user name
           this.userService.getUserInfoByID(data[i].lecturerID)
