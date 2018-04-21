@@ -1,7 +1,6 @@
 /* global require, module */
 var mongoose = require("mongoose");
 var Officehour = mongoose.model("Officehour");
-//var OfficehourSlot = mongoose.model('OfficehourSlot');
 
 // using moment for date calculation
 const Moment = require('moment');
@@ -86,7 +85,7 @@ module.exports.createOfficehour = function (req, res) {
             start: req.body.start,
             slotLength: req.body.slotLength,
             slotCount: req.body.slotCount,
-            lecturerID: req.body.lecturerID, //mongoose.Types.ObjectId(req.body.lecturerId),
+            lecturerID: req.body.lecturerID,
             descriptionNeeded: req.body.descriptionNeeded,
             slots: calculateSlots(req.body.start, req.body.slotLength, req.body.slotCount, req.body.lecturerID)  // fill slotsarray with slots
         }, function (err, officehour) {
@@ -107,7 +106,6 @@ module.exports.createOfficehour = function (req, res) {
 calculateSlots = function(startDate, slotLength, slotCount, lecturer) {
     var startTime = new Date(startDate);
     var slotsArray = [];
-    //var slot = new OfficehourSlot;
     var slot = {};
     for (var i = 0; i < parseInt(slotCount); i++){
         var endTime = moment(startTime).add(slotLength, 'minutes');
@@ -229,7 +227,6 @@ module.exports.deleteOfficehourSlot = function (req, res) {
     Officehour
         .findOne({'slots._id': mongoose.Types.ObjectId(id)})
         .exec(function (err, officehour) {
-            //console.log(officehour);
             officehour.slots.id(id).remove();
             officehour.save(function(err, officehour) {
                 readResponseHandler(err, officehour, res, "id not found");

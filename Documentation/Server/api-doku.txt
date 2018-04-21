@@ -1,87 +1,72 @@
-___________________________
+Users:
+
+-- Get user with "id" --
+GET https://asesprechstunde.herokuapp.com/api/user/"id"
+
+-- Get all lecturers --
+GET https://asesprechstunde.herokuapp.com/api/lecturers
+
+-- Create user -- 
+POST https://asesprechstunde.herokuapp.com/api/user
+
+-- Check if user exists --
+POST https://asesprechstunde.herokuapp.com/api/isuser
+
+-- Delete user with "id" --
+DELETE https://asesprechstunde.herokuapp.com/api/user/"id"
 
 
-Route MEETINGS:
+Officehours:
 
+-- Get all existing officehours --
+GET https://asesprechstunde.herokuapp.com/api/officehours
 
-GET meetings/
-Alle Termine zurückgeben KRITISCH!
+-- Get all officehours of lecturer with "id" --
+GET https://asesprechstunde.herokuapp.com/api/user/"id"/officehours
 
+-- Get all officehourslots taken by student with "id" --
+GET https://asesprechstunde.herokuapp.com/api/user/"id"/officehourslot
 
+-- Get officehour with "id" --
+GET https://asesprechstunde.herokuapp.com/api/officehours/"id"
 
-GET meetings/:id 
+-- Get officehourslot with "id" --
+GET https://asesprechstunde.herokuapp.com/api/officehourslot/"id"
 
-Termin mit entspr ID zurückgeben
+-- Create new officehour --
+POST https://asesprechstunde.herokuapp.com/api/officehours
 
+-- Update officehourslot with "id" -- 
+PATCH https://asesprechstunde.herokuapp.com/api/officehourslot/"id"
 
+-- Delete all officehours of lecturer with "id" --
+DELETE https://asesprechstunde.herokuapp.com/api/user/"id"/officehours
 
-POST  meetings
+-- Delete officehour with "id" --
+DELETE https://asesprechstunde.herokuapp.com/api/officehours/"id"
 
-Im Body kann ein Termin mitgegeben werden. Zur Zeit wird noch nix validiert, von daher obacht geben, was ihr postet ;-)
+-- Delete officehourslot with"id" -- 
+DELETE https://asesprechstunde.herokuapp.com/api/officehourslot/"id"
 
+Conversation:
 
+-- Get all conversations for lecturer with "id"--
+GET https://asesprechstunde.herokuapp.com/api/conversation/lecturer/"id"
 
+-- Get all conversations for student with "id" --
+GET https://asesprechstunde.herokuapp.com/api/conversation/student/"id"
 
-DELETE meetings/:id 
+-- Get conversation with "id" --
+GET https://asesprechstunde.herokuapp.com/api/conversation/"id"
 
-Löscht einen Termin mit entspr. ID'
+-- Create new conversation -- 
+POST https://asesprechstunde.herokuapp.com/api/conversation
 
+-- Check if conversation between two users already exists -- 
+POST https://asesprechstunde.herokuapp.com/api/isconversation
 
+-- Update existing conversation with new notes --
+PATCH https://asesprechstunde.herokuapp.com/api/conversation/"id"
 
-PATCH meetings/:id
-
-Überschreibe einen Termin mit entspr. ID
-
-
-___________________________
-
-
-Route PROFESSORS
-
-
-
-GET professors/
-
-Liste mit allen professors
-
-
-
-GET professors/:id
-
-Detaildaten eines Professors 
-
-
-
-GET professors/:id/meetings
-
-Alle Termine eines Professors zurückgeben
-
-
-
-PATCH 
-professors/me/officehors
-
-Eigene Sprechstundentermine überschreiben 
-
-___________________________
-
-
-
-Route USERS
-
-
-GET users/
-
-Liste mit allen Users
-
-
-
-GET users/me
-
-Detaildaten des eingeloggten Users
-
-
-
-GET users/me/meetings
-
-Eigene meetings des eingeloggten Users
+-- Delete conversation with "id" --
+DELETE https://asesprechstunde.herokuapp.com/api/conversation/"id"

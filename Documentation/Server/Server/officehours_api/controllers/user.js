@@ -33,7 +33,6 @@ module.exports.getLecturers = function (req, res) {
 
 // Checks if user exists
 module.exports.checkUser = function (req, res) {
-    // Todo: Also check if passwords match
     User
         .find({'email': req.body.email.toLowerCase()})
         .exec(function (err, user) {

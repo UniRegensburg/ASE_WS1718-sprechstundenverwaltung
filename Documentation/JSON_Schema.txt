@@ -1,40 +1,49 @@
-JSON-Schema Definition v0.1
+JSON-Schema Definition v0.2
 
 (Alle männlichen Bezeichner stehen stellvertretend für beide Geschlechter)
 
-Schema: MEETING
+Schema: User
 
 {
-  "id":         "ObjectID"                    // id für den spezifischen Termin
-
-  "timeStart": "DateTime",                    // Startzeitpunkt des Termins
-  "timeEnd":   "DateTime",                    // Endzeitpunkt des Termins
-
-  "provider": "ObjectID"                      // Sprechstundengeber des Termins (=Dozent)
-  "consumer": "ObjectID"                      // Sprechstundennehmer des Termins (=Student)
-
-  "isConfirmedByProvider": "boolean",         // Flag, ob der Termin bereits vom Dozenten akzeptiert wurde
-  "isConfirmedByConsumer": "boolean",         // Flag, ob der Termin bereits vom Studenten akzeptiert wurde
-
-  "isPublic": "boolean",                      // Flag, ob der Termin anderen Personen zugänglich ist (in diesem Fall aber ohne )
+    "email":    "String",                               // Email of user
+    "password": "String",                               // Password of user (as hash in db)
+    "foreName": "String",                               // Forename of user
+    "lastName": "String",                               // Lastname of user
+    "role":     "String",                               // Role of user
+    "_id":      "ObjectId"                              // ID of database entry (provided by mongodb)
 }
 
-Schema: STUDENT
+Schema: Officehour
 
 {
-  "id":       "ObjectID",                       //  Interner Identifier des Studenten
-  "name":     "String",                         //  Nachname des Studenten
-  "prename":  "String",                         //  Vorname des Studenten
-  "ndsCode":  "String",                         //  Zweiter  Identifier des Studenten (verborgen vor dem eigentlichen System)
-  "meetings": "Array[ObjectId]"                 //  Array mit allen Identifiern von für den Studenten relevanten Terminen (angemeldete, ausgemachte, beantragte)
+    "start":                "Date",                     // Start of officehour
+    "slotLength":           "String",                   // Length of officehourslot
+    "slotCount":            "String",                   // Amount of officehourslots
+    "lecturerID:"           "String",                   // Lecturer that offers officehour
+    "descriptionNeeded:"    "Boolean",                  // Flag if description is needed (set by officehour provider)
+    "slots:"                "Array[OfficehourSlot]",    // Individual officehourslots as array entry
+    "_id":                  "ObjectId"                  // ID of database entry (provided by mongodb)
 }
 
-Schema: DOZENT
+Schema: OfficehourSlot
 
 {
-  "id":       "ObjectID",                       //  Interner Identifier des Dozenten
-  "name":     "String",                         //  Nachname des Dozenten
-  "prename":  "String",                         //  Vorname des Dozenten
-  "ndsCode":  "String",                         //  Zweiter  Identifier des Dozenten (verborgen vor dem eigentlichen System)
-  "meetings": "Array[ObjectId]"                 //  Array mit allen Identifiern von für den Studenten relevanten Terminen (angemeldete, ausgemachte, beantragte)
+    "start:"        "Date",                             // Start of officehourslot
+    "end:"          "Date",                             // End of officehourslot
+    "lecturerID:"   "String",                           // Lecturer that offers officehour
+    "studentID:"    "String",                           // Student that attends officehourslot
+    "title:"        "String",                           // Title of officehourslot (provided by student)
+    "description:"  "String",                           // Description of officehourslot (provided by student)
+    "slotTaken:"    "Boolean",                          // Flag if officehourslot is taken
+    "_id":          "ObjectId"                          // ID of database entry (provided by mongodb)
+}
+
+Schema: Conversation
+
+{
+    "lecturer:" "String",                               // Lecturer the conversation is with
+    "student:"  "String",                               // Student the conversation is with
+    "notes:"    "Array",                                // Individual notes as array entry
+    "files:"    "Array",                                // Individual files as array entry
+    "_id":      "ObjectId"                              // ID of database entry (provided by mongodb)
 }
