@@ -23,8 +23,8 @@ Dieses Repository beinhaltet eine webbasierte Anwendung, die die Planung von Spr
 Wesentliche Features der Anwendung:
 
 - *Login* - Möglichkeit zur Nutzung als Studierender oder Dozierender
-- *Anlegen* neuer Termine als Dozent
-- *Buchen* von Terminen als Student
+- *Anlegen* und *löschen* von Terminen als Dozent
+- *Buchen* und *Absagen* von Terminen als Student
 - *Kommunikation* von zusätzlichen Informationen zur Sprechstunde durch ein *Notizsystem*
 
 
