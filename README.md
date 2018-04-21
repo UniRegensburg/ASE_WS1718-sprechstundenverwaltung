@@ -1,5 +1,9 @@
 # Sprechstunde.ur.de
+
 ### Ziel dieses Projekts: Entwicklung einer webbasierten Anwendung zur Unterstützung der organisatorischen und thematischen Arbeitsabläufe im Kontext universitärer Sprechstunden
+
+## Link zur gehosteten Version: https://asesprechstunde.firebaseapp.com/ 
+
 
 
 ## Kurzbeschreibung:
