@@ -28,7 +28,7 @@ export class NotesService {
   }*/
 
   // Changed function to give back Promise (?)
-  getNotes(id):Promise<any> {
+  getNotes(id): Promise<any> {
     console.log('getting notes');
     const convUrl = this.baseUrl + id;
 
@@ -37,7 +37,7 @@ export class NotesService {
       .then(response => response.json())
 
       // Catch error if there is some server issue
-      .catch(errorMessage => console.log('Error:' + errorMessage.statusText + ' ' + errorMessage.status))
+      .catch(errorMessage => console.log('Error:' + errorMessage.statusText + ' ' + errorMessage.status));
 
   }
 
@@ -84,22 +84,19 @@ export class NotesService {
     );
   }
 
-  checkIfConversationExists(lec, stud) {
+  checkIfConversationExists(lec, stud): Promise<any> {
     console.log('checking conversation for lec: ' + lec + 'and stud: ' + stud);
     const body = {
       lecturer: lec,
       student: stud
     };
 
-    this.http.post('https://asesprechstunde.herokuapp.com/api/isconversation', body)
-      .subscribe(
-        res => {
-          console.log('Unterhaltung existiert: ' + (res.json()[0])._id);
-          this.currentConvID = (res.json()[0]._id);
-          this.convListener = true;
-        },
-        error => {
-          console.log('Fehler aufgetreten' + error);  }
+    return this.http.post('https://asesprechstunde.herokuapp.com/api/isconversation', body).toPromise()
+      .then(
+        res => res.json()[0]._id)
+      .catch(error => {
+          console.log('Fehler aufgetreten' + error);
+        }
       );
   }
 }

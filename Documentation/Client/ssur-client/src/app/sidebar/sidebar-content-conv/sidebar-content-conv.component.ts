@@ -97,7 +97,7 @@ export class SidebarContentConvComponent implements OnInit {
       .then(data => {
 
         // Check if its actual data
-        if(data != undefined) {
+        if (data !== undefined) {
 
           // If so, set as notes
           this.notes = data.notes;
@@ -124,25 +124,6 @@ export class SidebarContentConvComponent implements OnInit {
       })
       .catch(errorMessage => console.log(errorMessage));
   }
-
-  /*openNotesDialog(convID) {
-      this.notes = this.notesService.getNotes(convID);
-      console.log(this.notes);
-    console.log('convid im Dialog' +  convID);
-    console.log('notes im Dialog: ' + this.notes);
-    this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
-      width: '500px',
-      height: '500px',
-      data: {notes: this.notes}
-    });
-
-    this.NotesDialogRef.afterClosed().subscribe(result => {
-      this.note = result;
-      if (this.note !== undefined) {
-        this.notesService.setNotes(this.note, convID);
-      }
-    });
-  }*/
 
   ngOnInit() {
   }

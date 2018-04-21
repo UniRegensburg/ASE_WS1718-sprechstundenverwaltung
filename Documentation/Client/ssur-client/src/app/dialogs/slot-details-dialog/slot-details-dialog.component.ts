@@ -23,35 +23,52 @@ export class SlotDetailsDialogComponent implements OnInit {
   public studentName: string;
 
 
-  openNotesDialog() {
-    console.log('opendialog');
-    if (this.notesService.convListener === true) {
-      this.convID = this.notesService.currentConvID;
-      this.notes = this.notesService.getNotes(this.convID);
-    } else {
-      this.notesService.createNewConversation(this.getProfID(), this.studentID);
-      this.convID = this.notesService.currentConvID;
-    }
-    console.log('convid im Dialog' +  this.convID);
-    console.log('notes im Dialog: ' + this.notes);
-    this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
-      width: '500px',
-      height: '500px',
-      data: {notes: this.notes}
-    });
+  openNotesDialog(lec, stud) {
+    this.notesService.checkIfConversationExists(lec, stud)
+      .then(res => {
+        this.convID = res;
+        console.log(this.convID);
+        // Request notes
+        this.notesService.getNotes(this.convID)
 
-    this.NotesDialogRef.afterClosed().subscribe(result => {
-      this.note = result;
-       if (this.note !== undefined) {
-          this.notesService.setNotes(this.note, this.convID);
-      }
-    });
+        // When notes arrive...
+          .then(data => {
+
+            // Check if its actual data
+            if (data !== undefined) {
+
+              // If so, set as notes
+              this.notes = data.notes;
+
+              // Needs to be done here instead of notes service (i think)
+              this.notesService.NoteInfo.next(data);
+              // Do the remaining stuff as before
+              this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
+                width: '500px',
+                height: '500px',
+                data: {notes: this.notes}
+              });
+
+              this.NotesDialogRef.afterClosed().subscribe(result => {
+                this.note = result;
+                if (this.note !== undefined) {
+                  this.notesService.setNotes(this.note, this.convID);
+                }
+              });
+            }
+          })
+          .catch(errorMessage => console.log(errorMessage));
+      })
+      .catch(error => {
+        this.notesService.createNewConversation(lec, stud);
+        this.convID = this.notesService.currentConvID;
+      });
   }
 
   getStudentName(id: string) {
     this.userService.getUserInfoByID(id)
       .then(res => {
-        if(res != undefined) {
+        if (res !== undefined) {
           this.studentName = res[0].foreName + ' ' + res[0].lastName;
         }
       })
