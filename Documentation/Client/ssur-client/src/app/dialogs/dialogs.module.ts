@@ -11,8 +11,8 @@ import { MatButtonModule, MatDialogModule } from '@angular/material';
     MatDialogModule,
     MatButtonModule
   ],
-  declarations: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent],
-  exports: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent],
+  declarations: [],
+  exports: [],
   entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent],
   providers: [DialogsService]
 })
