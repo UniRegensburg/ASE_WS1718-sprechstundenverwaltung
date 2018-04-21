@@ -113,10 +113,8 @@ export class SidebarContentStudentComponent implements OnInit {
               // If so, set as notes
               this.notes = data.notes;
               this.notesService.notes = data.notes;
-
-              // Needs to be done here instead of notes service (i think)
               this.notesService.NoteInfo.next(data);
-              // Do the remaining stuff as before
+
               this.NotesDialogRef = this.dialog.open(NotesDialogComponent, {
                 width: '500px',
                 height: '500px',
@@ -138,7 +136,6 @@ export class SidebarContentStudentComponent implements OnInit {
           this.convID = this.notesService.currentConvID;
       });
   }
-
 
   ngOnInit() {}
 }
