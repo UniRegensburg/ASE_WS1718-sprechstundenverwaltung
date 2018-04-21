@@ -28,12 +28,12 @@ Wesentliche Features der Anwendung:
 - *Kommunikation* von zusätzlichen Informationen zur Sprechstunde durch ein *Notizsystem*
 
 
-## Anleitung zur Nutzung:
+## Anleitung zur lokalen Nutzung:
 
 
 ### Benötigte Software:
 
-Um die Anwendung zu starten, sind zuerst folgende Softwarekomponenten erforderlich:
+Um die Anwendung lokal auf dem Rechner zu starten, sind zuerst folgende Softwarekomponenten erforderlich:
 
 - node.js bzw. npm - Installation unter  https://nodejs.org/en/download/ 
 - Angular CLI - Installation unter: https://github.com/angular/angular-cli
