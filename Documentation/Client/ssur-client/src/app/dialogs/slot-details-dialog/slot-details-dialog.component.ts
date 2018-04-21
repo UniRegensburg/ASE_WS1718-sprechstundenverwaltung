@@ -92,7 +92,5 @@ export class SlotDetailsDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('oninit');
-    this.notesService.checkIfConversationExists(this.getProfID(), this.studentID);
   }
 }
