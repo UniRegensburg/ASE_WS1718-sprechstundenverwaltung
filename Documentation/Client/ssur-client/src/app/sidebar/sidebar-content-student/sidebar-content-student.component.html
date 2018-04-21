@@ -10,7 +10,7 @@
       {{meetingsArray[i].start}} - {{meetingsArray[i].end}}<br>
       Bei: {{meetingsArray[i].lecturer}}<br>
       <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Termin ändern</button>
-      <button mat-raised-button (click)="openNotesDialog(meetingsArray[i].lecturerID)" >Chat starten</button>
+      <button mat-raised-button (click)="openNotesDialog(meetingsArray[i].lecturerID, studentID)" >Chat starten</button>
     </mat-label>
   </div>
 
