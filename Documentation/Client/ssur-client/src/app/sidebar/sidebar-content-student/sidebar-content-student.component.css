@@ -2,3 +2,23 @@
   position: absolute;
   bottom: 10px;
 }
+
+#editButton {
+  cursor: pointer;
+  color: grey;
+}
+
+#editButton:hover {
+  cursor: pointer;
+  color: black;
+}
+
+#conversation {
+  cursor: pointer;
+  color: grey;
+}
+
+#conversation:hover {
+  cursor: pointer;
+  color: black;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -51,7 +51,6 @@ export class UserService {
 
   // Get user info from server
   public getUserInfoByID(userID: string): Promise<any> {
-    // console.log('Anfrage-------------------');
     return this.http
       .get('https://asesprechstunde.herokuapp.com/api/user/' + userID).toPromise()
       .then(response => [response.json()])

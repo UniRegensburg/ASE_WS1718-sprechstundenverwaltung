@@ -6,13 +6,13 @@
   </mat-form-field>
   <br>
   <mat-form-field>
-    <textarea matInput placeholder="Anliegen beschreiben" matTextareaAutosize matAutosizeMinRows="4"
+    <textarea matInput placeholder="Anliegen beschreiben" matTextareaAutosize matAutosizeMinRows="1"
               matautoSizeMaxRows="10" [(ngModel)]="description"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button *ngIf="!editSlot" style="float: right" (click)="submitSelectedSlot(false)">Belegen</button>
   <button mat-button *ngIf="editSlot" style="float: right" (click)="submitSelectedSlot(true)">Editieren</button>
-  <button mat-button style="float: left" (click)="dialogRef.close()">Abbrechen</button>
   <button mat-button *ngIf="editSlot" (click)="deleteSelectedSlot()">Buchung löschen</button>
+  <button mat-button style="float: left" (click)="dialogRef.close()">Abbrechen</button>
 </div>

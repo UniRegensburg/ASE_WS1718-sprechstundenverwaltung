@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import { OfficehoursProfDialogComponent } from './officehours-prof-dialog/officehours-prof-dialog.component';
 import { OfficehoursStudentDialogComponent } from './officehours-student-dialog/officehours-student-dialog.component';
@@ -22,19 +21,6 @@ export class DialogsService {
     return dialogRef.afterClosed();
   }
 
-  // Opens dialog to edit officehour as prof
-  public editOfficeHourDialog(title: string, dateTime: any, slotSize: number, slotAmount: number): Observable<boolean> {
-    let dialogRef: MatDialogRef<OfficehoursProfDialogComponent>;
-    dialogRef = this.dialog.open(OfficehoursProfDialogComponent);
-    dialogRef.componentInstance.title = title;
-    dialogRef.componentInstance.selectedDateTime = dateTime;
-    dialogRef.componentInstance.slotSize = slotSize;
-    dialogRef.componentInstance.slotAmount = slotAmount;
-    dialogRef.componentInstance.confirmButton = 'Editieren';
-
-    return dialogRef.afterClosed();
-  }
-
   // Opens dialog to see slotdetails and start conversation as prof
   public showSlotDetails(start: any, title: string, description: string, id: string) {
     let dialogRef: MatDialogRef<SlotDetailsDialogComponent>;
@@ -53,7 +39,6 @@ export class DialogsService {
     dialogRef = this.dialog.open(OfficehoursStudentDialogComponent);
     dialogRef.componentInstance.header = header;
     dialogRef.componentInstance.meetingID = meetingID;
-    //dialogRef.componentInstance.confirmButton = 'Belegen';
     dialogRef.componentInstance.editSlot = false;
     return dialogRef.afterClosed();
   }
@@ -66,7 +51,6 @@ export class DialogsService {
     dialogRef.componentInstance.title = title;
     dialogRef.componentInstance.description = description;
     dialogRef.componentInstance.meetingID = id;
-    //dialogRef.componentInstance.confirmButton = 'Editieren';
     dialogRef.componentInstance.editSlot = true;
     return dialogRef.afterClosed();
   }

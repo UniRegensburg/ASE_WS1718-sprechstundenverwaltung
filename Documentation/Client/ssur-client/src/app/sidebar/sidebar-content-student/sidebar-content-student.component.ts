@@ -31,16 +31,19 @@ export class SidebarContentStudentComponent implements OnInit {
   title: string;
   end: any;
 
+
   constructor(private dialogsService: DialogsService,
               private meetingsService: MeetingsService,
               private notesService: NotesService,
               private userService: UserService,
               private dialog: MatDialog) {
 
+
     this.meetingsListener = meetingsService.meetingsInfo.subscribe(data => {
       // Check if entry exists
       if (data.length > 0) {
         this.meetingExists = true;
+
         // Iterate through each meeting in data-array
         for (let i = 0; i < data.length; i++) {
           // Fill array with objects of partly transformed meetings values
@@ -85,13 +88,6 @@ export class SidebarContentStudentComponent implements OnInit {
     });
   }
 
-  // Located here for testing purposes (later used in calendar when slot is selected)
-  public requestSlot(meetingID: string) {
-    this.dialogsService
-      .registerOfficeHourDialog('Sprechstunde belegen', meetingID)
-      .subscribe(res => this.result = res);
-  }
-
   public editSlot(meetingID: string, title: string, description: string) {
     this.dialogsService
       .editRegisteredOfficeHourDialog('Sprechstunde editieren', title, description, meetingID)
@@ -108,7 +104,6 @@ export class SidebarContentStudentComponent implements OnInit {
       }
     });
   }
-
 
   openNotesDialog(lec, stud) {
     this.notesService.checkIfConversationExists(lec, stud)
@@ -152,7 +147,6 @@ export class SidebarContentStudentComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-  }
 
+  ngOnInit() {}
 }

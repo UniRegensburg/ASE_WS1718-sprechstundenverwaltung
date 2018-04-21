@@ -2,14 +2,18 @@
   <div class="row">
     <h3 style="text-align: center">{{title_sidebar}}</h3>
   </div>
-  <mat-label class="col-sm-12" *ngIf="conversationExists">
-    <div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
-      <div (click)="openNotesDialog(conversationsArray[i].convID)">
-        <hr>
-        Mit: <b>{{conversationsArray[i].partnerName}}</b><br>
-      </div>
-    </div>
-  </mat-label>
+
+
+  <div *ngFor="let item of conversationsArray; let i = index"  class="row" id="conversationsDiv">
+    <mat-label class="col-sm-12" *ngIf="conversationExists">
+      <hr>
+      Mit: <b>{{conversationsArray[i].partnerName}}</b>
+      <i title="Unterhaltung anzeigen" class="material-icons" id="conversationButton" style="float: right" (click)="openNotesDialog(conversationsArray[i].convID)">chat</i>
+      <br>
+    </mat-label>
+  </div>
+    <hr>
+
   <mat-label class="col-sm-12" *ngIf="!conversationExists">
     <b>Keine Unterhaltung vorhanden.</b><br>
     <span *ngIf="userRole == 'lecturer'" style="font-size: small"> Sie haben die Möglichkeit eine Unterhaltung starten, nachdem Sie auf einen belegten Sprechstundenslot geklickt haben.</span>

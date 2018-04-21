@@ -7,13 +7,15 @@
     <mat-label class="col-sm-12" *ngIf="meetingExists == true">
       <hr>
       <b>{{meetingsArray[i].title}}</b><br>
-      {{meetingsArray[i].start}} - {{meetingsArray[i].end}}<br>
-      Bei: {{meetingsArray[i].lecturer}}<br>
-      <button style="float: left" class="mat-raised-button" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">Termin ändern</button>
-      <button mat-raised-button (click)="openNotesDialog(meetingsArray[i].lecturerID, studentID)" >Chat starten</button>
+      {{meetingsArray[i].start}} - {{meetingsArray[i].end}}
+      <i title="Sprechstunde editieren" class="material-icons" style="float: right" id="editButton" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">settings</i>
+      <br>
+      Bei: {{meetingsArray[i].lecturer}}
+      <i title="Unterhaltung mit Dozent/in starten/anzeigen" class="material-icons" id="conversation" style="float: right" (click)="openNotesDialog(meetingsArray[i].lecturerID, studentID)">chat</i>
+      <br>
     </mat-label>
   </div>
-
+  <hr>
   <div class = 'row' *ngIf="!meetingExists">
     <b>Keine Sprechstunde belegt.</b><br>
     <span style="font-size: small">Sie können eine Sprechstunde belegen, indem Sie einen Dozenten auswählen und im Kalender auf einen freien Sprechstundenslot klicken.</span>

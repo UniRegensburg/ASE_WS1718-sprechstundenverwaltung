@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NotesService } from '../../services/notes.service';
 import { UserService } from '../../services/UserService';
 import {NotesDialogComponent} from '../../dialogs/notes-dialog/notes-dialog.component';
@@ -50,7 +49,6 @@ export class SidebarContentConvComponent implements OnInit {
           if (this.userRole === 'student') {
             conversationPartner = data[i].lecturer;
           }
-          // console.log('Partner: ->>>>>>>>>>' + conversationPartner);
 
           // Fill array with objects
           this.conversationsArray.push({
@@ -67,7 +65,6 @@ export class SidebarContentConvComponent implements OnInit {
       } else {
         this.conversationExists = false;
       }
-
     });
   }
 
@@ -86,7 +83,6 @@ export class SidebarContentConvComponent implements OnInit {
         .catch(errorMessage => console.log(errorMessage));
     }
   }
-
 
   openNotesDialog(convID) {
 
@@ -125,7 +121,5 @@ export class SidebarContentConvComponent implements OnInit {
       .catch(errorMessage => console.log(errorMessage));
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

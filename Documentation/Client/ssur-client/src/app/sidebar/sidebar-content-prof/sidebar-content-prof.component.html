@@ -7,15 +7,9 @@
      <mat-label class="col-sm-12" *ngIf="officehourExists == true">
        <hr>
         {{officehoursArray[i].day}}, {{officehoursArray[i].startDate}}: {{officehoursArray[i].startingTime}} - {{officehoursArray[i].endingTime}}
-       <button style="float: right" id="deleteButton" (click)="_deleteOfficehour(officehoursArray[i].id)">X</button>
+       <i title="Sprechstunde löschen" class="material-icons" style="float: right" id="deleteButton" (click)="_deleteOfficehour(officehoursArray[i].id)">delete_forever</i>
       </mat-label>
   </div>
-  <br>
-  <div class="row">
-      <!--<button *ngIf="officehourExists == true" class="mat-raised-button col-sm-6" id="editButton" (click)="_editOfficeHour(true)">{{buttonName}}</button>-->
-      <button class="mat-raised-button col-sm-6" id="addButton"(click)="_createOfficeHour()">Sprechstunde Anlegen</button>
-  </div>
-  <!-- Just for testing -->
-  <!--<br>
-  <button class="mat-raised-button col-sm-6" (click)="showDetails()">Slotdetails anzeigen</button>-->
+  <hr>
+  <i title="Sprechstunde anlegen" class="material-icons md-36" id="addButton" style="float: left" (click)="_createOfficeHour()">add_circle_outline</i>
 </div>

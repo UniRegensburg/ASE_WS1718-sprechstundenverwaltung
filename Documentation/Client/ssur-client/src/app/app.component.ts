@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/UserService';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   public title = 'Sprechstunde.ur.de';
   public logoutSucessfull = false;
@@ -16,7 +16,6 @@ export class AppComponent {
     // Check if user is already logged in
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(currentUser != null) {
-      console.log('Angemeldet---->' + currentUser.foreName);
       this.userService.userIsLoggedIn = true;
       this.userService.loggedInUserInfo.next([currentUser]);
     }
@@ -33,6 +32,6 @@ export class AppComponent {
   }
 
   public login() {
-  this.logoutSucessfull = false;
+    window.location.reload();
   }
 }
