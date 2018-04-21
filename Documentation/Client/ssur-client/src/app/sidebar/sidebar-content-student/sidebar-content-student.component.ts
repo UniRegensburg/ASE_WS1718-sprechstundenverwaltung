@@ -21,16 +21,13 @@ export class SidebarContentStudentComponent implements OnInit {
   private meetingsChangeListener;
   public meetingExists: boolean;
   public meetingsArray = [];
+  NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   note: string;
   notes;
   convID;
-  userListener;
-  currentProfID;
-  NotesDialogRef: MatDialogRef<NotesDialogComponent>;
   studentID;
-
+  userListener;
   private lecturerName: string;
-
   title: string;
   end: any;
 

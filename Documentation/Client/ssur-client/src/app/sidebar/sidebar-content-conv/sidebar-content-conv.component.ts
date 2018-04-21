@@ -87,10 +87,6 @@ export class SidebarContentConvComponent implements OnInit {
     }
   }
 
-  public openConversation(id: string) {
-    confirm('blaaaaa ' + id);
-  }
-
 
   openNotesDialog(convID) {
       this.notes = this.notesService.getNotes(convID);
