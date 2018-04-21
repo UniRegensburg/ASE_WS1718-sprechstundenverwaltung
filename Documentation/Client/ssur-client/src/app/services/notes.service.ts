@@ -10,7 +10,6 @@ export class NotesService {
   NoteInfo: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   Conversations: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   currentConvID;
-  public convListener: boolean;
   notes = [];
   constructor(private http: Http) { }
 
