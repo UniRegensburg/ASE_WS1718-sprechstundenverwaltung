@@ -39,3 +39,29 @@ position: absolute;
   left: 90vw;
   right: 0;
 }
+
+.linkSpan {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+#logoutDiv {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#logoutIcon {
+  position: absolute;
+  top: 3px;
+  right: 20px;
+  cursor: pointer;
+  color: grey;
+}
+
+#logoutIcon:hover {
+  cursor: pointer;
+  color: black;
+}

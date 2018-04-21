@@ -1,0 +1,64 @@
+<div>
+  <!-- Login -->
+  <div *ngIf="!registration" id="loginDiv" (keydown.enter)="loginUser()">
+    <b>Willkommen</b>
+    <br>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="email">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Passwort" [(ngModel)]="password">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button class=" float-left"  (keydown.enter)="loginUser()" (click)="loginUser()">Login</button>
+    <div *ngIf="loginError">
+      <br>
+      <br>
+      <span style="color: red">Emailadresse oder Passwort falsch.</span><br>
+      Versuchen sie es erneut,<br>
+      oder <span class="registerSpan" (click)="showRegistration()">registrieren</span> sie sich.
+    </div>
+    <div *ngIf="!loginError">
+      <br>
+      <br>
+      Oder <span class="registerSpan" (click)="showRegistration()">registrieren</span> sie sich.
+    </div>
+  </div>
+  <!-- Registration -->
+  <div *ngIf="registration" id="registerDiv">
+    <b>Registrierung</b>
+    <br>
+    <br>
+    <mat-form-field>
+      <input required matInput type="email" placeholder="Email" [(ngModel)]="email">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="password" placeholder="Passwort" [(ngModel)]="password">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="text" placeholder="Vorname" [(ngModel)]="foreName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input required matInput type="text" placeholder="Nachname" [(ngModel)]="surName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select required [(value)]="role">
+        <mat-option value="lecturer">Dozent</mat-option>
+        <mat-option value="student">Student</mat-option>
+      </mat-select>
+      <mat-placeholder> Rolle</mat-placeholder>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button class=" float-left" (click)="registerUser()">Registrieren</button>
+  </div>
+</div>
+
+
+
+

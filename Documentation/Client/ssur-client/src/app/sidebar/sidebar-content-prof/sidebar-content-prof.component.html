@@ -3,22 +3,13 @@
     <h3 class="col-sm-12">{{title_sidebar}}</h3>
   </div>
 
-  <div class="row" id="officeHourDiv">
-    <mat-label class="col-sm-12" *ngIf="officehourExists == true">
-      {{day}}, {{startDate}}: {{startingTime}} - {{endingTime}}
-    </mat-label>
-   </div>
-
-
-  <div class="row">
-      <button *ngIf="officehourExists == true" class="mat-raised-button col-sm-6" id="editButton" (click)="_editOfficeHour(true)">{{buttonName}}</button>
-      <button *ngIf="officehourExists == false" class="mat-raised-button col-sm-6" id="addButton"(click)="_createOfficeHour()">{{buttonName}}</button>
+  <div *ngFor="let item of officehoursArray; let i = index"  class="row" id="officeHourDiv">
+     <mat-label class="col-sm-12" *ngIf="officehourExists == true">
+       <hr>
+        {{officehoursArray[i].day}}, {{officehoursArray[i].startDate}}: {{officehoursArray[i].startingTime}} - {{officehoursArray[i].endingTime}}
+       <i title="Sprechstunde löschen" class="material-icons" style="float: right" id="deleteButton" (click)="_deleteOfficehour(officehoursArray[i].id)">delete_forever</i>
+      </mat-label>
   </div>
-
-  <div>
-      <!--
-      testdiv<br>
-      {{result}}<br>
-      -->
-    </div>
+  <hr>
+  <i title="Sprechstunde anlegen" class="material-icons md-36" id="addButton" style="float: left" (click)="_createOfficeHour()">add_circle_outline</i>
 </div>

@@ -1,0 +1,9 @@
+#conversationButton {
+  cursor: pointer;
+  color: grey;
+}
+
+#conversationButton:hover {
+  cursor: pointer;
+  color: black;
+}

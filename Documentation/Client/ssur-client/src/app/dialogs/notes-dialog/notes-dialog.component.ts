@@ -1,8 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef,MatDialog, MAT_DIALOG_DATA} from '@angular/material';
-import {NotesComponent} from "../notes.component";
-import {NotesService} from "../../services/notes.service";
-import {NgModel} from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-notes-dialog',
@@ -10,7 +7,8 @@ import {NgModel} from "@angular/forms";
   styleUrls: ['./notes-dialog.component.css']
 })
 export class NotesDialogComponent implements OnInit {
-  
+  note;
+
   constructor(
     public dialogRef: MatDialogRef<NotesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }

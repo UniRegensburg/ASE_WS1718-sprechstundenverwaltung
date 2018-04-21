@@ -4,12 +4,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatNativeDateModule,
-  MatSelectModule, MatButtonModule
+  MatSelectModule, MatButtonModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule
 } from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule} from '@angular/material';
-import { MatInputModule} from '@angular/material';
-import { MatSlideToggleModule} from '@angular/material';
 import { HttpClientModule} from '@angular/common/http';
 import { ProfessorService} from './services/ProfessorService';
 import { HttpModule } from '@angular/http';
@@ -26,11 +23,15 @@ import { OfficehoursService } from './services/Officehours.service';
 import { MainCalComponent } from './main-cal/main-cal.component';
 import { OfficehoursStudentDialogComponent } from './dialogs/officehours-student-dialog/officehours-student-dialog.component';
 import { SidebarContentStudentComponent } from './sidebar/sidebar-content-student/sidebar-content-student.component';
-import { NotesComponent } from './notes/notes.component';
-import { NotesDialogComponent } from './notes/notes-dialog/notes-dialog.component';
+import { NotesDialogComponent } from './dialogs/notes-dialog/notes-dialog.component';
 import { UserService } from './services/UserService';
 import { MeetingsService } from './services/Meetings.service';
 import { FullCalendarModule } from 'ng-fullcalendar';
+import { SlotDetailsDialogComponent } from './dialogs/slot-details-dialog/slot-details-dialog.component';
+import {NotesService} from './services/notes.service';
+import { LoginComponent } from './login/login.component';
+import { SidebarContentConvComponent } from './sidebar/sidebar-content-conv/sidebar-content-conv.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -44,8 +45,10 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     OfficehoursStudentDialogComponent,
     SidebarContentStudentComponent,
     MainCalComponent,
-    NotesComponent,
-    NotesDialogComponent
+    NotesDialogComponent,
+    SlotDetailsDialogComponent,
+    LoginComponent,
+    SidebarContentConvComponent
   ],
   imports: [
     FullCalendarModule,
@@ -67,7 +70,8 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CalendarModule
+    CalendarModule,
+    MatTabsModule
   ],
   providers: [
     ProfessorService,
@@ -76,10 +80,11 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     OfficehoursService,
     UserService,
     MeetingsService,
+    NotesService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}],
   bootstrap: [AppComponent],
 
-  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent]
+  entryComponents: [OfficehoursProfDialogComponent, OfficehoursStudentDialogComponent, NotesDialogComponent, SlotDetailsDialogComponent]
 
 })
 export class AppModule { }

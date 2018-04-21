@@ -2,22 +2,23 @@
   <div class="row">
     <h3 style="text-align: center">{{title_sidebar}}</h3>
   </div>
-<div>
-  <hr>
-  <!-- Todo: Change to loop through and display all meetings for respective user -->
-  <div style="text-align: center">
-    <span><b>{{title}}</b></span><br>
-    <span>{{start}} - {{end}}</span><br>
-    <!--<span>{{description}}</span><br>-->
-    <span>{{professor}}</span>
-    <hr>
-  </div>
-</div>
 
-  <!-- Just for testing purposes -->
-  <div class = 'row'>
-    <button class="mat-raised-button" (click)="requestSlot()">Slot belegen</button>
-    <button class="mat-raised-button" (click)="editSlot()">Slot editieren</button>
+  <div *ngFor="let item of meetingsArray; let i = index"  class="row" id="officeHourDiv">
+    <mat-label class="col-sm-12" *ngIf="meetingExists == true">
+      <hr>
+      <b>{{meetingsArray[i].title}}</b><br>
+      {{meetingsArray[i].start}} - {{meetingsArray[i].end}}
+      <i title="Sprechstunde editieren" class="material-icons" style="float: right" id="editButton" (click)="editSlot(meetingsArray[i].id,meetingsArray[i].title,meetingsArray[i].description)">settings</i>
+      <br>
+      Bei: {{meetingsArray[i].lecturer}}
+      <i title="Unterhaltung mit Dozent/in starten/anzeigen" class="material-icons" id="conversation" style="float: right" (click)="openNotesDialog(meetingsArray[i].lecturerID, studentID)">chat</i>
+      <br>
+    </mat-label>
+  </div>
+  <hr>
+  <div class = 'row' *ngIf="!meetingExists">
+    <b>Keine Sprechstunde belegt.</b><br>
+    <span style="font-size: small">Sie können eine Sprechstunde belegen, indem Sie einen Dozenten auswählen und im Kalender auf einen freien Sprechstundenslot klicken.</span>
   </div>
 </div>
 <br>

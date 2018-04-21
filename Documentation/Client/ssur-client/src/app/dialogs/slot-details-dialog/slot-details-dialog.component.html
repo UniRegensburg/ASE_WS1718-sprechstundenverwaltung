@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Termindetails</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <b>Start:</b>  {{startDateTime}}<br>
+  <b>Titel:</b>  {{title}}<br>
+  <b>Beschreibung:</b>  {{description}}<br>
+  <b>Student:</b>  {{studentName}}<br>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="openNotesDialog(getProfID(), studentID)">Chat starten</button>
+  <button mat-button style="float: left" (click)="dialogRef.close()">Ok</button>
+</div>

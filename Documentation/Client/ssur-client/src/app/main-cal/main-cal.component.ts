@@ -5,7 +5,7 @@ import { DialogsService} from '../dialogs/dialogs.service';
 import { UserService} from '../services/UserService';
 import { OfficehoursService } from '../services/Officehours.service';
 import { CalendarComponent } from 'ng-fullcalendar';
-import { Options } from 'fullcalendar';
+import { MeetingsService } from '../services/Meetings.service';
 
 @Component({
   selector: 'app-main-cal',
@@ -17,37 +17,51 @@ export class MainCalComponent implements OnInit {
   private professorHoursListener;
   private userListener;
   private ownOfficeHoursListener;
+  private meetingsListener;
 
   ownOfficeHours;
   officeHoursProf;
+  studentsAppointments;
   userRole;
   finalEvents = [];
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
   constructor(private scheduleService: ScheduleService, private dialogsService: DialogsService, private userService: UserService,
-              private officeHoursService: OfficehoursService) {
-    this.userListener = this.userService.loggedinUser.subscribe( data => {
-      this.userRole = data;
-      console.log(this.userRole);
-      console.log(this.ownOfficeHours);
+              private officeHoursService: OfficehoursService, private meetingsService: MeetingsService) {
+
+    // Listens to the object containing the actual User
+    this.userListener = this.userService.loggedInUserInfo.subscribe( data => {
+      this.userRole = data[0].role;
       if (this.ownOfficeHours == null) {
         return;
       } else {
         this.distinguishRoles();
       }
     });
+
+    // Listens to the object containing the meetings of a student
+    this.meetingsListener = this.meetingsService.meetingsInfo.subscribe(data => {
+      this.studentsAppointments = data;
+      if (data.length > 0) {
+        this.distinguishRoles();
+      } else {
+        return;
+      }
+    });
+
+    // Listens to the object containing the office hours of the selected professor
     this.professorHoursListener = this.scheduleService.selectedOfficeHours.subscribe(data => {
       this.officeHoursProf = data;
-      console.log(data);
       if (data.length == null) {
         return;
       } else {
         this.distinguishRoles();
       }
     });
-    this.ownOfficeHoursListener = this.officeHoursService.profInfo.subscribe(data => {
+
+    // Listens to the object containing the office hours of the logged in professor
+    this.ownOfficeHoursListener = this.officeHoursService.lecInfo.subscribe(data => {
       this.ownOfficeHours = data;
-      console.log(data);
       if (data.length <= 0) {
         return;
       } else {
@@ -56,26 +70,20 @@ export class MainCalComponent implements OnInit {
     });
   }
 
-  // calendarOptions;
-
-  myOfficeHour = {
+  // Template for the calendar events
+  slotTemplate = {
+    studentID: '',
     id: 'id',
     title: 'title',
     start: 'start',
     end: 'end',
-    color: 'color'
+    color: 'color',
+    description: '',
+    slotStatus: ''
   };
 
-  myOwnOfficeHour = {
-    id: 'id',
-    title: 'title',
-    start: 'start',
-    end: 'end',
-    color: 'color'
-  };
-
+  // General Settings for the calendar
   calendarOptions: Object = {
-
     header: {
       left: false,
       center: 'agendaWeek,basicDay'
@@ -88,125 +96,140 @@ export class MainCalComponent implements OnInit {
     },
     locale: 'de',
     timeFormat: 'HH:mm',
-    editable: false,
+    height: 550,
     handleWindowResize: true,
     weekends: false,
     defaultView: 'agendaWeek',
     navLinks: true,
-    minTime: '08:00:00',
+    minTime: '09:00:00',
     maxTime: '18:00:00',
-    slotDuration: '00:15:00',
+    slotDuration: '00:10:00',
     columnFormat: 'ddd D/M',
     nowIndicator: true,
     displayEventTime: true,
-    allDayText: 'Ganztägig',
+    displayEventEnd: false,
+    allDaySlot: false,
     slotLabelFormat: 'HH:mm',
   };
 
+  // catch click event on calendar slot and redirect to dialog service for new appointment
   eventClick(event) {
-    console.log(event);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
+    const studentId = event.event.studentID;
+    const clickedId = event.event.id;
+    const eventDescription = event.event.description;
+    const eventStart = event.event.start;
+    const eventTitle = event.event.title;
+    if (this.userRole === 'student' && event.event.slotStatus === 'Frei') {
+      this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen', clickedId);
+    } else if (this.userRole === 'lecturer' && event.event.slotStatus === 'Belegt') {
+      this.dialogsService.showSlotDetails(eventStart, eventTitle, eventDescription, studentId);
+    }
   }
 
-/*  changeCalendarView(view) {
-
-    this.myCalendar.fullCalendar('changeView', view);
-
-  }*/
   ngOnInit() {}
-
-
-
-
-  machesrichtig(data) {
-    console.log('In Mach es richtig');
-    console.log(data);
-    this.dialogsService.registerOfficeHourDialog('Sprechstunde belegen');
-  }
 
   // distinguish if user role is professor or student
   distinguishRoles() {
     this.finalEvents = [];
-    if (this.userRole === 'Student') {
+    this.myCalendar.fullCalendar('removeEvents');
+    if (this.userRole === 'student') {
+      this.enterStudentAppointments();
+    }
+    if (this.userRole === 'student' && this.officeHoursProf[0] !== undefined) {
       this.enterOfficeHours();
-    } else if (this.userRole === 'Professor') {
+    } else if (this.userRole === 'lecturer') {
       this.enterOwnOfficeHours();
-      console.log('Ich bin ein Professor');
     }
   }
 
   // enters professors own office hours
-  // ToDo: Fetch real dates
+  // renders all events when ready;
+  // "stick true" ensures, that the events stay visible when changing dates
   enterOwnOfficeHours() {
-    for (let v = 0; v < this.ownOfficeHours.slots.length; v++) {
-      const currentSlot = this.ownOfficeHours.slots[v];
-      this.enterSingleOwnOfficeHour(currentSlot);
+    for (let w = 0; w < this.ownOfficeHours.length; w++) {
+      const ownOfficeHour = this.ownOfficeHours[w];
+      for (let v = 0; v < ownOfficeHour.slotCount; v++) {
+        const currentSlot = ownOfficeHour.slots[v];
+        this.enterSingleSlot(currentSlot);
+      }
     }
-    console.log(this.finalEvents);
     this.myCalendar.fullCalendar('removeEvents');
     this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
-  enterSingleOwnOfficeHour(currentSlot) {
-    const id = '55';
-    const start = moment(currentSlot.startTime).format('YYYY-MM-DDTHH:mm:ss');
-    const end = moment(currentSlot.endTime).format('YYYY-MM-DDTHH:mm:ss');
-    const myTitle = 'schöner Titel';
-    const color = 'green';
-    console.log(start);
-    console.log(end);
-    this.myOwnOfficeHour = {
-      id: id,
-      title : myTitle,
-      start : start,
-      end : end,
-      color : color
-    };
-    this.finalEvents.push(this.myOwnOfficeHour);
+  // enters students own appointments
+  // renders all events when ready;
+  // "stick true" ensures, that the events stay visible when changing dates
+  enterStudentAppointments() {
+    for (let u = 0; u < this.studentsAppointments.length; u++) {
+      const currentStudentAppointment = this.studentsAppointments[u];
+      this.enterSingleSlot(currentStudentAppointment);
+    }
+    if (this.officeHoursProf[0] === undefined) {
+      this.myCalendar.fullCalendar('removeEvents');
+      this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
+    }
   }
 
+  // enters office hours from selected professor
   // renders all events when ready;
   // "stick true" ensures, that the events stay visible when changing dates
   enterOfficeHours() {
-    for (let u = 0; u < this.officeHoursProf.length; u++) {
-      const currentOfficeHour = this.officeHoursProf[u];
-      this.enterSingleOfficeHour(currentOfficeHour);
+    for (let v = 0; v < this.officeHoursProf.length; v++) {
+      const currentOfficeHour = this.officeHoursProf[v];
+      if (currentOfficeHour.slotCount !== null) {
+        for (let u = 0; u < currentOfficeHour.slotCount; u++) {
+          const singleSlot = currentOfficeHour.slots[u];
+          this.enterSingleSlot(singleSlot);
+        }
+      }
+      this.myCalendar.fullCalendar('removeEvents');
+      this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
     }
-    console.log(this.finalEvents);
-    this.myCalendar.fullCalendar('removeEvents');
-    this.myCalendar.fullCalendar('renderEvents', this.finalEvents, true);
   }
 
   // create single office hour and push it into finalEvents
-  enterSingleOfficeHour(currentOfficeHour) {
-      const  id = currentOfficeHour.id;
-      const endOF = moment(currentOfficeHour.end).format('YYYY-MM-DDTHH:mm:ss');
-      const start = moment(currentOfficeHour.start).format('YYYY-MM-DDTHH:mm:ss');
-      let officeHourTitle;
-      let typeColor;
-      if (currentOfficeHour.type === 'office hour') {
-        typeColor = 'green';
-        officeHourTitle = 'Offene Sprechstunde';
-      }  else {
-        typeColor = 'grey';
-        officeHourTitle = 'I*Forgott*My*Name';
-      }
-      let statusText = '   Frei';
-      if (currentOfficeHour.status === 'closed') {
-        typeColor = 'red';
-        statusText = '   Belegt';
-      }
-      this.myOfficeHour = {
-        id: id,
-        title: officeHourTitle + statusText,
-        start: start,
-        end: endOF,
-        color: typeColor
-      };
-      this.finalEvents.push(this.myOfficeHour);
+  enterSingleSlot(currentSlot) {
+    const slotID = currentSlot._id;
+    const studentID = currentSlot.studentID;
+    const slotDescription = currentSlot.description;
+    const startOf = moment(currentSlot.start).format('YYYY-MM-DDTHH:mm:ss');
+    const endOf = moment(currentSlot.end).format('YYYY-MM-DDTHH:mm:ss');
+
+    let slotTitle = currentSlot.title;
+    let slotStatus;
+    let typeColor;
+
+    if (currentSlot.slotTaken === false) {
+      slotStatus = 'Frei';
+      typeColor = 'green';
+    } else if (currentSlot.slotTaken === true) {
+      slotStatus = 'Belegt';
+      typeColor = 'red';
+    }
+
+    if (this.userRole === 'professor' && currentSlot.slotTaken === false) {
+      slotTitle = slotStatus;
+    }
+
+    if (this.userRole === 'student') {
+      slotTitle = slotStatus;
+    }
+
+    this.slotTemplate = {
+      id: slotID,
+      studentID: studentID,
+      title: slotTitle,
+      start: startOf,
+      end: endOf,
+      color: typeColor,
+      description: slotDescription,
+      slotStatus: slotStatus
+    };
+    this.finalEvents.push(this.slotTemplate);
   }
 
   onCalendarInit(initialized: boolean) {
-    console.log('Calendar initialized');
+    this.distinguishRoles();
   }
 }
