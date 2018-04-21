@@ -3,6 +3,18 @@
 ### Ziel dieses Projekts: Entwicklung einer webbasierten Anwendung zur Unterstützung der organisatorischen und thematischen Arbeitsabläufe im Kontext universitärer Sprechstunden
 
 ## Link zur gehosteten Version: https://asesprechstunde.firebaseapp.com/ 
+Demo Accounts: 
+- Demodozent1:
+Email:      DemoDozent@UR.de
+Passwort:   4321
+
+- Demodozent2:
+Email:      DemoDozentin@UR.de
+Passwort:   1234
+
+- Demostudent
+Email:      DemoStudent@UR.de
+Passwort:   1234
 
 
 
