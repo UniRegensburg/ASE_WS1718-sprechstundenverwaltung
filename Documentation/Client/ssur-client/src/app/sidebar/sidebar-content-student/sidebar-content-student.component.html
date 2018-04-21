@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 style="text-align: center">{{title_sidebar}}</h3>
+  </div>
+<div>
+  <hr>
+  <!-- Todo: Change to loop through and display all meetings for respective user -->
+  <div style="text-align: center">
+    <span><b>{{title}}</b></span><br>
+    <span>{{start}} - {{end}}</span><br>
+    <!--<span>{{description}}</span><br>-->
+    <span>{{professor}}</span>
+    <hr>
+  </div>
+</div>
+
+  <!-- Just for testing purposes -->
+  <div class = 'row'>
+    <button class="mat-raised-button" (click)="requestSlot()">Slot belegen</button>
+    <button class="mat-raised-button" (click)="editSlot()">Slot editieren</button>
+  </div>
+</div>
+<br>
+

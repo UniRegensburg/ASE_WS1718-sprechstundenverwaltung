@@ -1,0 +1,3 @@
+<div *ngIf="calendarOptions">
+  <ng-fullcalendar [options]="calendarOptions" (eventClick) = "eventClick($event.detail)" (initialized)="onCalendarInit($event)"></ng-fullcalendar>
+</div>
