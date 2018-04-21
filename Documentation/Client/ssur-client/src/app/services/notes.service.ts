@@ -45,7 +45,8 @@ export class NotesService {
     console.log('setting notes');
     const convUrl = this.baseUrl + id;
     const timestamp = moment().format('lll');
-    this.notes.push([(timestamp + ': ' + newNote)])
+    this.notes.push([(timestamp + ': ' + newNote)]);
+    console.log(this.notes);
     const notesObject = {
       notes: this.notes
     };

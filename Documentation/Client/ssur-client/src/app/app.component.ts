@@ -14,18 +14,17 @@ export class AppComponent {
   constructor (public userService: UserService) {
 
     // Check if user is already logged in
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if(currentUser != null) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser != null) {
       this.userService.userIsLoggedIn = true;
       this.userService.loggedInUserInfo.next([currentUser]);
-    }
-    else {
+    } else {
       this.userService.userIsLoggedIn = false;
     }
   }
 
   public logout() {
-    if(this.userService.logoutUser()) {
+    if (this.userService.logoutUser()) {
       this.logoutSucessfull = true;
       this.userService.userIsLoggedIn = false;
     }

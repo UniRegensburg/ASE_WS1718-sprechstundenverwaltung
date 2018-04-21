@@ -29,6 +29,7 @@ export class SlotDetailsDialogComponent implements OnInit {
         this.convID = res;
         console.log(this.convID);
         // Request notes
+
         this.notesService.getNotes(this.convID)
 
         // When notes arrive...
@@ -39,6 +40,7 @@ export class SlotDetailsDialogComponent implements OnInit {
 
               // If so, set as notes
               this.notes = data.notes;
+              this.notesService.notes = data.notes;
 
               // Needs to be done here instead of notes service (i think)
               this.notesService.NoteInfo.next(data);
